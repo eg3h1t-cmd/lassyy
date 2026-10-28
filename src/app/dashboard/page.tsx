@@ -32,6 +32,14 @@ export default async function DashboardPage() {
       <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
         Signed in as {user.email}.
       </p>
+      <nav className="mt-4 flex gap-4 text-sm">
+        <a href="/dashboard" className="font-medium text-zinc-900 dark:text-zinc-100">
+          Overview
+        </a>
+        <a href="/dashboard/modules" className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
+          Modules
+        </a>
+      </nav>
 
       <section className="mt-8">
         <h2 className="text-lg font-semibold">Create a store</h2>
