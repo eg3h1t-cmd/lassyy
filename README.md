@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PromoNest
 
-## Getting Started
+PromoNest is a multi-tenant SaaS platform for e-commerce growth: promotional campaigns, marketing widgets, and analytics. This repository contains the initial foundation (Phase 1-2).
 
-First, run the development server:
+## Stack
+
+- Next.js (App Router) + React + TypeScript (strict)
+- Tailwind CSS
+- Supabase (PostgreSQL, Auth, RLS) — optional for local foundation
+- Vitest for tests
+
+## Getting started
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Copy environment variables:
+
+```bash
+cp .env.example .env.local
+```
+
+Fill in Supabase values if you have a project. The app runs without them in a limited mode.
+
+3. Run the dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev` — development server
+- `npm run build` — production build
+- `npm run lint` — ESLint
+- `npm run test` — Vitest
 
-## Learn More
+## Database
 
-To learn more about Next.js, take a look at the following resources:
+Migrations live in `supabase/migrations/`. Apply `0001_initial_schema.sql` to a fresh Supabase project via the SQL editor or `supabase db push`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Known limitations (current foundation)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Supabase project is not provisioned; auth and persistence require configuration.
+- Marketing modules, demo storefront, and coupon engine are planned for later phases.
+- No payment provider is integrated.
+- No real e-commerce integrations yet.
 
-## Deploy on Vercel
+## Security
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See `docs/SECURITY.md`. Never commit real secrets. Service-role keys must stay server-only.

@@ -1,0 +1,50 @@
+const features = [
+  {
+    title: "Multi-tenant stores",
+    description: "Each store's data is isolated with row-level security and server-verified ownership.",
+  },
+  {
+    title: "Campaign management",
+    description: "Create, schedule, activate, pause, and archive promotional campaigns with audit trails.",
+  },
+  {
+    title: "Marketing widgets",
+    description: "Configure discount wheels, recommendations, and countdowns with live previews.",
+  },
+  {
+    title: "Coupon engine",
+    description: "Server-validated coupon issuance, expiry, usage limits, and redemption tracking.",
+  },
+  {
+    title: "Analytics",
+    description: "Track impressions, interactions, issuance, and redemptions from real stored events.",
+  },
+  {
+    title: "Team access",
+    description: "Invite staff with scoped permissions and protect sensitive store settings.",
+  },
+];
+
+export function Features() {
+  return (
+    <section id="features" className="border-t border-zinc-200 py-20 dark:border-zinc-800">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <h2 className="text-3xl font-semibold tracking-tight">Everything you need to run promotions</h2>
+        <p className="mt-3 max-w-2xl text-zinc-600 dark:text-zinc-400">
+          A modular platform that keeps configuration, rendering, coupon logic, and analytics clearly separated.
+        </p>
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {features.map((f) => (
+            <div
+              key={f.title}
+              className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-950"
+            >
+              <h3 className="font-semibold">{f.title}</h3>
+              <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{f.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
