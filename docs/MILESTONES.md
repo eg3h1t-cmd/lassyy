@@ -22,8 +22,12 @@
 ## Phase 5 — First functional module
 - Discount spin wheel, coupon issuance, demo storefront, analytics events.
 
-## Phase 6 — Additional modules
-- Product recommendations, countdown campaigns, expanded analytics.
+## Phase 6 — Additional modules (done)
+- Product recommendations with manual catalog, widget, tracking, fallback.
+- Countdown campaigns with live countdown and expiry handling.
+- Expanded analytics with recommendation metrics.
 
-## Phase 7 — Quality and release preparation
-- Lint, type check, tests, build, tenant isolation review, docs.
+## Phase 7 — Quality and release preparation (in progress)
+- Lint, type check, tests, build passed.
+- Tenant isolation review documented; live DB tests pending.
+- Docs and release checklist updated.
