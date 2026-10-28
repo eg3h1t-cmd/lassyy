@@ -5,6 +5,7 @@ import { z } from "zod";
 import { randomInt } from "node:crypto";
 import { createSupabaseServerClient, createSupabaseServiceClient } from "@/lib/supabase/server";
 import { hasSupabaseConfig } from "@/lib/env";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const segmentSchema = z.object({
   id: z.string().min(1),
@@ -117,6 +118,12 @@ export async function spinWheelAction(campaignId: string) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  const rateKey = `spin:${campaignId}:${user?.id ?? "anon"}`;
+  const rate = checkRateLimit(rateKey, 5, 60_000);
+  if (!rate.allowed) {
+    return { ok: false as const, error: "Too many spins. Try again later." };
+  }
 
   const { data: campaign, error: campErr } = await supabase
     .from("campaigns")
