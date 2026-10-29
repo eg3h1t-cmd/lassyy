@@ -48,8 +48,30 @@ Migrations live in `supabase/migrations/`. Apply in order via the SQL editor or 
 2. `0002_profile_trigger.sql`
 3. `0003_platform_admins.sql`
 4. `0004_fix_rls_recursion.sql`
+5. `0005_event_insert_policies.sql`
+6. `0006_audit_insert_policy.sql`
 
-`0004` fixes infinite recursion between `stores` and `store_members` policies by using `SECURITY DEFINER` helper functions.
+`0004` fixes infinite recursion between `stores` and `store_members` policies by using `SECURITY DEFINER` helper functions. `0005` allows store members to record analytics events and redemptions. `0006` enables audit log inserts.
+
+## Health check
+
+`GET /api/health` returns `{ status: "ok", app: "PromoNest", supabaseConfigured, timestamp }`.
+
+## Rate limiting
+
+The spin endpoint uses in-memory rate limiting by default. Set `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` for shared production rate limiting.
+
+## Tests
+
+```bash
+npm run test
+npm run lint
+npx tsc --noEmit
+npm run build
+npx playwright test
+```
+
+Authenticated E2E tests run when `E2E_EMAIL` and `E2E_PASSWORD` are set.
 
 ## Known limitations (current foundation)
 

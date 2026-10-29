@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { spinWheelAction, trackWheelImpressionAction } from "@/server/wheel";
+import { runOncePerSession } from "@/lib/session-once";
 
 type Segment = { id: string; label: string; color: string };
 
@@ -24,7 +25,9 @@ export function WheelWidget({
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    trackWheelImpressionAction(campaignId).catch(() => {});
+    runOncePerSession(`wheel-impression:${campaignId}`, () => {
+      trackWheelImpressionAction(campaignId).catch(() => {});
+    });
   }, [campaignId]);
 
   const slice = 360 / segments.length;

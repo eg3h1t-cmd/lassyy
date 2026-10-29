@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { trackCountdownImpressionAction } from "@/server/countdown";
+import { runOncePerSession } from "@/lib/session-once";
 
 export function CountdownWidget({
   campaignId,
@@ -17,7 +18,9 @@ export function CountdownWidget({
   const [remaining, setRemaining] = useState("");
 
   useEffect(() => {
-    trackCountdownImpressionAction(campaignId).catch(() => {});
+    runOncePerSession(`countdown-impression:${campaignId}`, () => {
+      trackCountdownImpressionAction(campaignId).catch(() => {});
+    });
   }, [campaignId]);
 
   useEffect(() => {

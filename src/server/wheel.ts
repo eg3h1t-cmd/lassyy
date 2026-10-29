@@ -5,8 +5,9 @@ import { z } from "zod";
 import { randomInt } from "node:crypto";
 import { createSupabaseServerClient, createSupabaseServiceClient } from "@/lib/supabase/server";
 import { hasSupabaseConfig } from "@/lib/env";
-import { checkRateLimit } from "@/lib/rate-limit";
+import { checkRateLimitAsync } from "@/lib/rate-limit";
 import { wheelConfigSchema, defaultWheelConfig, type WheelConfig } from "@/lib/validations/wheel";
+import { recordAuditEvent } from "@/server/audit";
 
 const createCampaignSchema = z.object({
   storeId: z.string().uuid(),
@@ -169,6 +170,14 @@ export async function saveWheelSettingsAction(input: unknown) {
     if (error) return { ok: false as const, error: error.message };
   }
 
+  await recordAuditEvent({
+    storeId,
+    action: "wheel.settings_saved",
+    targetType: "campaign",
+    targetId: existing?.id,
+    metadata: { status, segmentCount: config.segments.length },
+  });
+
   revalidatePath("/dashboard");
   revalidatePath("/demo");
   return { ok: true as const };
@@ -249,7 +258,7 @@ export async function spinWheelAction(campaignId: string) {
   } = await supabase.auth.getUser();
 
   const rateKey = `spin:${campaignId}:${user?.id ?? "anon"}`;
-  const rate = checkRateLimit(rateKey, 5, 60_000);
+  const rate = await checkRateLimitAsync(rateKey, 5, 60_000);
   if (!rate.allowed) {
     return { ok: false as const, error: "Too many spins. Try again later." };
   }

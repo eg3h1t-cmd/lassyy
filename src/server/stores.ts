@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createStoreSchema } from "@/server/store-validation";
+import { recordAuditEvent } from "@/server/audit";
 
 export type CreateStoreResult =
   | { ok: true; storeId: string }
@@ -37,6 +38,14 @@ export async function createStoreAction(input: unknown): Promise<CreateStoreResu
     store_id: data.id,
     user_id: user.id,
     role: "owner",
+  });
+
+  await recordAuditEvent({
+    storeId: data.id,
+    action: "store.created",
+    targetType: "store",
+    targetId: data.id,
+    metadata: { name: parsed.data.name, slug: parsed.data.slug },
   });
 
   revalidatePath("/dashboard");

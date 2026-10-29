@@ -8,6 +8,7 @@ import {
   getDefaultCountdownConfig,
   type CountdownConfig,
 } from "@/lib/validations/countdown";
+import { recordAuditEvent } from "@/server/audit";
 
 const createSchema = z.object({
   storeId: z.string().uuid(),
@@ -210,6 +211,14 @@ export async function saveCountdownSettingsAction(input: unknown) {
     .eq("store_id", storeId)
     .eq("module_id", "countdown-campaigns")
     .neq("id", campaignId);
+
+  await recordAuditEvent({
+    storeId,
+    action: "countdown.settings_saved",
+    targetType: "campaign",
+    targetId: campaignId,
+    metadata: { status },
+  });
 
   revalidatePath("/dashboard");
   revalidatePath("/demo");

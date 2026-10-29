@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { trackRecommendationEvent } from "@/server/recommendations";
+import { runOncePerSession } from "@/lib/session-once";
 import type { RecommendationProduct } from "@/server/recommendations";
 
 export function RecommendationsWidget({
@@ -13,7 +14,9 @@ export function RecommendationsWidget({
 }) {
   useEffect(() => {
     if (products.length > 0) {
-      trackRecommendationEvent({ storeId, eventType: "impression" }).catch(() => {});
+      runOncePerSession(`rec-impression:${storeId}`, () => {
+        trackRecommendationEvent({ storeId, eventType: "impression" }).catch(() => {});
+      });
     }
   }, [storeId, products.length]);
 
