@@ -73,7 +73,9 @@ export async function getActiveCountdowns(storeId: string) {
     .or(`starts_at.is.null,starts_at.lte.${now}`)
     .order("created_at", { ascending: false });
   if (error) return [];
-  return (data ?? []).filter((c) => !c.ends_at || new Date(c.ends_at) > new Date());
+  // Return active campaigns even if their end date has passed so the widget can
+  // render an explicit "Expired" state instead of disappearing.
+  return data ?? [];
 }
 const saveSettingsSchema = z.object({
   storeId: z.string().uuid(),
