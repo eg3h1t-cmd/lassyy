@@ -8,7 +8,12 @@ const accents: Record<string, string> = {
   wp_sepet_hatirlatma: "from-emerald-400 to-teal-400",
   wp_kampanya_toplu: "from-amber-400 to-yellow-400",
   wp_kargo_takip: "from-sky-400 to-cyan-400",
+  akilli_sepet_onerisi: "from-lime-400 to-emerald-400",
   akilli_beden: "from-violet-400 to-fuchsia-400",
+  cikis_niyetli_popup: "from-fuchsia-400 to-pink-400",
+  analitik: "from-indigo-400 to-violet-400",
+  geri_sayim_kampanyalari: "from-orange-400 to-amber-400",
+  urun_onerileri: "from-cyan-400 to-sky-400",
 };
 
 const icons: Record<string, string> = {
@@ -16,7 +21,12 @@ const icons: Record<string, string> = {
   wp_sepet_hatirlatma: "🛒",
   wp_kampanya_toplu: "📣",
   wp_kargo_takip: "📦",
+  akilli_sepet_onerisi: "🧺",
   akilli_beden: "📐",
+  cikis_niyetli_popup: "🚪",
+  analitik: "📊",
+  geri_sayim_kampanyalari: "⏳",
+  urun_onerileri: "✨",
 };
 
 type TenantModule = { module_id: string; status: string; purchased_at: string | null };
