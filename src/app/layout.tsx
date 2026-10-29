@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { getPublicEnv } from "@/lib/env";
@@ -28,7 +29,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
-        {children}
+        <Suspense fallback={<div className="p-8 text-sm text-zinc-500">Loading…</div>}>
+          {children}
+        </Suspense>
       </body>
     </html>
   );

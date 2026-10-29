@@ -1,11 +1,12 @@
-export const instant = false;
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { hasSupabaseConfig } from "@/lib/env";
 import { listMyStores } from "@/server/stores";
 import { StoreRecommendationsSection } from "@/components/dashboard/store-recommendations-section";
 
 export default async function RecommendationsPage() {
+  await connection();
   if (!hasSupabaseConfig()) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16">

@@ -1,5 +1,5 @@
-export const instant = false;
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { hasSupabaseConfig } from "@/lib/env";
 import { listMyStores } from "@/server/stores";
@@ -7,6 +7,7 @@ import { CountdownCreateForm } from "@/components/dashboard/countdown-create-for
 import { StoreCountdownList } from "@/components/dashboard/store-countdown-list";
 
 export default async function CountdownPage() {
+  await connection();
   if (!hasSupabaseConfig()) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16">

@@ -1,5 +1,5 @@
-export const instant = false;
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { hasSupabaseConfig } from "@/lib/env";
 import { listMyStores } from "@/server/stores";
@@ -8,6 +8,7 @@ import { StoreModuleSection } from "@/components/dashboard/store-module-section"
 import type { Module } from "@/types/modules";
 
 export default async function ModulesPage() {
+  await connection();
   if (!hasSupabaseConfig()) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16">
