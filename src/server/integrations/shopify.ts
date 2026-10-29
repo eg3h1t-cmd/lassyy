@@ -6,9 +6,20 @@ export interface ShopifyCredentials {
   accessToken: string; // server-only
 }
 
+import { createHmac, timingSafeEqual } from "node:crypto";
+
 export interface ShopifyAdapter {
   verifyWebhook(rawBody: string, hmacHeader: string, secret: string): boolean;
   fetchProducts(credentials: ShopifyCredentials): Promise<unknown[]>;
+}
+
+export function verifyShopifyWebhook(rawBody: string, hmacHeader: string, secret: string): boolean {
+  const hmac = createHmac("sha256", secret).update(rawBody, "utf8").digest("base64");
+  try {
+    return timingSafeEqual(Buffer.from(hmac), Buffer.from(hmacHeader));
+  } catch {
+    return false;
+  }
 }
 
 export const shopifyNotes = {
