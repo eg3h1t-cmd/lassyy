@@ -71,10 +71,11 @@ export async function getActiveCountdowns(storeId: string) {
     .eq("module_id", "countdown-campaigns")
     .eq("status", "active")
     .or(`starts_at.is.null,starts_at.lte.${now}`)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .limit(1);
   if (error) return [];
-  // Return active campaigns even if their end date has passed so the widget can
-  // render an explicit "Expired" state instead of disappearing.
+  // Return the latest active campaign even if its end date has passed so the
+  // widget can render an explicit "Expired" state instead of disappearing.
   return data ?? [];
 }
 const saveSettingsSchema = z.object({
@@ -147,8 +148,10 @@ export async function saveCountdownSettingsAction(input: unknown) {
     .limit(1)
     .maybeSingle();
 
+  let campaignId: string;
+
   if (existing) {
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from("campaigns")
       .update({
         name: config.title,
@@ -157,21 +160,37 @@ export async function saveCountdownSettingsAction(input: unknown) {
         ends_at: config.endsAt,
         config: { title: config.title, description: config.description ?? "" },
       })
-      .eq("id", existing.id);
-    if (error) return { ok: false as const, error: error.message };
+      .eq("id", existing.id)
+      .select("id")
+      .single();
+    if (error || !data) return { ok: false as const, error: error?.message ?? "Update failed" };
+    campaignId = data.id;
   } else {
-    const { error } = await supabase.from("campaigns").insert({
-      store_id: storeId,
-      module_id: "countdown-campaigns",
-      name: config.title,
-      status,
-      starts_at: config.startsAt ?? null,
-      ends_at: config.endsAt,
-      config: { title: config.title, description: config.description ?? "" },
-      created_by: user.id,
-    });
-    if (error) return { ok: false as const, error: error.message };
+    const { data, error } = await supabase
+      .from("campaigns")
+      .insert({
+        store_id: storeId,
+        module_id: "countdown-campaigns",
+        name: config.title,
+        status,
+        starts_at: config.startsAt ?? null,
+        ends_at: config.endsAt,
+        config: { title: config.title, description: config.description ?? "" },
+        created_by: user.id,
+      })
+      .select("id")
+      .single();
+    if (error || !data) return { ok: false as const, error: error?.message ?? "Insert failed" };
+    campaignId = data.id;
   }
+
+  // Keep only one current countdown campaign per store; archive stale ones.
+  await supabase
+    .from("campaigns")
+    .update({ status: "archived" })
+    .eq("store_id", storeId)
+    .eq("module_id", "countdown-campaigns")
+    .neq("id", campaignId);
 
   revalidatePath("/dashboard");
   revalidatePath("/demo");
