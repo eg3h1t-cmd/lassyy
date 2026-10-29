@@ -53,6 +53,9 @@ Migrations live in `supabase/migrations/`. Apply in order via the SQL editor or 
 7. `0007_subscriptions.sql`
 8. `0008_team_and_api_keys.sql`
 9. `0009_admin_plan_management.sql`
+10. `0010_alc_module_store.sql`
+11. `0011_expand_module_catalog.sql`
+12. `0012_whatsapp_modules.sql`
 
 `0004` fixes infinite recursion between `stores` and `store_members` policies by using `SECURITY DEFINER` helper functions. `0005` allows store members to record analytics events and redemptions. `0006` enables audit log inserts.
 

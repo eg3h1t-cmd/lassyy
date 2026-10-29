@@ -13,6 +13,14 @@ const serverSchema = z.object({
   IYZICO_MERCHANT_ID: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
   IYZICO_BASE_URL: z.preprocess(emptyToUndefined, z.string().url().optional()),
   SUBSCRIPTIONS_ENFORCED: z.preprocess(emptyToUndefined, z.enum(["true", "false"]).optional()),
+  WHATSAPP_ACCESS_TOKEN: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
+  WHATSAPP_PHONE_NUMBER_ID: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
+  WHATSAPP_API_VERSION: z.preprocess(emptyToUndefined, z.string().optional()),
+  WHATSAPP_VERIFY_TOKEN: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
+  WHATSAPP_APP_SECRET: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
+  SHIPPING_WEBHOOK_SECRET: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
+  CART_WEBHOOK_SECRET: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
+  CRON_SECRET: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 });
 

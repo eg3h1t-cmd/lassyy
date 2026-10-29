@@ -63,6 +63,12 @@ export default async function DashboardPage() {
                   >
                     Modülleri yapılandır
                   </Link>
+                  <Link
+                    href={`/dashboard/${store.slug}/whatsapp`}
+                    className="text-emerald-300 transition-colors hover:text-emerald-200"
+                  >
+                    WhatsApp paneli
+                  </Link>
                 </div>
               </li>
             ))}

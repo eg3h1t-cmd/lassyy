@@ -1,4 +1,4 @@
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createSupabaseServerClient, createSupabaseServiceClient } from "@/lib/supabase/server";
 
 /**
  * Returns true only when the current authenticated user can access the tenant
@@ -23,6 +23,21 @@ export async function hasModuleAccess(tenantId: string, moduleSlug: string): Pro
     .eq("modules.slug", moduleSlug)
     .maybeSingle();
 
+  if (error) return false;
+  return Boolean(data);
+}
+
+/** Service-role check for webhooks/cron. Never call this from browser code. */
+export async function hasModuleAccessService(tenantId: string, moduleSlug: string): Promise<boolean> {
+  const supabase = createSupabaseServiceClient();
+  if (!supabase) return false;
+  const { data, error } = await supabase
+    .from("tenant_modules")
+    .select("id, modules!inner(slug)")
+    .eq("tenant_id", tenantId)
+    .eq("status", "active")
+    .eq("modules.slug", moduleSlug)
+    .maybeSingle();
   if (error) return false;
   return Boolean(data);
 }
