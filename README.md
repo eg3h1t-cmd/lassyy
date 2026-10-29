@@ -1,6 +1,6 @@
-# PromoNest
+# lassyy
 
-PromoNest is a multi-tenant SaaS platform for e-commerce growth: promotional campaigns, marketing widgets, and analytics. This repository contains the initial foundation (Phase 1-2).
+lassyy is a multi-tenant SaaS platform for e-commerce growth: promotional campaigns, marketing widgets, and analytics. This repository contains the initial foundation (Phase 1-2).
 
 ## Stack
 
@@ -55,7 +55,7 @@ Migrations live in `supabase/migrations/`. Apply in order via the SQL editor or 
 
 ## Health check
 
-`GET /api/health` returns `{ status: "ok", app: "PromoNest", supabaseConfigured, timestamp }`.
+`GET /api/health` returns `{ status: "ok", app: "lassyy", supabaseConfigured, timestamp }`.
 
 ## Rate limiting
 

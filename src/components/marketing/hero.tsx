@@ -3,30 +3,33 @@ import Link from "next/link";
 export function Hero() {
   return (
     <section className="relative overflow-hidden">
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-indigo-600/10 blur-[120px]" />
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
-            <p className="mb-4 inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400">
+            <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-400/[0.06] px-3 py-1 text-xs font-medium text-indigo-200">
+              <span className="h-1.5 w-1.5 rounded-full bg-indigo-400 shadow-[0_0_8px_rgba(129,140,248,0.9)]" />
               Built for e-commerce teams
             </p>
-            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-              Grow store revenue with smarter promotions and engagement.
+            <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
+              Grow store revenue with{" "}
+              <span className="accent-text">smarter promotions</span> and engagement.
             </h1>
-            <p className="mt-6 max-w-xl text-lg text-zinc-600 dark:text-zinc-400">
-              PromoNest helps e-commerce businesses run promotional campaigns, manage
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-zinc-400">
+              lassyy helps e-commerce businesses run promotional campaigns, manage
               marketing widgets, and measure engagement from one secure, multi-tenant
               dashboard.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/sign-up"
-                className="inline-flex h-12 items-center justify-center rounded-lg bg-zinc-900 px-6 text-base font-medium text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+                className="accent-gradient glow-button inline-flex h-12 items-center justify-center rounded-xl px-6 text-base font-semibold text-white"
               >
                 Start free trial
               </Link>
               <a
                 href="#features"
-                className="inline-flex h-12 items-center justify-center rounded-lg border border-zinc-300 px-6 text-base font-medium text-zinc-900 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-900"
+                className="inline-flex h-12 items-center justify-center rounded-xl border border-white/10 bg-white/[0.02] px-6 text-base font-medium text-zinc-200 transition-colors hover:border-indigo-400/40 hover:bg-white/[0.05]"
               >
                 See features
               </a>
@@ -35,11 +38,11 @@ export function Hero() {
               No credit card required. Free tier available for development and small stores.
             </p>
           </div>
-          <div className="relative">
-            <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+          <div className="relative float-slow">
+            <div className="surface rounded-2xl p-6">
               <div className="mb-4 flex items-center justify-between">
-                <span className="text-sm font-medium">Campaign overview</span>
-                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
+                <span className="text-sm font-medium text-zinc-200">Campaign overview</span>
+                <span className="rounded-full bg-emerald-400/10 px-2.5 py-0.5 text-xs font-medium text-emerald-300 ring-1 ring-emerald-400/20">
                   Live
                 </span>
               </div>
@@ -50,16 +53,13 @@ export function Hero() {
                   ["Coupons issued", "—"],
                   ["Redemptions", "—"],
                 ].map(([label, value]) => (
-                  <div
-                    key={label}
-                    className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950"
-                  >
+                  <div key={label} className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-4 transition-colors hover:border-indigo-400/25">
                     <p className="text-xs text-zinc-500">{label}</p>
-                    <p className="mt-1 text-xl font-semibold">{value}</p>
+                    <p className="mt-1 text-xl font-semibold text-white">{value}</p>
                   </div>
                 ))}
               </div>
-              <div className="mt-4 rounded-xl border border-dashed border-zinc-300 p-4 text-xs text-zinc-500 dark:border-zinc-700">
+              <div className="mt-4 rounded-xl border border-dashed border-white/10 p-4 text-xs text-zinc-500">
                 Sample dashboard preview. Real metrics come from stored analytics events.
               </div>
             </div>

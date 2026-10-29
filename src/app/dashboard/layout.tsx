@@ -1,0 +1,42 @@
+import Link from "next/link";
+
+const links = [
+  { href: "/dashboard", label: "Overview" },
+  { href: "/dashboard/modules", label: "Modules" },
+  { href: "/dashboard/wheel", label: "Wheel" },
+  { href: "/dashboard/countdown", label: "Countdown" },
+  { href: "/dashboard/recommendations", label: "Recommendations" },
+  { href: "/dashboard/analytics", label: "Analytics" },
+];
+
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <header className="border-b border-white/[0.06] bg-zinc-950/70 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <Link href="/dashboard" className="flex items-center gap-2 font-semibold tracking-tight text-white">
+            <span className="accent-gradient inline-flex h-7 w-7 items-center justify-center rounded-lg text-xs font-bold text-white">
+              L
+            </span>
+            lassyy
+          </Link>
+          <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm" aria-label="Dashboard">
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-zinc-400 transition-colors hover:text-white"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link href="/demo" className="text-indigo-300 transition-colors hover:text-indigo-200">
+              Demo storefront
+            </Link>
+          </nav>
+        </div>
+      </header>
+      <main className="flex-1">{children}</main>
+    </>
+  );
+}

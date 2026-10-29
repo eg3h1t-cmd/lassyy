@@ -2,7 +2,7 @@
 
 ## Overview
 
-PromoNest is a modular monolith built on Next.js (App Router). It uses Supabase for PostgreSQL, Auth, and Row Level Security (RLS). Tenant isolation is enforced both in the database (RLS) and in server-side authorization.
+lassyy is a modular monolith built on Next.js (App Router). It uses Supabase for PostgreSQL, Auth, and Row Level Security (RLS). Tenant isolation is enforced both in the database (RLS) and in server-side authorization.
 
 ## Directory structure
 

@@ -8,16 +8,16 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section className="border-t border-zinc-200 py-20 dark:border-zinc-800">
+    <section className="border-t border-white/[0.06] py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <h2 className="text-3xl font-semibold tracking-tight">How it works</h2>
+        <h2 className="text-3xl font-semibold tracking-tight text-white">How it works</h2>
         <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {steps.map((s, i) => (
             <li
               key={s}
-              className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-950"
+              className="surface surface-hover rounded-2xl p-5"
             >
-              <span className="text-sm font-semibold text-zinc-400">{String(i + 1).padStart(2, "0")}</span>
+              <span className="text-sm font-semibold text-indigo-300">{String(i + 1).padStart(2, "0")}</span>
               <p className="mt-2 text-sm">{s}</p>
             </li>
           ))}

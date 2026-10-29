@@ -19,14 +19,14 @@ const faqs = [
 
 export function Faq() {
   return (
-    <section id="faq" className="border-t border-zinc-200 py-20 dark:border-zinc-800">
+    <section id="faq" className="border-t border-white/[0.06] py-20">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
-        <h2 className="text-3xl font-semibold tracking-tight">Frequently asked questions</h2>
-        <div className="mt-8 space-y-6">
+        <h2 className="text-3xl font-semibold tracking-tight text-white">Frequently asked questions</h2>
+        <div className="mt-8 space-y-4">
           {faqs.map((f) => (
-            <div key={f.q}>
-              <h3 className="font-semibold">{f.q}</h3>
-              <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">{f.a}</p>
+            <div key={f.q} className="surface surface-hover rounded-2xl p-5">
+              <h3 className="font-semibold text-white">{f.q}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-zinc-400">{f.a}</p>
             </div>
           ))}
         </div>

@@ -11,12 +11,12 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200",
+    "accent-gradient glow-button text-white shadow-lg shadow-indigo-950/40 hover:text-white",
   secondary:
-    "bg-zinc-100 text-zinc-900 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700",
-  ghost: "bg-transparent text-zinc-900 hover:bg-zinc-100 dark:text-zinc-100 dark:hover:bg-zinc-800",
+    "bg-white/5 text-zinc-100 ring-1 ring-white/10 backdrop-blur hover:bg-white/10",
+  ghost: "bg-transparent text-zinc-300 hover:bg-white/5 hover:text-white",
   outline:
-    "border border-zinc-300 bg-transparent text-zinc-900 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-900",
+    "border border-white/15 bg-white/[0.02] text-zinc-100 hover:border-indigo-400/40 hover:bg-white/[0.05]",
 };
 
 const sizes: Record<Size, string> = {

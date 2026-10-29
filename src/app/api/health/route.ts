@@ -4,7 +4,7 @@ import { hasSupabaseConfig } from "@/lib/env";
 export async function GET() {
   return NextResponse.json({
     status: "ok",
-    app: "PromoNest",
+    app: "lassyy",
     supabaseConfigured: hasSupabaseConfig(),
     timestamp: new Date().toISOString(),
   });

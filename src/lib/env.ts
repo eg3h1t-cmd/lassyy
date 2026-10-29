@@ -32,7 +32,7 @@ export function hasSupabaseConfig(): boolean {
 }
 
 const publicSchema = z.object({
-  NEXT_PUBLIC_APP_NAME: z.preprocess(emptyToUndefined, z.string().default("PromoNest")),
+  NEXT_PUBLIC_APP_NAME: z.preprocess(emptyToUndefined, z.string().default("lassyy")),
   NEXT_PUBLIC_APP_URL: z.preprocess(emptyToUndefined, z.string().url().optional()),
 });
 

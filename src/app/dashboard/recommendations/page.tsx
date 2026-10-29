@@ -1,5 +1,4 @@
 export const instant = false;
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { connection } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -32,10 +31,6 @@ export default async function RecommendationsPage() {
       <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
         Manually configure complementary products shown to shoppers.
       </p>
-      <nav className="mt-4 flex gap-4 text-sm">
-        <Link href="/dashboard" className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">Overview</Link>
-        <Link href="/dashboard/recommendations" className="font-medium text-zinc-900 dark:text-zinc-100">Recommendations</Link>
-      </nav>
 
       <div className="mt-8 space-y-8">
         {stores.length === 0 && <p className="text-sm text-zinc-600 dark:text-zinc-400">Create a store first.</p>}

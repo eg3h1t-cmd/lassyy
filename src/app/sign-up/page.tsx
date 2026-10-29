@@ -48,7 +48,7 @@ export default function SignUpPage() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none transition-colors placeholder:text-zinc-500 focus:border-indigo-400/50"
           />
         </div>
         <div>
@@ -62,21 +62,21 @@ export default function SignUpPage() {
             minLength={8}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none transition-colors placeholder:text-zinc-500 focus:border-indigo-400/50"
           />
         </div>
-        {message && <p className="text-sm text-zinc-600 dark:text-zinc-400">{message}</p>}
+        {message && <p className="text-sm text-zinc-400">{message}</p>}
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-lg bg-zinc-900 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+          className="accent-gradient glow-button w-full rounded-xl py-2.5 text-sm font-semibold text-white disabled:opacity-50"
         >
           {loading ? "Creating..." : "Create account"}
         </button>
       </form>
-      <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
+      <p className="mt-4 text-sm text-zinc-400">
         Already have an account?{" "}
-        <Link href="/sign-in" className="font-medium text-zinc-900 dark:text-zinc-100">
+        <Link href="/sign-in" className="font-medium text-indigo-300 hover:text-indigo-200">
           Sign in
         </Link>
       </p>

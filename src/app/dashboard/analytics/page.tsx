@@ -1,5 +1,4 @@
 export const instant = false;
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { connection } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -32,12 +31,6 @@ export default async function AnalyticsPage() {
       <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
         Metrics are computed from stored events.
       </p>
-      <nav className="mt-4 flex gap-4 text-sm">
-        <Link href="/dashboard" className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">Overview</Link>
-        <Link href="/dashboard/modules" className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">Modules</Link>
-        <Link href="/dashboard/wheel" className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">Wheel</Link>
-        <Link href="/dashboard/analytics" className="font-medium text-zinc-900 dark:text-zinc-100">Analytics</Link>
-      </nav>
 
       <div className="mt-8 space-y-8">
         {stores.length === 0 && (

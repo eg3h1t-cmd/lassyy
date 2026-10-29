@@ -1,4 +1,4 @@
--- Initial schema for PromoNest multi-tenant SaaS platform
+-- Initial schema for lassyy multi-tenant SaaS platform
 -- Apply with: supabase db push (or psql) against a fresh Supabase project.
 
 create extension if not exists "pgcrypto";
