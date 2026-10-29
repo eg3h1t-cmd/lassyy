@@ -10,6 +10,7 @@ import {
 } from "@/lib/validations/countdown";
 import { recordAuditEvent } from "@/server/audit";
 import { canCreateCampaign, canRecordInteraction, subscriptionsEnforced } from "@/server/subscriptions";
+import { hasModuleAccess } from "@/server/module-access";
 
 const createSchema = z.object({
   storeId: z.string().uuid(),
@@ -31,6 +32,10 @@ export async function createCountdownCampaignAction(input: unknown) {
   if (!user) return { ok: false as const, error: "Yetkisiz işlem" };
 
   const { storeId, title, description, endsAt, startsAt, status } = parsed.data;
+
+  if (!(await hasModuleAccess(storeId, "geri_sayim_kampanyalari"))) {
+    return { ok: false as const, error: "Bu modül aktif değil. Önce satın alın." };
+  }
 
   if (subscriptionsEnforced()) {
     const limit = await canCreateCampaign(storeId);
@@ -96,6 +101,7 @@ export async function trackCountdownImpressionAction(campaignId: string) {
     .eq("id", campaignId)
     .maybeSingle();
   if (!campaign) return { ok: false as const };
+  if (!(await hasModuleAccess(campaign.store_id, "geri_sayim_kampanyalari"))) return { ok: false as const };
   if (!(await canRecordInteraction(campaign.store_id))) return { ok: false as const };
 
   await supabase.from("analytics_events").insert({
@@ -157,6 +163,10 @@ export async function saveCountdownSettingsAction(input: unknown) {
   if (!user) return { ok: false as const, error: "Yetkisiz işlem" };
 
   const { storeId, config, status } = parsed.data;
+
+  if (!(await hasModuleAccess(storeId, "geri_sayim_kampanyalari"))) {
+    return { ok: false as const, error: "Bu modül aktif değil. Önce satın alın." };
+  }
 
   const { error: moduleError } = await supabase.from("store_modules").upsert(
     {

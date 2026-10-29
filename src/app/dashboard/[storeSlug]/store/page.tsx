@@ -48,7 +48,7 @@ export default async function StorePage({ params }: { params: Promise<{ storeSlu
       </div>
 
       <div className="mt-8">
-        <ModuleStorePanel storeId={store.id} modules={modules} tenantModules={tenantModules} />
+        <ModuleStorePanel storeId={store.id} storeSlug={store.slug} modules={modules} tenantModules={tenantModules} />
       </div>
     </div>
   );

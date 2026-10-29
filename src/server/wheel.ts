@@ -9,6 +9,7 @@ import { checkRateLimitAsync } from "@/lib/rate-limit";
 import { wheelConfigSchema, defaultWheelConfig, type WheelConfig } from "@/lib/validations/wheel";
 import { recordAuditEvent } from "@/server/audit";
 import { canCreateCampaign, canRecordInteraction, subscriptionsEnforced } from "@/server/subscriptions";
+import { hasModuleAccess } from "@/server/module-access";
 
 const createCampaignSchema = z.object({
   storeId: z.string().uuid(),
@@ -36,6 +37,10 @@ export async function createWheelCampaignAction(input: unknown) {
   if (!user) return { ok: false as const, error: "Yetkisiz işlem" };
 
   const { storeId, config, status, startsAt, endsAt } = parsed.data;
+
+  if (!(await hasModuleAccess(storeId, "sans_carki"))) {
+    return { ok: false as const, error: "Bu modül aktif değil. Önce satın alın." };
+  }
 
   if (subscriptionsEnforced()) {
     const limit = await canCreateCampaign(storeId);
@@ -72,6 +77,7 @@ export async function trackWheelImpressionAction(campaignId: string) {
     .eq("id", campaignId)
     .maybeSingle();
   if (!campaign) return { ok: false as const };
+  if (!(await hasModuleAccess(campaign.store_id, "sans_carki"))) return { ok: false as const };
 
   if (!(await canRecordInteraction(campaign.store_id))) return { ok: false as const };
 
@@ -141,6 +147,10 @@ export async function saveWheelSettingsAction(input: unknown) {
   if (!user) return { ok: false as const, error: "Yetkisiz işlem" };
 
   const { storeId, config, status } = parsed.data;
+
+  if (!(await hasModuleAccess(storeId, "sans_carki"))) {
+    return { ok: false as const, error: "Bu modül aktif değil. Önce satın alın." };
+  }
 
   const { error: moduleError } = await supabase.from("store_modules").upsert(
     {
@@ -286,6 +296,9 @@ export async function spinWheelAction(campaignId: string) {
     .single();
 
   if (campErr || !campaign) return { ok: false as const, error: "Kampanya bulunamadı." };
+  if (!(await hasModuleAccess(campaign.store_id, "sans_carki"))) {
+    return { ok: false as const, error: "Bu modül aktif değil. Önce satın alın." };
+  }
   if (campaign.status !== "active") return { ok: false as const, error: "Kampanya etkin değil." };
   const now = new Date();
   if (campaign.starts_at && new Date(campaign.starts_at) > now) return { ok: false as const, error: "Kampanya henüz başlamadı." };

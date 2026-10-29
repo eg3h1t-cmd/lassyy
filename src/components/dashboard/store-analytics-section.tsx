@@ -1,13 +1,34 @@
+import Link from "next/link";
 import { getStoreAnalytics } from "@/server/analytics";
 
 export async function StoreAnalyticsSection({
   store,
   days = 30,
 }: {
-  store: { id: string; name: string };
+  store: { id: string; name: string; slug?: string };
   days?: number;
 }) {
   const metrics = await getStoreAnalytics(store.id, days);
+
+  if (!metrics.allowed) {
+    return (
+      <section className="surface rounded-2xl p-6">
+        <h2 className="font-semibold text-white">{store.name}</h2>
+        <p className="mt-2 text-sm text-zinc-400">
+          Analitik modülü bu mağaza için aktif değil. Modülü satın alarak metrikleri görebilirsiniz.
+        </p>
+        {store.slug && (
+          <Link
+            href={`/dashboard/${store.slug}/store`}
+            className="accent-gradient glow-button mt-4 inline-flex h-10 items-center justify-center rounded-lg px-4 text-sm font-semibold text-white"
+          >
+            Modül mağazasına git
+          </Link>
+        )}
+      </section>
+    );
+  }
+
   const basic = [
     ["Gösterimler", metrics.impressions],
     ["Çevirmeler", metrics.spins],

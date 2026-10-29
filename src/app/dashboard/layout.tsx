@@ -3,10 +3,6 @@ import Link from "next/link";
 const links = [
   { href: "/dashboard", label: "Genel Bakış" },
   { href: "/dashboard/modules", label: "Modüller" },
-  { href: "/dashboard/wheel", label: "Çark" },
-  { href: "/dashboard/countdown", label: "Geri Sayım" },
-  { href: "/dashboard/recommendations", label: "Öneriler" },
-  { href: "/dashboard/analytics", label: "Analitik" },
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {

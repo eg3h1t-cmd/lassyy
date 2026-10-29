@@ -5,6 +5,7 @@ import { z } from "zod";
 import { createSupabaseServerClient, createSupabaseServiceClient } from "@/lib/supabase/server";
 import { hasSupabaseConfig } from "@/lib/env";
 import { canRecordInteraction } from "@/server/subscriptions";
+import { hasModuleAccess } from "@/server/module-access";
 
 const productSchema = z.object({
   id: z.string().min(1),
@@ -41,6 +42,10 @@ export async function setRecommendationConfigAction(input: { storeId: string; pr
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return { ok: false as const, error: "Yetkisiz işlem" };
+
+  if (!(await hasModuleAccess(parsed.data.storeId, "urun_onerileri"))) {
+    return { ok: false as const, error: "Bu modül aktif değil. Önce satın alın." };
+  }
 
   const { error } = await supabase.from("store_modules").upsert(
     {

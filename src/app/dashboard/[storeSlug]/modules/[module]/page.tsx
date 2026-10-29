@@ -12,8 +12,11 @@ import { WheelSettingsForm } from "@/components/dashboard/wheel-settings-form";
 import { CountdownSettingsForm } from "@/components/dashboard/countdown-settings-form";
 import { StoreAnalyticsSection } from "@/components/dashboard/store-analytics-section";
 import { StoreRecommendationsSection } from "@/components/dashboard/store-recommendations-section";
+import { SizeAssistantSettings } from "@/components/dashboard/size-assistant-settings";
+import { hasModuleAccess } from "@/server/module-access";
+import { getSizeAssistantConfig } from "@/server/size-assistant";
 
-const MODULES = ["wheel", "countdown", "analytics", "recommendations"] as const;
+const MODULES = ["wheel", "countdown", "analytics", "recommendations", "akilli_beden"] as const;
 type ModuleKey = (typeof MODULES)[number];
 
 const moduleTitles: Record<ModuleKey, string> = {
@@ -21,6 +24,15 @@ const moduleTitles: Record<ModuleKey, string> = {
   countdown: "Geri Sayım Kampanyası Ayarları",
   analytics: "Analitik",
   recommendations: "Ürün Önerileri",
+  akilli_beden: "Akıllı Beden Asistanı Ayarları",
+};
+
+const accessSlugs: Record<ModuleKey, string> = {
+  wheel: "sans_carki",
+  countdown: "geri_sayim_kampanyalari",
+  analytics: "analitik",
+  recommendations: "urun_onerileri",
+  akilli_beden: "akilli_beden",
 };
 
 export default async function ModuleSettingsPage({
@@ -52,6 +64,29 @@ export default async function ModuleSettingsPage({
   if (!store) notFound();
 
   const moduleKey = module as ModuleKey;
+  const allowed = await hasModuleAccess(store.id, accessSlugs[moduleKey]);
+
+  if (!allowed) {
+    return (
+      <div className="mx-auto max-w-2xl px-4 py-16">
+        <Link href={`/dashboard/${store.slug}/store`} className="text-sm text-zinc-400 hover:text-white">
+          ← Modül mağazası
+        </Link>
+        <div className="surface mt-4 rounded-2xl p-6">
+          <h1 className="text-2xl font-semibold text-white">Bu modül henüz aktif değil</h1>
+          <p className="mt-2 text-sm text-zinc-400">
+            {moduleTitles[moduleKey]} modülünü kullanmak için satın almanız ve ödemenin onaylanması gerekiyor.
+          </p>
+          <Link
+            href={`/dashboard/${store.slug}/store`}
+            className="accent-gradient glow-button mt-5 inline-flex h-10 items-center justify-center rounded-lg px-5 text-sm font-semibold text-white"
+          >
+            Modül mağazasına git
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
@@ -68,11 +103,12 @@ export default async function ModuleSettingsPage({
       {moduleKey === "wheel" && <WheelSettingsSection storeId={store.id} />}
       {moduleKey === "countdown" && <CountdownSettingsSection storeId={store.id} />}
       {moduleKey === "analytics" && (
-        <StoreAnalyticsSection store={{ id: store.id, name: store.name }} />
+        <StoreAnalyticsSection store={{ id: store.id, name: store.name, slug: store.slug }} />
       )}
       {moduleKey === "recommendations" && (
         <StoreRecommendationsSection store={{ id: store.id, name: store.name }} />
       )}
+      {moduleKey === "akilli_beden" && <SizeAssistantSection storeId={store.id} />}
     </div>
   );
 }
@@ -97,4 +133,9 @@ async function CountdownSettingsSection({ storeId }: { storeId: string }) {
       initialStatus={settings.status}
     />
   );
+}
+
+async function SizeAssistantSection({ storeId }: { storeId: string }) {
+  const config = await getSizeAssistantConfig(storeId);
+  return <SizeAssistantSettings storeId={storeId} initialConfig={config} />;
 }

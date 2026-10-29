@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { requestModulePurchaseAction, type StoreModuleRow } from "@/server/module-store";
+import { moduleLabels } from "@/lib/module-labels";
 
 const accents: Record<string, string> = {
   sans_carki: "from-rose-400 to-orange-400",
@@ -33,10 +35,12 @@ type TenantModule = { module_id: string; status: string; purchased_at: string | 
 
 export function ModuleStorePanel({
   storeId,
+  storeSlug,
   modules,
   tenantModules,
 }: {
   storeId: string;
+  storeSlug: string;
   modules: StoreModuleRow[];
   tenantModules: TenantModule[];
 }) {
@@ -116,9 +120,19 @@ export function ModuleStorePanel({
                   <p className="text-[10px] text-zinc-500">tek seferlik ödeme</p>
                 </div>
                 {status === "active" ? (
-                  <span className="rounded-lg border border-emerald-400/20 bg-emerald-400/[0.06] px-3 py-1.5 text-xs font-medium text-emerald-300">
-                    Aktif
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="rounded-lg border border-emerald-400/20 bg-emerald-400/[0.06] px-2.5 py-1.5 text-xs font-medium text-emerald-300">
+                      Aktif
+                    </span>
+                    {moduleLabels[module.slug]?.route && (
+                      <Link
+                        href={`/dashboard/${storeSlug}/modules/${moduleLabels[module.slug].route}`}
+                        className="rounded-lg border border-white/10 bg-white/[0.03] px-2.5 py-1.5 text-xs font-medium text-zinc-200 transition-colors hover:border-indigo-400/40 hover:bg-white/[0.06]"
+                      >
+                        Yapılandır
+                      </Link>
+                    )}
+                  </div>
                 ) : status === "pending" ? (
                   <span className="rounded-lg border border-amber-400/20 bg-amber-400/[0.06] px-3 py-1.5 text-xs font-medium text-amber-300">
                     Onay bekliyor

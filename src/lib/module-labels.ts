@@ -19,4 +19,29 @@ export const moduleLabels: Record<string, { name: string; description: string; r
     description: "Gerçek zamanlı ve mağaza odaklı metrik takibi.",
     route: "analytics",
   },
+  sans_carki: {
+    name: "Şans Çarkı",
+    description: "Sunucu taraflı kupon korumalı ödül çarkı.",
+    route: "wheel",
+  },
+  geri_sayim_kampanyalari: {
+    name: "Geri Sayım Kampanyaları",
+    description: "Güvenli zaman damgalı süre sınırlı kampanyalar.",
+    route: "countdown",
+  },
+  urun_onerileri: {
+    name: "Ürün Önerileri",
+    description: "Gösterim ve tıklama takipli tamamlayıcı ürün setleri.",
+    route: "recommendations",
+  },
+  analitik: {
+    name: "Analitik",
+    description: "Gerçek zamanlı ve mağaza odaklı metrik takibi.",
+    route: "analytics",
+  },
+  akilli_beden: {
+    name: "Akıllı Beden Asistanı",
+    description: "Müşterilere doğru bedeni öneren akıllı asistan.",
+    route: "akilli_beden",
+  },
 };
