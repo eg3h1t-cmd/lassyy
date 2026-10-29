@@ -55,6 +55,27 @@ export async function createWheelCampaignAction(input: unknown) {
   return { ok: true as const, campaignId: data.id };
 }
 
+export async function trackWheelImpressionAction(campaignId: string) {
+  const supabase = await createSupabaseServerClient();
+  const { data: campaign } = await supabase
+    .from("campaigns")
+    .select("id, store_id")
+    .eq("id", campaignId)
+    .maybeSingle();
+  if (!campaign) return { ok: false as const };
+
+  const service = createSupabaseServiceClient();
+  const client = service ?? supabase;
+  await client.from("analytics_events").insert({
+    store_id: campaign.store_id,
+    module_id: "discount-spin-wheel",
+    campaign_id: campaign.id,
+    event_type: "widget_impression",
+    payload: {},
+  });
+  return { ok: true as const };
+}
+
 const saveSettingsSchema = z.object({
   storeId: z.string().uuid(),
   config: wheelConfigSchema,

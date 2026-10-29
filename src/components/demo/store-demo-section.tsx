@@ -29,6 +29,7 @@ export async function StoreDemoSection({ store }: { store: { id: string; name: s
       {countdowns.map((c) => (
         <CountdownWidget
           key={c.id}
+          campaignId={c.id}
           title={(c.config as { title: string }).title}
           description={(c.config as { description?: string }).description}
           endsAt={c.ends_at as string}

@@ -78,6 +78,25 @@ export async function getActiveCountdowns(storeId: string) {
   // widget can render an explicit "Expired" state instead of disappearing.
   return data ?? [];
 }
+export async function trackCountdownImpressionAction(campaignId: string) {
+  const supabase = await createSupabaseServerClient();
+  const { data: campaign } = await supabase
+    .from("campaigns")
+    .select("id, store_id")
+    .eq("id", campaignId)
+    .maybeSingle();
+  if (!campaign) return { ok: false as const };
+
+  await supabase.from("analytics_events").insert({
+    store_id: campaign.store_id,
+    module_id: "countdown-campaigns",
+    campaign_id: campaign.id,
+    event_type: "countdown_impression",
+    payload: {},
+  });
+  return { ok: true as const };
+}
+
 const saveSettingsSchema = z.object({
   storeId: z.string().uuid(),
   config: countdownConfigSchema,

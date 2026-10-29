@@ -1,17 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { trackCountdownImpressionAction } from "@/server/countdown";
 
 export function CountdownWidget({
+  campaignId,
   title,
   description,
   endsAt,
 }: {
+  campaignId: string;
   title: string;
   description?: string;
   endsAt: string;
 }) {
   const [remaining, setRemaining] = useState("");
+
+  useEffect(() => {
+    trackCountdownImpressionAction(campaignId).catch(() => {});
+  }, [campaignId]);
 
   useEffect(() => {
     function update() {
