@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { createStoreSchema } from "@/server/store-validation";
 import { recordAuditEvent } from "@/server/audit";
+import { canCreateStore, subscriptionsEnforced } from "@/server/subscriptions";
 
 export type CreateStoreResult =
   | { ok: true; storeId: string }
@@ -21,6 +22,13 @@ export async function createStoreAction(input: unknown): Promise<CreateStoreResu
   } = await supabase.auth.getUser();
   if (!user) {
     return { ok: false, error: "Giriş yapmanız gerekiyor." };
+  }
+
+  if (subscriptionsEnforced()) {
+    const limit = await canCreateStore(user.id);
+    if (!limit.allowed) {
+      return { ok: false, error: "Mevcut planınızın mağaza limitine ulaştınız. Planınızı yükseltin." };
+    }
   }
 
   const { data, error } = await supabase

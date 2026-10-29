@@ -50,6 +50,7 @@ Migrations live in `supabase/migrations/`. Apply in order via the SQL editor or 
 4. `0004_fix_rls_recursion.sql`
 5. `0005_event_insert_policies.sql`
 6. `0006_audit_insert_policy.sql`
+7. `0007_subscriptions.sql`
 
 `0004` fixes infinite recursion between `stores` and `store_members` policies by using `SECURITY DEFINER` helper functions. `0005` allows store members to record analytics events and redemptions. `0006` enables audit log inserts.
 

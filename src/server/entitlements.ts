@@ -24,13 +24,13 @@ export const PLANS: Record<PlanId, Plan> = {
   growth: {
     id: "growth",
     name: "Growth",
-    limits: { stores: 5, campaignsPerStore: 25, monthlyWidgetEvents: 250000 },
+    limits: { stores: 5, campaignsPerStore: 1_000_000, monthlyWidgetEvents: 250000 },
     features: ["basic-widgets", "all-modules", "priority-support"],
   },
   enterprise: {
     id: "enterprise",
     name: "Enterprise",
-    limits: { stores: 100, campaignsPerStore: 1000, monthlyWidgetEvents: 10000000 },
+    limits: { stores: 100, campaignsPerStore: 1_000_000, monthlyWidgetEvents: 10_000_000 },
     features: ["basic-widgets", "all-modules", "priority-support", "custom-integrations"],
   },
 };

@@ -9,6 +9,7 @@ import {
   type CountdownConfig,
 } from "@/lib/validations/countdown";
 import { recordAuditEvent } from "@/server/audit";
+import { canCreateCampaign, subscriptionsEnforced } from "@/server/subscriptions";
 
 const createSchema = z.object({
   storeId: z.string().uuid(),
@@ -30,6 +31,14 @@ export async function createCountdownCampaignAction(input: unknown) {
   if (!user) return { ok: false as const, error: "Yetkisiz işlem" };
 
   const { storeId, title, description, endsAt, startsAt, status } = parsed.data;
+
+  if (subscriptionsEnforced()) {
+    const limit = await canCreateCampaign(storeId);
+    if (!limit.allowed) {
+      return { ok: false as const, error: "Mevcut planınızın kampanya limitine ulaştınız. Planınızı yükseltin." };
+    }
+  }
+
   const { data, error } = await supabase
     .from("campaigns")
     .insert({
@@ -186,6 +195,12 @@ export async function saveCountdownSettingsAction(input: unknown) {
     if (error || !data) return { ok: false as const, error: error?.message ?? "Update failed" };
     campaignId = data.id;
   } else {
+    if (subscriptionsEnforced()) {
+      const limit = await canCreateCampaign(storeId);
+      if (!limit.allowed) {
+        return { ok: false as const, error: "Mevcut planınızın kampanya limitine ulaştınız. Planınızı yükseltin." };
+      }
+    }
     const { data, error } = await supabase
       .from("campaigns")
       .insert({

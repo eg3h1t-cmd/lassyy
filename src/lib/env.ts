@@ -8,6 +8,11 @@ const serverSchema = z.object({
   SUPABASE_SERVICE_ROLE_KEY: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
   UPSTASH_REDIS_REST_URL: z.preprocess(emptyToUndefined, z.string().url().optional()),
   UPSTASH_REDIS_REST_TOKEN: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
+  IYZICO_API_KEY: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
+  IYZICO_SECRET_KEY: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
+  IYZICO_MERCHANT_ID: z.preprocess(emptyToUndefined, z.string().min(1).optional()),
+  IYZICO_BASE_URL: z.preprocess(emptyToUndefined, z.string().url().optional()),
+  SUBSCRIPTIONS_ENFORCED: z.preprocess(emptyToUndefined, z.enum(["true", "false"]).optional()),
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 });
 

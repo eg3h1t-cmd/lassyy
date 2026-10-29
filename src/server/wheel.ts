@@ -8,6 +8,7 @@ import { hasSupabaseConfig } from "@/lib/env";
 import { checkRateLimitAsync } from "@/lib/rate-limit";
 import { wheelConfigSchema, defaultWheelConfig, type WheelConfig } from "@/lib/validations/wheel";
 import { recordAuditEvent } from "@/server/audit";
+import { canCreateCampaign, subscriptionsEnforced } from "@/server/subscriptions";
 
 const createCampaignSchema = z.object({
   storeId: z.string().uuid(),
@@ -35,6 +36,13 @@ export async function createWheelCampaignAction(input: unknown) {
   if (!user) return { ok: false as const, error: "Yetkisiz işlem" };
 
   const { storeId, config, status, startsAt, endsAt } = parsed.data;
+
+  if (subscriptionsEnforced()) {
+    const limit = await canCreateCampaign(storeId);
+    if (!limit.allowed) {
+      return { ok: false as const, error: "Mevcut planınızın kampanya limitine ulaştınız. Planınızı yükseltin." };
+    }
+  }
 
   const { data, error } = await supabase
     .from("campaigns")
@@ -159,6 +167,12 @@ export async function saveWheelSettingsAction(input: unknown) {
       .eq("id", existing.id);
     if (error) return { ok: false as const, error: error.message };
   } else {
+    if (subscriptionsEnforced()) {
+      const limit = await canCreateCampaign(storeId);
+      if (!limit.allowed) {
+        return { ok: false as const, error: "Mevcut planınızın kampanya limitine ulaştınız. Planınızı yükseltin." };
+      }
+    }
     const { error } = await supabase.from("campaigns").insert({
       store_id: storeId,
       module_id: "discount-spin-wheel",
