@@ -23,6 +23,8 @@ export class InMemoryRateLimitStore implements RateLimitStore {
 export class RedisRateLimitStore implements RateLimitStore {
   constructor(private url: string, private token: string) {}
   async increment(_key: string, _windowMs: number): Promise<{ count: number; resetAt: number }> {
+    void _key;
+    void _windowMs;
     throw new Error("RedisRateLimitStore not implemented. Configure Upstash/Redis.");
   }
 }
