@@ -1,3 +1,4 @@
+export const instant = false;
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { hasSupabaseConfig } from "@/lib/env";
@@ -56,3 +57,4 @@ export default async function WheelPage() {
     </div>
   );
 }
+

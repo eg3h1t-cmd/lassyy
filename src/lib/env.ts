@@ -16,7 +16,12 @@ export function getServerEnv(): ServerEnv {
   if (!parsed.success) {
     throw new Error(`Invalid server environment: ${parsed.error.message}`);
   }
-  return parsed.data;
+  const data = parsed.data;
+  // Treat service role key as unset if it is empty or accidentally equals the anon key.
+  if (!data.SUPABASE_SERVICE_ROLE_KEY || data.SUPABASE_SERVICE_ROLE_KEY === data.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    data.SUPABASE_SERVICE_ROLE_KEY = undefined;
+  }
+  return data;
 }
 
 export function hasSupabaseConfig(): boolean {
