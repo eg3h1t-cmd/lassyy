@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { getPublicEnv } from "@/lib/env";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,12 +13,18 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const env = getPublicEnv();
-
 export const metadata: Metadata = {
-  title: `${env.NEXT_PUBLIC_APP_NAME} — E-commerce growth and promotion platform`,
+  title: "lassyy — E-commerce growth and promotion platform",
   description:
     "Centralize customer engagement, promotional campaigns, marketing widgets, and analytics for e-commerce stores.",
+  applicationName: "lassyy",
+  openGraph: {
+    title: "lassyy — E-commerce growth and promotion platform",
+    description:
+      "Promotional campaigns, marketing widgets, and analytics for e-commerce stores.",
+    siteName: "lassyy",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
