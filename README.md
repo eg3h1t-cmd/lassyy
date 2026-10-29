@@ -42,7 +42,14 @@ npm run dev
 
 ## Database
 
-Migrations live in `supabase/migrations/`. Apply `0001_initial_schema.sql` to a fresh Supabase project via the SQL editor or `supabase db push`.
+Migrations live in `supabase/migrations/`. Apply in order via the SQL editor or `supabase db push`:
+
+1. `0001_initial_schema.sql`
+2. `0002_profile_trigger.sql`
+3. `0003_platform_admins.sql`
+4. `0004_fix_rls_recursion.sql`
+
+`0004` fixes infinite recursion between `stores` and `store_members` policies by using `SECURITY DEFINER` helper functions.
 
 ## Known limitations (current foundation)
 
