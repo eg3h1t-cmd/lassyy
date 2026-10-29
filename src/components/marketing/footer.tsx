@@ -30,14 +30,14 @@ export function Footer() {
             <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-gradient-to-br from-indigo-500 to-violet-500 text-[10px] font-bold text-white">
               L
             </span>
-            © 2026 lassyy. All rights reserved.
+            © 2026 lassyy. Tüm hakları saklıdır.
           </p>
           <div className="flex items-center gap-4 text-sm text-zinc-500">
             <a href="/privacy" className="transition-colors hover:text-white">
-              Privacy
+              Gizlilik
             </a>
             <a href="/terms" className="transition-colors hover:text-white">
-              Terms
+              Kullanım Şartları
             </a>
             <a href="mailto:eg3h1t@gmail.com" className="transition-colors hover:text-indigo-300">
               eg3h1t@gmail.com

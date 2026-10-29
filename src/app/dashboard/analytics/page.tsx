@@ -11,8 +11,8 @@ export default async function AnalyticsPage() {
   if (!hasSupabaseConfig()) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16">
-        <h1 className="text-2xl font-semibold">Analytics</h1>
-        <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">Supabase is not configured.</p>
+        <h1 className="text-2xl font-semibold">Analitik</h1>
+        <p className="mt-4 text-sm text-zinc-400">Supabase yapılandırılmamış.</p>
       </div>
     );
   }
@@ -27,14 +27,14 @@ export default async function AnalyticsPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
-      <h1 className="text-2xl font-semibold">Analytics</h1>
-      <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Metrics are computed from stored events.
+      <h1 className="text-2xl font-semibold text-white">Analitik</h1>
+      <p className="mt-2 text-sm text-zinc-400">
+        Metrikler kayıtlı olaylardan hesaplanır.
       </p>
 
       <div className="mt-8 space-y-8">
         {stores.length === 0 && (
-          <p className="text-sm text-zinc-600 dark:text-zinc-400">Create a store first.</p>
+          <p className="text-sm text-zinc-400">Önce bir mağaza oluşturun.</p>
         )}
         {stores.map((store) => (
           <StoreAnalyticsSection key={store.id} store={store} />

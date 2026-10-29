@@ -29,11 +29,11 @@ export function ModuleToggle({
       disabled={loading}
       className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
         enabled
-          ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300"
-          : "bg-zinc-200 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
+          ? "bg-emerald-400/10 text-emerald-300 ring-1 ring-emerald-400/20"
+          : "bg-white/5 text-zinc-400 ring-1 ring-white/10"
       }`}
     >
-      {loading ? "..." : enabled ? "Enabled" : "Disabled"}
+      {loading ? "..." : enabled ? "Etkin" : "Devre Dışı"}
     </button>
   );
 }

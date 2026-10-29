@@ -17,17 +17,17 @@ export default function SignInPage() {
     e.preventDefault();
     setMessage(null);
     if (!hasSupabaseConfig()) {
-      setMessage("Supabase is not configured. Set the required environment variables.");
+      setMessage("Supabase yapılandırılmamış. Gerekli ortam değişkenlerini ayarlayın.");
       return;
     }
     setLoading(true);
     try {
       const supabase = createSupabaseBrowserClient();
       const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) setMessage(error.message);
+      if (error) setMessage("Giriş başarısız. E-posta veya şifrenizi kontrol edin.");
       else router.push("/dashboard");
-    } catch (err) {
-      setMessage(err instanceof Error ? err.message : "Sign in failed.");
+    } catch {
+      setMessage("Giriş sırasında bir hata oluştu. Lütfen tekrar deneyin.");
     } finally {
       setLoading(false);
     }
@@ -35,14 +35,12 @@ export default function SignInPage() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-4">
-      <h1 className="text-2xl font-semibold">Sign in</h1>
-      <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Access your lassyy dashboard.
-      </p>
+      <h1 className="text-2xl font-semibold text-white">Giriş Yap</h1>
+      <p className="mt-2 text-sm text-zinc-400">lassyy paneline erişin.</p>
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
         <div>
           <label className="text-sm font-medium" htmlFor="email">
-            Email
+            E-posta
           </label>
           <input
             id="email"
@@ -55,7 +53,7 @@ export default function SignInPage() {
         </div>
         <div>
           <label className="text-sm font-medium" htmlFor="password">
-            Password
+            Şifre
           </label>
           <input
             id="password"
@@ -72,13 +70,13 @@ export default function SignInPage() {
           disabled={loading}
           className="accent-gradient glow-button w-full rounded-xl py-2.5 text-sm font-semibold text-white disabled:opacity-50"
         >
-          {loading ? "Signing in..." : "Sign in"}
+          {loading ? "Giriş yapılıyor..." : "Giriş Yap"}
         </button>
       </form>
       <p className="mt-4 text-sm text-zinc-400">
-        No account?{" "}
+        Hesabınız yok mu?{" "}
         <Link href="/sign-up" className="font-medium text-indigo-300 hover:text-indigo-200">
-          Create one
+          Hesap oluşturun
         </Link>
       </p>
     </div>

@@ -16,6 +16,13 @@ import { StoreRecommendationsSection } from "@/components/dashboard/store-recomm
 const MODULES = ["wheel", "countdown", "analytics", "recommendations"] as const;
 type ModuleKey = (typeof MODULES)[number];
 
+const moduleTitles: Record<ModuleKey, string> = {
+  wheel: "Çarkıfelek İndirimi Ayarları",
+  countdown: "Geri Sayım Kampanyası Ayarları",
+  analytics: "Analitik",
+  recommendations: "Ürün Önerileri",
+};
+
 export default async function ModuleSettingsPage({
   params,
 }: {
@@ -26,8 +33,8 @@ export default async function ModuleSettingsPage({
   if (!hasSupabaseConfig()) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16">
-        <h1 className="text-2xl font-semibold">Module settings</h1>
-        <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">Supabase is not configured.</p>
+        <h1 className="text-2xl font-semibold">Modül ayarları</h1>
+        <p className="mt-4 text-sm text-zinc-400">Supabase yapılandırılmamış.</p>
       </div>
     );
   }
@@ -49,12 +56,12 @@ export default async function ModuleSettingsPage({
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
       <div className="mb-6">
-        <Link href="/dashboard/modules" className="text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">
-          ← Back to modules
+        <Link href="/dashboard/modules" className="text-sm text-zinc-400 transition-colors hover:text-white">
+          ← Modüllere dön
         </Link>
-        <h1 className="mt-2 text-2xl font-semibold capitalize">{moduleKey} settings</h1>
-        <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-          Store: {store.name} ({store.slug})
+        <h1 className="mt-2 text-2xl font-semibold text-white">{moduleTitles[moduleKey]}</h1>
+        <p className="mt-1 text-sm text-zinc-400">
+          Mağaza: {store.name} ({store.slug})
         </p>
       </div>
 

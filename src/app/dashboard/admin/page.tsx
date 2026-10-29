@@ -10,8 +10,8 @@ export default async function AdminPage() {
   if (!hasSupabaseConfig()) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16">
-        <h1 className="text-2xl font-semibold">Platform admin</h1>
-        <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">Supabase is not configured.</p>
+        <h1 className="text-2xl font-semibold">Platform yönetimi</h1>
+        <p className="mt-4 text-sm text-zinc-400">Supabase yapılandırılmamış.</p>
       </div>
     );
   }
@@ -30,21 +30,20 @@ export default async function AdminPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
-      <h1 className="text-2xl font-semibold">Platform administration</h1>
-      <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Privileged view. Access verified server-side.
+      <h1 className="text-2xl font-semibold text-white">Platform yönetimi</h1>
+      <p className="mt-2 text-sm text-zinc-400">
+        Ayrıcalıklı görünüm. Erişim sunucu tarafında doğrulanır.
       </p>
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
-        <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-950">
-          <p className="text-xs text-zinc-500">Users</p>
-          <p className="mt-2 text-2xl font-semibold">{users ?? 0}</p>
+        <div className="surface rounded-2xl p-5">
+          <p className="text-xs text-zinc-500">Kullanıcılar</p>
+          <p className="mt-2 text-2xl font-semibold text-white">{users ?? 0}</p>
         </div>
-        <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-950">
-          <p className="text-xs text-zinc-500">Stores</p>
-          <p className="mt-2 text-2xl font-semibold">{stores ?? 0}</p>
+        <div className="surface rounded-2xl p-5">
+          <p className="text-xs text-zinc-500">Mağazalar</p>
+          <p className="mt-2 text-2xl font-semibold text-white">{stores ?? 0}</p>
         </div>
       </div>
     </div>
   );
 }
-

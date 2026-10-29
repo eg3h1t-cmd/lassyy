@@ -33,13 +33,13 @@ export async function getRecommendationConfig(storeId: string): Promise<Recommen
 
 export async function setRecommendationConfigAction(input: { storeId: string; products: RecommendationProduct[] }) {
   const parsed = z.object({ storeId: z.string().uuid(), products: z.array(productSchema).max(24) }).safeParse(input);
-  if (!parsed.success) return { ok: false as const, error: "Invalid input" };
+  if (!parsed.success) return { ok: false as const, error: "Geçersiz giriş" };
 
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return { ok: false as const, error: "Unauthorized" };
+  if (!user) return { ok: false as const, error: "Yetkisiz işlem" };
 
   const { error } = await supabase.from("store_modules").upsert(
     {

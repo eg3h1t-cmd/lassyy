@@ -6,7 +6,7 @@ import type { WheelConfig, WheelSegment } from "@/lib/validations/wheel";
 
 const blankSegment = (): WheelSegment => ({
   id: crypto.randomUUID(),
-  label: "New prize",
+  label: "Yeni ödül",
   color: "#6366f1",
   prizeType: "none",
   weight: 10,
@@ -45,9 +45,9 @@ export function WheelSettingsForm({
         config: { title, description, segments, spinDurationMs: initialConfig.spinDurationMs ?? 4000 },
         status,
       });
-      setMessage(result.ok ? "Wheel settings saved." : result.error);
-    } catch (err) {
-      setMessage(err instanceof Error ? err.message : "Save failed.");
+      setMessage(result.ok ? "Çark ayarları kaydedildi." : result.error);
+    } catch {
+      setMessage("Kaydedilemedi. Lütfen tekrar deneyin.");
     } finally {
       setLoading(false);
     }
@@ -57,123 +57,123 @@ export function WheelSettingsForm({
     <div className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="text-sm">
-          <span className="font-medium">Title</span>
+          <span className="font-medium text-zinc-200">Başlık</span>
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-white outline-none focus:border-indigo-400/50"
           />
         </label>
         <label className="text-sm">
-          <span className="font-medium">Status</span>
+          <span className="font-medium text-zinc-200">Durum</span>
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-white outline-none focus:border-indigo-400/50"
           >
-            <option value="draft">Draft</option>
-            <option value="active">Active</option>
-            <option value="paused">Paused</option>
-            <option value="archived">Archived</option>
+            <option value="draft">Taslak</option>
+            <option value="active">Etkin</option>
+            <option value="paused">Duraklatıldı</option>
+            <option value="archived">Arşivlendi</option>
           </select>
         </label>
       </div>
 
       <label className="block text-sm">
-        <span className="font-medium">Description / promotional copy</span>
+        <span className="font-medium text-zinc-200">Açıklama / promosyon metni</span>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={2}
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-white outline-none focus:border-indigo-400/50"
         />
       </label>
 
       <div>
         <div className="flex items-center justify-between">
-          <h3 className="font-semibold">Wheel segments</h3>
+          <h3 className="font-semibold text-white">Çark dilimleri</h3>
           <button
             type="button"
             onClick={() => setSegments((prev) => [...prev, blankSegment()])}
-            className="rounded-md border border-zinc-300 px-3 py-1 text-xs font-medium hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-900"
+            className="rounded-md border border-white/10 bg-white/[0.03] px-3 py-1 text-xs font-medium text-zinc-200 transition-colors hover:bg-white/[0.06]"
           >
-            Add segment
+            Dilim ekle
           </button>
         </div>
         <div className="mt-3 space-y-3">
           {segments.map((segment) => (
-            <div key={segment.id} className="rounded-xl border border-zinc-200 p-3 dark:border-zinc-800">
+            <div key={segment.id} className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-3">
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
-                <label className="text-xs sm:col-span-2">
-                  Label
+                <label className="text-xs text-zinc-400">
+                  Etiket
                   <input
                     value={segment.label}
                     onChange={(e) => updateSegment(segment.id, { label: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-zinc-300 px-2 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+                    className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-2 py-1.5 text-sm text-white outline-none focus:border-indigo-400/50"
                   />
                 </label>
-                <label className="text-xs">
-                  Color
+                <label className="text-xs text-zinc-400">
+                  Renk
                   <input
                     type="color"
                     value={segment.color}
                     onChange={(e) => updateSegment(segment.id, { color: e.target.value })}
-                    className="mt-1 h-9 w-full rounded-lg border border-zinc-300 dark:border-zinc-700"
+                    className="mt-1 h-9 w-full rounded-lg border border-white/10"
                   />
                 </label>
-                <label className="text-xs">
-                  Prize
+                <label className="text-xs text-zinc-400">
+                  Ödül
                   <select
                     value={segment.prizeType}
                     onChange={(e) => updateSegment(segment.id, { prizeType: e.target.value as WheelSegment["prizeType"] })}
-                    className="mt-1 w-full rounded-lg border border-zinc-300 px-2 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+                    className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-2 py-1.5 text-sm text-white outline-none focus:border-indigo-400/50"
                   >
-                    <option value="coupon">Coupon</option>
-                    <option value="none">No prize</option>
+                    <option value="coupon">Kupon</option>
+                    <option value="none">Ödül yok</option>
                   </select>
                 </label>
-                <label className="text-xs">
-                  Weight
+                <label className="text-xs text-zinc-400">
+                  Ağırlık
                   <input
                     type="number"
                     min={1}
                     max={1000}
                     value={segment.weight}
                     onChange={(e) => updateSegment(segment.id, { weight: Number(e.target.value) })}
-                    className="mt-1 w-full rounded-lg border border-zinc-300 px-2 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+                    className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-2 py-1.5 text-sm text-white outline-none focus:border-indigo-400/50"
                   />
                 </label>
                 <button
                   type="button"
                   onClick={() => removeSegment(segment.id)}
-                  className="self-end rounded-lg border border-red-200 px-2 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50 dark:border-red-900 dark:text-red-400 dark:hover:bg-red-950"
+                  className="self-end rounded-lg border border-red-400/20 px-2 py-1.5 text-xs font-medium text-red-300 transition-colors hover:bg-red-500/10"
                 >
-                  Remove
+                  Kaldır
                 </button>
               </div>
 
               {segment.prizeType === "coupon" && (
                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                  <label className="text-xs">
-                    Discount type
+                  <label className="text-xs text-zinc-400">
+                    İndirim türü
                     <select
                       value={segment.discountType ?? "percentage"}
                       onChange={(e) => updateSegment(segment.id, { discountType: e.target.value as WheelSegment["discountType"] })}
-                      className="mt-1 w-full rounded-lg border border-zinc-300 px-2 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+                      className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-2 py-1.5 text-sm text-white outline-none focus:border-indigo-400/50"
                     >
-                      <option value="percentage">Percentage</option>
-                      <option value="fixed">Fixed amount</option>
+                      <option value="percentage">Yüzde</option>
+                      <option value="fixed">Sabit tutar</option>
                     </select>
                   </label>
-                  <label className="text-xs">
-                    Discount value
+                  <label className="text-xs text-zinc-400">
+                    İndirim değeri
                     <input
                       type="number"
                       min={0}
                       step="0.01"
                       value={segment.discountValue ?? 0}
                       onChange={(e) => updateSegment(segment.id, { discountValue: Number(e.target.value) })}
-                      className="mt-1 w-full rounded-lg border border-zinc-300 px-2 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+                      className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-2 py-1.5 text-sm text-white outline-none focus:border-indigo-400/50"
                     />
                   </label>
                 </div>
@@ -188,11 +188,11 @@ export function WheelSettingsForm({
           type="button"
           onClick={save}
           disabled={loading}
-          className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+          className="accent-gradient glow-button rounded-lg px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
         >
-          {loading ? "Saving..." : "Save wheel settings"}
+          {loading ? "Kaydediliyor..." : "Çark ayarlarını kaydet"}
         </button>
-        {message && <p className="text-sm text-zinc-600 dark:text-zinc-400">{message}</p>}
+        {message && <p className="text-sm text-zinc-400">{message}</p>}
       </div>
     </div>
   );

@@ -26,13 +26,13 @@ function generateCouponCode(): string {
 
 export async function createWheelCampaignAction(input: unknown) {
   const parsed = createCampaignSchema.safeParse(input);
-  if (!parsed.success) return { ok: false as const, error: "Invalid input" };
+  if (!parsed.success) return { ok: false as const, error: "Geçersiz giriş" };
 
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return { ok: false as const, error: "Unauthorized" };
+  if (!user) return { ok: false as const, error: "Yetkisiz işlem" };
 
   const { storeId, config, status, startsAt, endsAt } = parsed.data;
 
@@ -122,13 +122,13 @@ export async function getWheelSettings(storeId: string): Promise<{
 
 export async function saveWheelSettingsAction(input: unknown) {
   const parsed = saveSettingsSchema.safeParse(input);
-  if (!parsed.success) return { ok: false as const, error: "Invalid input" };
+  if (!parsed.success) return { ok: false as const, error: "Geçersiz giriş" };
 
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return { ok: false as const, error: "Unauthorized" };
+  if (!user) return { ok: false as const, error: "Yetkisiz işlem" };
 
   const { storeId, config, status } = parsed.data;
 
@@ -190,13 +190,13 @@ const statusSchema = z.object({
 
 export async function setWheelCampaignStatusAction(input: unknown) {
   const parsed = statusSchema.safeParse(input);
-  if (!parsed.success) return { ok: false as const, error: "Invalid input" };
+  if (!parsed.success) return { ok: false as const, error: "Geçersiz giriş" };
 
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return { ok: false as const, error: "Unauthorized" };
+  if (!user) return { ok: false as const, error: "Yetkisiz işlem" };
 
   const { error } = await supabase
     .from("campaigns")
@@ -250,7 +250,7 @@ function pickSegment(segments: WheelConfig["segments"]) {
 }
 
 export async function spinWheelAction(campaignId: string) {
-  if (!hasSupabaseConfig()) return { ok: false as const, error: "Supabase not configured" };
+  if (!hasSupabaseConfig()) return { ok: false as const, error: "Supabase yapılandırılmamış." };
 
   const supabase = await createSupabaseServerClient();
   const {
@@ -260,7 +260,7 @@ export async function spinWheelAction(campaignId: string) {
   const rateKey = `spin:${campaignId}:${user?.id ?? "anon"}`;
   const rate = await checkRateLimitAsync(rateKey, 5, 60_000);
   if (!rate.allowed) {
-    return { ok: false as const, error: "Too many spins. Try again later." };
+    return { ok: false as const, error: "Çok fazla çevirme denemesi. Lütfen daha sonra tekrar deneyin." };
   }
 
   const { data: campaign, error: campErr } = await supabase
@@ -269,14 +269,14 @@ export async function spinWheelAction(campaignId: string) {
     .eq("id", campaignId)
     .single();
 
-  if (campErr || !campaign) return { ok: false as const, error: "Campaign not found" };
-  if (campaign.status !== "active") return { ok: false as const, error: "Campaign not active" };
+  if (campErr || !campaign) return { ok: false as const, error: "Kampanya bulunamadı." };
+  if (campaign.status !== "active") return { ok: false as const, error: "Kampanya etkin değil." };
   const now = new Date();
-  if (campaign.starts_at && new Date(campaign.starts_at) > now) return { ok: false as const, error: "Campaign not started" };
-  if (campaign.ends_at && new Date(campaign.ends_at) < now) return { ok: false as const, error: "Campaign expired" };
+  if (campaign.starts_at && new Date(campaign.starts_at) > now) return { ok: false as const, error: "Kampanya henüz başlamadı." };
+  if (campaign.ends_at && new Date(campaign.ends_at) < now) return { ok: false as const, error: "Kampanyanın süresi doldu." };
 
   const config = wheelConfigSchema.safeParse(campaign.config);
-  if (!config.success) return { ok: false as const, error: "Invalid campaign config" };
+  if (!config.success) return { ok: false as const, error: "Geçersiz kampanya yapılandırması." };
 
   const segment = pickSegment(config.data.segments);
 
@@ -334,7 +334,7 @@ const redeemSchema = z.object({
 
 export async function redeemCouponAction(input: unknown) {
   const parsed = redeemSchema.safeParse(input);
-  if (!parsed.success) return { ok: false as const, error: "Invalid input" };
+  if (!parsed.success) return { ok: false as const, error: "Geçersiz giriş" };
 
   const supabase = await createSupabaseServerClient();
   const { code, customerEmail } = parsed.data;
@@ -345,10 +345,10 @@ export async function redeemCouponAction(input: unknown) {
     .eq("code", code)
     .maybeSingle();
 
-  if (error || !coupon) return { ok: false as const, error: "Coupon not found" };
-  if (coupon.status !== "active") return { ok: false as const, error: "Coupon not active" };
-  if (coupon.expires_at && new Date(coupon.expires_at) < new Date()) return { ok: false as const, error: "Coupon expired" };
-  if (coupon.usage_count >= coupon.usage_limit) return { ok: false as const, error: "Coupon already used" };
+  if (error || !coupon) return { ok: false as const, error: "Kupon bulunamadı." };
+  if (coupon.status !== "active") return { ok: false as const, error: "Kupon etkin değil." };
+  if (coupon.expires_at && new Date(coupon.expires_at) < new Date()) return { ok: false as const, error: "Kuponun süresi doldu." };
+  if (coupon.usage_count >= coupon.usage_limit) return { ok: false as const, error: "Kupon daha önce kullanıldı." };
 
   const service = createSupabaseServiceClient();
   const client = service ?? supabase;
@@ -366,5 +366,5 @@ export async function redeemCouponAction(input: unknown) {
     metadata: {},
   });
 
-  return { ok: true as const, message: "Coupon redeemed" };
+  return { ok: true as const, message: "Kupon kullanıldı." };
 }

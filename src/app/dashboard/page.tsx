@@ -1,6 +1,7 @@
 export const instant = false;
 import { redirect } from "next/navigation";
 import { connection } from "next/server";
+import Link from "next/link";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { hasSupabaseConfig } from "@/lib/env";
 import { listMyStores } from "@/server/stores";
@@ -11,10 +12,10 @@ export default async function DashboardPage() {
   if (!hasSupabaseConfig()) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16">
-        <h1 className="text-2xl font-semibold">Dashboard</h1>
-        <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
-          Supabase is not configured. Set NEXT_PUBLIC_SUPABASE_URL and
-          NEXT_PUBLIC_SUPABASE_ANON_KEY to enable authentication and data.
+        <h1 className="text-2xl font-semibold">Genel Bakış</h1>
+        <p className="mt-4 text-sm text-zinc-400">
+          Supabase yapılandırılmamış. Kimlik doğrulama ve veri için NEXT_PUBLIC_SUPABASE_URL
+          ve NEXT_PUBLIC_SUPABASE_ANON_KEY değerlerini ayarlayın.
         </p>
       </div>
     );
@@ -31,31 +32,30 @@ export default async function DashboardPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
-      <h1 className="text-2xl font-semibold">Dashboard</h1>
-      <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Signed in as {user.email}.
-      </p>
+      <h1 className="text-2xl font-semibold text-white">Genel Bakış</h1>
+      <p className="mt-2 text-sm text-zinc-400">Giriş yapıldı: {user.email}</p>
 
       <section className="mt-8">
-        <h2 className="text-lg font-semibold">Create a store</h2>
+        <h2 className="text-lg font-semibold text-white">Mağaza oluştur</h2>
         <StoreCreateForm />
       </section>
 
       <section className="mt-10">
-        <h2 className="text-lg font-semibold">Your stores</h2>
+        <h2 className="text-lg font-semibold text-white">Mağazalarınız</h2>
         {stores.length === 0 ? (
-          <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
-            No stores yet. Create one above.
-          </p>
+          <p className="mt-3 text-sm text-zinc-400">Henüz mağaza yok. Yukarıdan bir mağaza oluşturun.</p>
         ) : (
           <ul className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {stores.map((store) => (
-              <li
-                key={store.id}
-                className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-950"
-              >
-                <p className="font-semibold">{store.name}</p>
+              <li key={store.id} className="surface surface-hover rounded-2xl p-5">
+                <p className="font-semibold text-white">{store.name}</p>
                 <p className="mt-1 text-xs text-zinc-500">{store.slug}</p>
+                <Link
+                  href={`/dashboard/${store.slug}/modules/wheel`}
+                  className="mt-4 inline-flex text-xs font-medium text-indigo-300 transition-colors hover:text-indigo-200"
+                >
+                  Modülleri yapılandır →
+                </Link>
               </li>
             ))}
           </ul>
@@ -64,4 +64,3 @@ export default async function DashboardPage() {
     </div>
   );
 }
-

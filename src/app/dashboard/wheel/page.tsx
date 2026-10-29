@@ -12,8 +12,8 @@ export default async function WheelPage() {
   if (!hasSupabaseConfig()) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16">
-        <h1 className="text-2xl font-semibold">Discount wheel</h1>
-        <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">Supabase is not configured.</p>
+        <h1 className="text-2xl font-semibold">İndirim çarkı</h1>
+        <p className="mt-4 text-sm text-zinc-400">Supabase yapılandırılmamış.</p>
       </div>
     );
   }
@@ -28,20 +28,20 @@ export default async function WheelPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
-      <h1 className="text-2xl font-semibold">Discount spin wheel</h1>
-      <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Create and manage wheel campaigns. Outcomes are determined on the server.
+      <h1 className="text-2xl font-semibold text-white">Çarkıfelek İndirimi</h1>
+      <p className="mt-2 text-sm text-zinc-400">
+        Çark kampanyaları oluşturun ve yönetin. Sonuçlar sunucu tarafında belirlenir.
       </p>
 
       <section className="mt-8">
-        <h2 className="text-lg font-semibold">Create campaign</h2>
+        <h2 className="text-lg font-semibold text-white">Kampanya oluştur</h2>
         <WheelCreateForm stores={stores} />
       </section>
 
       <section className="mt-10">
-        <h2 className="text-lg font-semibold">Existing campaigns</h2>
+        <h2 className="text-lg font-semibold text-white">Mevcut kampanyalar</h2>
         {stores.length === 0 ? (
-          <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">Create a store first.</p>
+          <p className="mt-3 text-sm text-zinc-400">Önce bir mağaza oluşturun.</p>
         ) : (
           <div className="mt-4 space-y-6">
             {stores.map((store) => (

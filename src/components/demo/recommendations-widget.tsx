@@ -23,14 +23,14 @@ export function RecommendationsWidget({
   if (products.length === 0) {
     return (
       <div className="rounded-2xl border border-dashed border-zinc-300 p-6 text-sm text-zinc-500 dark:border-zinc-700">
-        No recommendations configured yet.
+        Henüz öneri yapılandırılmadı.
       </div>
     );
   }
 
   return (
     <div className="rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950">
-      <h3 className="font-semibold">You may also like</h3>
+      <h3 className="font-semibold text-white">Şunlar da ilginizi çekebilir</h3>
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
         {products.map((p) => (
           <a

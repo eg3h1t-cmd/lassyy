@@ -13,8 +13,8 @@ export default async function ModulesPage() {
   if (!hasSupabaseConfig()) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16">
-        <h1 className="text-2xl font-semibold">Modules</h1>
-        <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">Supabase is not configured.</p>
+        <h1 className="text-2xl font-semibold">Modüller</h1>
+        <p className="mt-4 text-sm text-zinc-400">Supabase yapılandırılmamış.</p>
       </div>
     );
   }
@@ -30,13 +30,13 @@ export default async function ModulesPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
-      <h1 className="text-2xl font-semibold">Module configuration</h1>
-      <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Enable or disable modules per store.
+      <h1 className="text-2xl font-semibold text-white">Modül yapılandırması</h1>
+      <p className="mt-2 text-sm text-zinc-400">
+        Modülleri mağaza bazında etkinleştirin veya devre dışı bırakın.
       </p>
 
       {stores.length === 0 ? (
-        <p className="mt-6 text-sm text-zinc-600 dark:text-zinc-400">Create a store first.</p>
+        <p className="mt-6 text-sm text-zinc-400">Önce bir mağaza oluşturun.</p>
       ) : (
         <div className="mt-6 space-y-8">
           {stores.map((store) => (

@@ -21,13 +21,13 @@ export type WheelSegment = z.infer<typeof wheelSegmentSchema>;
 export type WheelConfig = z.infer<typeof wheelConfigSchema>;
 
 export const defaultWheelConfig: WheelConfig = {
-  title: "Spin to win",
+  title: "Çevir kazan",
   description: "",
   spinDurationMs: 4000,
   segments: [
-    { id: "s1", label: "10% off", color: "#ef4444", prizeType: "coupon", discountType: "percentage", discountValue: 10, weight: 40 },
-    { id: "s2", label: "15% off", color: "#f59e0b", prizeType: "coupon", discountType: "percentage", discountValue: 15, weight: 25 },
-    { id: "s3", label: "Free shipping", color: "#10b981", prizeType: "coupon", discountType: "fixed", discountValue: 0, weight: 20 },
-    { id: "s4", label: "Try again", color: "#6b7280", prizeType: "none", weight: 15 },
+    { id: "s1", label: "%10 indirim", color: "#ef4444", prizeType: "coupon", discountType: "percentage", discountValue: 10, weight: 40 },
+    { id: "s2", label: "%15 indirim", color: "#f59e0b", prizeType: "coupon", discountType: "percentage", discountValue: 15, weight: 25 },
+    { id: "s3", label: "Ücretsiz kargo", color: "#10b981", prizeType: "coupon", discountType: "fixed", discountValue: 0, weight: 20 },
+    { id: "s4", label: "Tekrar dene", color: "#6b7280", prizeType: "none", weight: 15 },
   ],
 };

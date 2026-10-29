@@ -11,8 +11,8 @@ export default async function RecommendationsPage() {
   if (!hasSupabaseConfig()) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16">
-        <h1 className="text-2xl font-semibold">Product recommendations</h1>
-        <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">Supabase is not configured.</p>
+        <h1 className="text-2xl font-semibold">Ürün Önerileri</h1>
+        <p className="mt-4 text-sm text-zinc-400">Supabase yapılandırılmamış.</p>
       </div>
     );
   }
@@ -27,13 +27,13 @@ export default async function RecommendationsPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
-      <h1 className="text-2xl font-semibold">Product recommendations</h1>
-      <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Manually configure complementary products shown to shoppers.
+      <h1 className="text-2xl font-semibold text-white">Ürün Önerileri</h1>
+      <p className="mt-2 text-sm text-zinc-400">
+        Müşterilere gösterilecek tamamlayıcı ürünleri manuel olarak yapılandırın.
       </p>
 
       <div className="mt-8 space-y-8">
-        {stores.length === 0 && <p className="text-sm text-zinc-600 dark:text-zinc-400">Create a store first.</p>}
+        {stores.length === 0 && <p className="text-sm text-zinc-400">Önce bir mağaza oluşturun.</p>}
         {stores.map((store) => (
           <StoreRecommendationsSection key={store.id} store={store} />
         ))}

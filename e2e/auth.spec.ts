@@ -1,13 +1,13 @@
 import { test, expect } from "@playwright/test";
 
-test("sign-in page shows form", async ({ page }) => {
+test("giriş sayfası formu gösterir", async ({ page }) => {
   await page.goto("/sign-in");
-  await expect(page.getByRole("heading", { name: "Sign in" })).toBeVisible();
-  await expect(page.getByLabel("Email")).toBeVisible();
-  await expect(page.getByLabel("Password")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Giriş Yap" })).toBeVisible();
+  await expect(page.getByLabel("E-posta")).toBeVisible();
+  await expect(page.getByLabel("Şifre")).toBeVisible();
 });
 
-test("sign-up page shows form", async ({ page }) => {
+test("kayıt sayfası formu gösterir", async ({ page }) => {
   await page.goto("/sign-up");
-  await expect(page.getByRole("heading", { name: "Create account" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Hesap Oluştur" })).toBeVisible();
 });

@@ -1,12 +1,12 @@
 import Link from "next/link";
 
 const links = [
-  { href: "/dashboard", label: "Overview" },
-  { href: "/dashboard/modules", label: "Modules" },
-  { href: "/dashboard/wheel", label: "Wheel" },
-  { href: "/dashboard/countdown", label: "Countdown" },
-  { href: "/dashboard/recommendations", label: "Recommendations" },
-  { href: "/dashboard/analytics", label: "Analytics" },
+  { href: "/dashboard", label: "Genel Bakış" },
+  { href: "/dashboard/modules", label: "Modüller" },
+  { href: "/dashboard/wheel", label: "Çark" },
+  { href: "/dashboard/countdown", label: "Geri Sayım" },
+  { href: "/dashboard/recommendations", label: "Öneriler" },
+  { href: "/dashboard/analytics", label: "Analitik" },
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -20,7 +20,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </span>
             lassyy
           </Link>
-          <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm" aria-label="Dashboard">
+          <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm" aria-label="Panel">
             {links.map((link) => (
               <Link
                 key={link.href}
@@ -31,7 +31,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               </Link>
             ))}
             <Link href="/demo" className="text-indigo-300 transition-colors hover:text-indigo-200">
-              Demo storefront
+              Demo Vitrin
             </Link>
           </nav>
         </div>

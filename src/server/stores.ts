@@ -12,7 +12,7 @@ export type CreateStoreResult =
 export async function createStoreAction(input: unknown): Promise<CreateStoreResult> {
   const parsed = createStoreSchema.safeParse(input);
   if (!parsed.success) {
-    return { ok: false, error: "Invalid input", fieldErrors: parsed.error.flatten().fieldErrors };
+    return { ok: false, error: "Geçersiz giriş", fieldErrors: parsed.error.flatten().fieldErrors };
   }
 
   const supabase = await createSupabaseServerClient();
@@ -20,7 +20,7 @@ export async function createStoreAction(input: unknown): Promise<CreateStoreResu
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) {
-    return { ok: false, error: "You must be signed in." };
+    return { ok: false, error: "Giriş yapmanız gerekiyor." };
   }
 
   const { data, error } = await supabase

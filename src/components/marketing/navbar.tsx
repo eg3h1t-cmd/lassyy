@@ -1,11 +1,11 @@
 import Link from "next/link";
 
 const nav = [
-  { href: "#features", label: "Features" },
-  { href: "#modules", label: "Modules" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#faq", label: "FAQ" },
-  { href: "#contact", label: "Contact" },
+  { href: "#features", label: "Özellikler" },
+  { href: "#modules", label: "Modüller" },
+  { href: "#pricing", label: "Fiyatlandırma" },
+  { href: "#faq", label: "SSS" },
+  { href: "#contact", label: "İletişim" },
 ];
 
 export function Navbar() {
@@ -21,7 +21,7 @@ export function Navbar() {
             <span className="ml-0.5 inline-block h-1.5 w-1.5 rounded-full bg-indigo-400 align-middle shadow-[0_0_10px_rgba(129,140,248,0.9)]" />
           </span>
         </Link>
-        <nav className="hidden items-center gap-6 md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-6 md:flex" aria-label="Ana menü">
           {nav.map((item) => (
             <a
               key={item.href}
@@ -37,13 +37,13 @@ export function Navbar() {
             href="/sign-in"
             className="inline-flex h-9 items-center justify-center rounded-lg px-3 text-sm font-medium text-zinc-300 transition-colors hover:bg-white/5 hover:text-white"
           >
-            Sign in
+            Giriş Yap
           </Link>
           <Link
             href="/sign-up"
             className="accent-gradient glow-button inline-flex h-9 items-center justify-center rounded-lg px-4 text-sm font-semibold text-white"
           >
-            Get started
+            Ücretsiz Başla
           </Link>
         </div>
       </div>

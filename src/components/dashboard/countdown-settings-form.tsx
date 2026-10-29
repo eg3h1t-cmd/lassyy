@@ -41,9 +41,9 @@ export function CountdownSettingsForm({
         },
         status,
       });
-      setMessage(result.ok ? "Countdown settings saved." : result.error);
-    } catch (err) {
-      setMessage(err instanceof Error ? err.message : "Save failed.");
+      setMessage(result.ok ? "Geri sayım ayarları kaydedildi." : result.error);
+    } catch {
+      setMessage("Kaydedilemedi. Lütfen tekrar deneyin.");
     } finally {
       setLoading(false);
     }
@@ -53,45 +53,45 @@ export function CountdownSettingsForm({
     <div className="space-y-5">
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="text-sm">
-          <span className="font-medium">Campaign title</span>
+          <span className="font-medium text-zinc-200">Kampanya başlığı</span>
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-white outline-none focus:border-indigo-400/50"
           />
         </label>
         <label className="text-sm">
-          <span className="font-medium">End date & time</span>
+          <span className="font-medium text-zinc-200">Bitiş tarihi ve saati</span>
           <input
             type="datetime-local"
             value={endsAt}
             onChange={(e) => setEndsAt(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-white outline-none focus:border-indigo-400/50"
           />
         </label>
       </div>
 
       <label className="block text-sm">
-        <span className="font-medium">Banner text</span>
+        <span className="font-medium text-zinc-200">Banner metni</span>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={3}
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-white outline-none focus:border-indigo-400/50"
         />
       </label>
 
       <label className="block max-w-xs text-sm">
-        <span className="font-medium">Status</span>
+        <span className="font-medium text-zinc-200">Durum</span>
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value)}
-          className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 dark:border-zinc-700 dark:bg-zinc-900"
+          className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-white outline-none focus:border-indigo-400/50"
         >
-          <option value="draft">Draft</option>
-          <option value="active">Active</option>
-          <option value="paused">Paused</option>
-          <option value="archived">Archived</option>
+          <option value="draft">Taslak</option>
+          <option value="active">Etkin</option>
+          <option value="paused">Duraklatıldı</option>
+          <option value="archived">Arşivlendi</option>
         </select>
       </label>
 
@@ -100,11 +100,11 @@ export function CountdownSettingsForm({
           type="button"
           onClick={save}
           disabled={loading}
-          className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+          className="accent-gradient glow-button rounded-lg px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
         >
-          {loading ? "Saving..." : "Save countdown settings"}
+          {loading ? "Kaydediliyor..." : "Geri sayım ayarlarını kaydet"}
         </button>
-        {message && <p className="text-sm text-zinc-600 dark:text-zinc-400">{message}</p>}
+        {message && <p className="text-sm text-zinc-400">{message}</p>}
       </div>
     </div>
   );

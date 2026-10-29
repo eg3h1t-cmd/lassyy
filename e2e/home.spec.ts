@@ -1,14 +1,14 @@
 import { test, expect } from "@playwright/test";
 
-test("home page renders hero and navigation", async ({ page }) => {
+test("ana sayfa hero ve navigasyonu gösterir", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: /Grow store revenue/i })).toBeVisible();
-  await expect(page.getByRole("link", { name: /Get started/i })).toBeVisible();
-  await expect(page.getByRole("link", { name: /Sign in/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Mağaza gelirinizi/i })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Ücretsiz Başla", exact: true }).first()).toBeVisible();
+  await expect(page.getByRole("link", { name: "Giriş Yap", exact: true }).first()).toBeVisible();
 });
 
-test("pricing and faq sections visible", async ({ page }) => {
+test("fiyatlandırma ve SSS bölümleri görünür", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Pricing" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Frequently asked questions" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Fiyatlandırma" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Sıkça Sorulan Sorular" })).toBeVisible();
 });

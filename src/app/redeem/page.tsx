@@ -15,10 +15,10 @@ export default function RedeemPage() {
     setLoading(true);
     try {
       const result = await redeemCouponAction({ code, customerEmail: email || undefined });
-      if (result.ok) setMessage(result.message);
+      if (result.ok) setMessage("Kupon başarıyla kullanıldı.");
       else setMessage(result.error);
-    } catch (err) {
-      setMessage(err instanceof Error ? err.message : "Redemption failed.");
+    } catch {
+      setMessage("Kupon kullanılamadı. Lütfen tekrar deneyin.");
     } finally {
       setLoading(false);
     }
@@ -26,28 +26,29 @@ export default function RedeemPage() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-4">
-      <h1 className="text-2xl font-semibold">Redeem coupon</h1>
+      <h1 className="text-2xl font-semibold text-white">Kupon Kullan</h1>
+      <p className="mt-2 text-sm text-zinc-400">Kupon kodunuzu girerek indiriminizi kullanın.</p>
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
         <input
-          placeholder="Coupon code"
+          placeholder="Kupon kodu"
           value={code}
           onChange={(e) => setCode(e.target.value)}
-          className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+          className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
         />
         <input
           type="email"
-          placeholder="Email (optional)"
+          placeholder="E-posta (isteğe bağlı)"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+          className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
         />
-        {message && <p className="text-sm text-zinc-600 dark:text-zinc-400">{message}</p>}
+        {message && <p className="text-sm text-zinc-300">{message}</p>}
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-lg bg-zinc-900 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+          className="accent-gradient glow-button w-full rounded-xl py-2.5 text-sm font-semibold text-white disabled:opacity-50"
         >
-          {loading ? "Redeeming..." : "Redeem"}
+          {loading ? "Kullanılıyor..." : "Kullan"}
         </button>
       </form>
     </div>

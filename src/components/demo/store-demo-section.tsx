@@ -12,7 +12,7 @@ export async function StoreDemoSection({ store }: { store: { id: string; name: s
 
   return (
     <section className="space-y-6">
-      <h2 className="text-lg font-semibold">{store.name}</h2>
+      <h2 className="text-lg font-semibold text-white">{store.name}</h2>
 
       {wheelCampaign ? (
         <WheelWidget
@@ -22,7 +22,7 @@ export async function StoreDemoSection({ store }: { store: { id: string; name: s
         />
       ) : (
         <p className="rounded-xl border border-dashed border-zinc-300 p-4 text-sm text-zinc-500 dark:border-zinc-700">
-          No active spin wheel campaign. Create or activate one in the dashboard.
+          Aktif çark kampanyası yok. Panelden bir kampanya oluşturun veya etkinleştirin.
         </p>
       )}
 

@@ -57,8 +57,8 @@ export function WheelWidget({
         });
         setSpinning(false);
       }, 4200);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Spin failed");
+    } catch {
+      setError("Çark çevrilemedi. Lütfen tekrar deneyin.");
       setSpinning(false);
     }
   }
@@ -68,17 +68,17 @@ export function WheelWidget({
     .join(", ");
 
   return (
-    <div className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-950">
-      <h3 className="text-lg font-semibold">{title}</h3>
+    <div className="surface rounded-2xl p-6">
+      <h3 className="text-lg font-semibold text-white">{title}</h3>
       <div className="mt-4 flex flex-col items-center gap-4">
         <div
-          className="relative h-64 w-64 rounded-full border-4 border-zinc-300 transition-transform duration-[4200ms] ease-out dark:border-zinc-700"
+          className="relative h-64 w-64 rounded-full border-4 border-white/10 shadow-[0_0_60px_-20px_rgba(129,140,248,0.6)] transition-transform duration-[4200ms] ease-out"
           style={{ transform: `rotate(${rotation}deg)`, background: `conic-gradient(${gradient})` }}
         >
           {segments.map((s, i) => (
             <span
               key={s.id}
-              className="absolute left-1/2 top-1/2 text-xs font-medium text-white"
+              className="absolute left-1/2 top-1/2 text-xs font-medium text-white drop-shadow"
               style={{
                 transform: `rotate(${i * slice + slice / 2}deg) translate(0, -90px) rotate(-${i * slice + slice / 2}deg)`,
                 transformOrigin: "center",
@@ -88,23 +88,29 @@ export function WheelWidget({
             </span>
           ))}
         </div>
-        <div className="h-0 w-0 border-l-8 border-r-8 border-t-12 border-l-transparent border-r-transparent border-t-zinc-900 dark:border-t-white" />
+        <div className="h-0 w-0 border-l-8 border-r-8 border-t-12 border-l-transparent border-r-transparent border-t-white" />
         <button
           onClick={spin}
           disabled={spinning}
-          className="rounded-lg bg-zinc-900 px-6 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+          className="accent-gradient glow-button rounded-xl px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-50"
         >
-          {spinning ? "Spinning..." : "Spin"}
+          {spinning ? "Dönüyor..." : "Çevir"}
         </button>
       </div>
-      {error && <p className="mt-4 text-sm text-red-600 dark:text-red-400">{error}</p>}
+      {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
       {result && (
-        <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm dark:border-emerald-800 dark:bg-emerald-900/20">
-          <p className="font-medium">Result: {result.label}</p>
+        <div className="mt-4 rounded-xl border border-emerald-400/20 bg-emerald-400/[0.06] p-4 text-sm">
+          <p className="font-medium text-emerald-200">Sonuç: {result.label}</p>
           {result.couponCode && (
             <>
-              <p className="mt-1">Coupon code: <span className="font-mono font-semibold">{result.couponCode}</span></p>
-              {result.expiresAt && <p className="mt-1 text-xs text-zinc-500">Expires {new Date(result.expiresAt).toLocaleString()}</p>}
+              <p className="mt-1 text-zinc-200">
+                Kupon kodu: <span className="font-mono font-semibold text-white">{result.couponCode}</span>
+              </p>
+              {result.expiresAt && (
+                <p className="mt-1 text-xs text-zinc-500">
+                  Son kullanma: {new Date(result.expiresAt).toLocaleString("tr-TR")}
+                </p>
+              )}
             </>
           )}
         </div>

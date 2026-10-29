@@ -1,19 +1,19 @@
 const faqs = [
   {
-    q: "Is this connected to my real store yet?",
-    a: "The first version includes a controlled demo storefront. Real store integrations are documented as future work.",
+    q: "Gerçek mağazama bağlı mı?",
+    a: "İlk sürüm kontrollü bir demo vitrin içeriyor. Gerçek mağaza entegrasyonları gelecek çalışmalar olarak belgelenmiştir.",
   },
   {
-    q: "How is tenant data protected?",
-    a: "Supabase Row Level Security policies and server-side authorization checks enforce per-store isolation.",
+    q: "Mağaza verilerim nasıl korunuyor?",
+    a: "Supabase Satır Düzeyi Güvenlik politikaları ve sunucu taraflı yetkilendirme kontrolleri mağaza bazında izolasyonu sağlar.",
   },
   {
-    q: "Can I run it locally?",
-    a: "Yes. Follow the setup instructions in README.md. Supabase credentials are required for auth and persistence.",
+    q: "Yerelde çalıştırabilir miyim?",
+    a: "Evet. README.md dosyasındaki kurulum adımlarını izleyin. Kimlik doğrulama ve kalıcı veri için Supabase bilgileri gereklidir.",
   },
   {
-    q: "Are payments supported?",
-    a: "No. Subscription readiness is modeled, but no payment provider is integrated in this version.",
+    q: "Ödeme desteği var mı?",
+    a: "Hayır. Abonelik altyapısı modellendi ancak bu sürümde gerçek bir ödeme sağlayıcısı entegre edilmedi.",
   },
 ];
 
@@ -21,7 +21,7 @@ export function Faq() {
   return (
     <section id="faq" className="border-t border-white/[0.06] py-20">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
-        <h2 className="text-3xl font-semibold tracking-tight text-white">Frequently asked questions</h2>
+        <h2 className="text-3xl font-semibold tracking-tight text-white">Sıkça Sorulan Sorular</h2>
         <div className="mt-8 space-y-4">
           {faqs.map((f) => (
             <div key={f.q} className="surface surface-hover rounded-2xl p-5">

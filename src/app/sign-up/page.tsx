@@ -15,17 +15,17 @@ export default function SignUpPage() {
     e.preventDefault();
     setMessage(null);
     if (!hasSupabaseConfig()) {
-      setMessage("Supabase is not configured. Set the required environment variables.");
+      setMessage("Supabase yapılandırılmamış. Gerekli ortam değişkenlerini ayarlayın.");
       return;
     }
     setLoading(true);
     try {
       const supabase = createSupabaseBrowserClient();
       const { error } = await supabase.auth.signUp({ email, password });
-      if (error) setMessage(error.message);
-      else setMessage("Check your email to confirm your account, then sign in.");
-    } catch (err) {
-      setMessage(err instanceof Error ? err.message : "Sign up failed.");
+      if (error) setMessage("Kayıt başarısız. Bilgilerinizi kontrol edip tekrar deneyin.");
+      else setMessage("Hesabınızı onaylamak için e-postanızı kontrol edin, ardından giriş yapın.");
+    } catch {
+      setMessage("Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyin.");
     } finally {
       setLoading(false);
     }
@@ -33,14 +33,12 @@ export default function SignUpPage() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-4">
-      <h1 className="text-2xl font-semibold">Create account</h1>
-      <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Start managing your store promotions.
-      </p>
+      <h1 className="text-2xl font-semibold text-white">Hesap Oluştur</h1>
+      <p className="mt-2 text-sm text-zinc-400">Mağaza promosyonlarınızı yönetmeye başlayın.</p>
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
         <div>
           <label className="text-sm font-medium" htmlFor="email">
-            Email
+            E-posta
           </label>
           <input
             id="email"
@@ -53,7 +51,7 @@ export default function SignUpPage() {
         </div>
         <div>
           <label className="text-sm font-medium" htmlFor="password">
-            Password
+            Şifre
           </label>
           <input
             id="password"
@@ -71,13 +69,13 @@ export default function SignUpPage() {
           disabled={loading}
           className="accent-gradient glow-button w-full rounded-xl py-2.5 text-sm font-semibold text-white disabled:opacity-50"
         >
-          {loading ? "Creating..." : "Create account"}
+          {loading ? "Hesap oluşturuluyor..." : "Hesap Oluştur"}
         </button>
       </form>
       <p className="mt-4 text-sm text-zinc-400">
-        Already have an account?{" "}
+        Zaten hesabınız var mı?{" "}
         <Link href="/sign-in" className="font-medium text-indigo-300 hover:text-indigo-200">
-          Sign in
+          Giriş yapın
         </Link>
       </p>
     </div>

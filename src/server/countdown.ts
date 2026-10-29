@@ -21,13 +21,13 @@ const createSchema = z.object({
 
 export async function createCountdownCampaignAction(input: unknown) {
   const parsed = createSchema.safeParse(input);
-  if (!parsed.success) return { ok: false as const, error: "Invalid input" };
+  if (!parsed.success) return { ok: false as const, error: "Geçersiz giriş" };
 
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return { ok: false as const, error: "Unauthorized" };
+  if (!user) return { ok: false as const, error: "Yetkisiz işlem" };
 
   const { storeId, title, description, endsAt, startsAt, status } = parsed.data;
   const { data, error } = await supabase
@@ -138,13 +138,13 @@ export async function getCountdownSettings(storeId: string): Promise<{
 
 export async function saveCountdownSettingsAction(input: unknown) {
   const parsed = saveSettingsSchema.safeParse(input);
-  if (!parsed.success) return { ok: false as const, error: "Invalid input" };
+  if (!parsed.success) return { ok: false as const, error: "Geçersiz giriş" };
 
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return { ok: false as const, error: "Unauthorized" };
+  if (!user) return { ok: false as const, error: "Yetkisiz işlem" };
 
   const { storeId, config, status } = parsed.data;
 

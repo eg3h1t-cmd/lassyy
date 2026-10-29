@@ -29,13 +29,13 @@ export async function listStoreModules(storeId: string) {
 
 export async function setModuleEnabledAction(input: unknown) {
   const parsed = setModuleSchema.safeParse(input);
-  if (!parsed.success) return { ok: false as const, error: "Invalid input" };
+  if (!parsed.success) return { ok: false as const, error: "Geçersiz giriş" };
 
   const supabase = await createSupabaseServerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return { ok: false as const, error: "Unauthorized" };
+  if (!user) return { ok: false as const, error: "Yetkisiz işlem" };
 
   const { storeId, moduleId, enabled } = parsed.data;
 

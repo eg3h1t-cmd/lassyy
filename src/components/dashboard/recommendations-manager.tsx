@@ -38,10 +38,10 @@ export function RecommendationsManager({
     setMessage(null);
     try {
       const result = await setRecommendationConfigAction({ storeId, products });
-      if (result.ok) setMessage("Saved.");
+      if (result.ok) setMessage("Kaydedildi.");
       else setMessage(result.error);
-    } catch (err) {
-      setMessage(err instanceof Error ? err.message : "Failed.");
+    } catch {
+      setMessage("Kaydedilemedi. Lütfen tekrar deneyin.");
     } finally {
       setLoading(false);
     }
@@ -51,53 +51,53 @@ export function RecommendationsManager({
     <div className="space-y-4">
       <div className="grid gap-2 sm:grid-cols-4">
         <input
-          placeholder="Product name"
+          placeholder="Ürün adı"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="rounded-lg border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+          className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
         />
         <input
-          placeholder="Image URL"
+          placeholder="Görsel URL"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
-          className="rounded-lg border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+          className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
         />
         <input
-          placeholder="Product URL"
+          placeholder="Ürün URL"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          className="rounded-lg border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+          className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
         />
         <button
           type="button"
           onClick={add}
-          className="rounded-lg bg-zinc-200 px-3 py-2 text-sm font-medium hover:bg-zinc-300 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+          className="rounded-lg border border-white/10 bg-white/[0.05] px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10"
         >
-          Add
+          Ekle
         </button>
       </div>
 
       <ul className="space-y-2">
         {products.map((p) => (
-          <li key={p.id} className="flex items-center justify-between rounded-xl border border-zinc-200 p-3 text-sm dark:border-zinc-800">
-            <span>{p.name}</span>
-            <button onClick={() => remove(p.id)} className="text-red-600 hover:underline dark:text-red-400">
-              Remove
+          <li key={p.id} className="flex items-center justify-between rounded-xl border border-white/[0.08] bg-white/[0.02] p-3 text-sm">
+            <span className="text-zinc-200">{p.name}</span>
+            <button onClick={() => remove(p.id)} className="text-red-400 transition-colors hover:text-red-300">
+              Kaldır
             </button>
           </li>
         ))}
-        {products.length === 0 && <li className="text-sm text-zinc-500">No products yet.</li>}
+        {products.length === 0 && <li className="text-sm text-zinc-500">Henüz ürün eklenmedi.</li>}
       </ul>
 
       <button
         type="button"
         onClick={save}
         disabled={loading}
-        className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+        className="accent-gradient glow-button rounded-lg px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
       >
-        {loading ? "Saving..." : "Save recommendations"}
+        {loading ? "Kaydediliyor..." : "Önerileri kaydet"}
       </button>
-      {message && <p className="text-sm text-zinc-600 dark:text-zinc-400">{message}</p>}
+      {message && <p className="text-sm text-zinc-400">{message}</p>}
     </div>
   );
 }

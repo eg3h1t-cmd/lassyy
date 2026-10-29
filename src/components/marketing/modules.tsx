@@ -1,37 +1,37 @@
 const modules = [
   {
-    name: "Discount Spin Wheel",
-    description: "Configurable prize wheel with server-issued coupons and abuse prevention.",
+    name: "Çarkıfelek İndirimi",
+    description: "Sunucu taraflı kupon korumalı ödül çarkı.",
     accent: "from-rose-400 to-orange-400",
     glow: "bg-rose-500/10",
   },
   {
-    name: "Product Recommendations",
-    description: "Manual complementary product sets with impression and click tracking.",
+    name: "Ürün Önerileri",
+    description: "Gösterim ve tıklama takipli tamamlayıcı ürün setleri.",
     accent: "from-sky-400 to-indigo-400",
     glow: "bg-sky-500/10",
   },
   {
-    name: "Countdown Campaigns",
-    description: "Time-bound campaigns with trusted server timestamps and expiry handling.",
+    name: "Geri Sayım Kampanyaları",
+    description: "Güvenli zaman damgalı süre sınırlı kampanyalar.",
     accent: "from-emerald-400 to-cyan-400",
     glow: "bg-emerald-500/10",
   },
   {
-    name: "Analytics",
-    description: "Store-scoped metrics from real events, with sensible date filters and empty states.",
+    name: "Analitik",
+    description: "Gerçek zamanlı ve mağaza odaklı metrik takibi.",
     accent: "from-violet-400 to-fuchsia-400",
     glow: "bg-violet-500/10",
   },
   {
-    name: "Exit-Intent Popups",
-    description: "Smart discount popups triggered when a visitor is about to leave the store.",
+    name: "Çıkış Niyetli Pop-uplar",
+    description: "Kullanıcı siteden ayrılmak üzereyken tetiklenen akıllı teklifler.",
     accent: "from-fuchsia-400 to-pink-400",
     glow: "bg-fuchsia-500/10",
   },
   {
-    name: "Smart Cart Upsells",
-    description: "Dynamic product suggestions based on cart value, plus a free-shipping progress bar.",
+    name: "Akıllı Sepet Önerileri",
+    description: "Sepet tutarına göre dinamik ürün ve kargo avantajları.",
     accent: "from-amber-400 to-emerald-400",
     glow: "bg-amber-500/10",
   },
@@ -41,9 +41,9 @@ export function Modules() {
   return (
     <section id="modules" className="border-t border-white/[0.06] py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <h2 className="text-3xl font-semibold tracking-tight text-white">Marketing modules</h2>
+        <h2 className="text-3xl font-semibold tracking-tight text-white">Pazarlama Modülleri</h2>
         <p className="mt-3 max-w-2xl text-zinc-400">
-          Six independent modules with their own configuration, authorization, and tests.
+          Her biri kendi yapılandırmasına, yetkilendirmesine ve testlerine sahip altı bağımsız modül.
         </p>
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {modules.map((m) => (

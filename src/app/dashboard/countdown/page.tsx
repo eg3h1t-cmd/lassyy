@@ -12,8 +12,8 @@ export default async function CountdownPage() {
   if (!hasSupabaseConfig()) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-16">
-        <h1 className="text-2xl font-semibold">Countdown campaigns</h1>
-        <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">Supabase is not configured.</p>
+        <h1 className="text-2xl font-semibold">Geri Sayım Kampanyaları</h1>
+        <p className="mt-4 text-sm text-zinc-400">Supabase yapılandırılmamış.</p>
       </div>
     );
   }
@@ -28,20 +28,20 @@ export default async function CountdownPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
-      <h1 className="text-2xl font-semibold">Countdown campaigns</h1>
-      <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-        Time-bound campaigns with trusted server end dates.
+      <h1 className="text-2xl font-semibold text-white">Geri Sayım Kampanyaları</h1>
+      <p className="mt-2 text-sm text-zinc-400">
+        Sunucu taraflı güvenli bitiş tarihli, süre sınırlı kampanyalar.
       </p>
 
       <section className="mt-8">
-        <h2 className="text-lg font-semibold">Create campaign</h2>
+        <h2 className="text-lg font-semibold text-white">Kampanya oluştur</h2>
         <CountdownCreateForm stores={stores} />
       </section>
 
       <section className="mt-10">
-        <h2 className="text-lg font-semibold">Existing campaigns</h2>
+        <h2 className="text-lg font-semibold text-white">Mevcut kampanyalar</h2>
         {stores.length === 0 ? (
-          <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">Create a store first.</p>
+          <p className="mt-3 text-sm text-zinc-400">Önce bir mağaza oluşturun.</p>
         ) : (
           <div className="mt-4 space-y-6">
             {stores.map((store) => (

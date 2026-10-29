@@ -1,32 +1,32 @@
 const features = [
   {
-    title: "Multi-tenant stores",
-    description: "Each store's data is isolated with row-level security and server-verified ownership.",
+    title: "Çok kiracılı mağazalar",
+    description: "Her mağazanın verisi satır düzeyi güvenlik ve sunucu taraflı sahiplik doğrulamasıyla izole edilir.",
     accent: "from-indigo-400 to-violet-400",
   },
   {
-    title: "Campaign management",
-    description: "Create, schedule, activate, pause, and archive promotional campaigns with audit trails.",
+    title: "Kampanya yönetimi",
+    description: "Promosyon kampanyalarını denetim izleriyle oluşturun, planlayın, etkinleştirin, duraklatın ve arşivleyin.",
     accent: "from-sky-400 to-cyan-400",
   },
   {
-    title: "Marketing widgets",
-    description: "Configure discount wheels, recommendations, and countdowns with live previews.",
+    title: "Pazarlama widget'ları",
+    description: "İndirim çarklarını, önerileri ve geri sayımları canlı önizlemelerle yapılandırın.",
     accent: "from-fuchsia-400 to-pink-400",
   },
   {
-    title: "Coupon engine",
-    description: "Server-validated coupon issuance, expiry, usage limits, and redemption tracking.",
+    title: "Kupon motoru",
+    description: "Sunucu taraflı doğrulanan kupon üretimi, son kullanma, kullanım limitleri ve kullanım takibi.",
     accent: "from-emerald-400 to-teal-400",
   },
   {
-    title: "Analytics",
-    description: "Track impressions, interactions, issuance, and redemptions from real stored events.",
+    title: "Analitik",
+    description: "Gösterimleri, etkileşimleri, kupon üretimini ve kullanımlarını gerçek kayıtlı olaylardan takip edin.",
     accent: "from-amber-400 to-orange-400",
   },
   {
-    title: "Team access",
-    description: "Invite staff with scoped permissions and protect sensitive store settings.",
+    title: "Ekip erişimi",
+    description: "Kapsamlı izinlerle ekip arkadaşlarınızı davet edin ve hassas mağaza ayarlarını koruyun.",
     accent: "from-rose-400 to-red-400",
   },
 ];
@@ -35,9 +35,9 @@ export function Features() {
   return (
     <section id="features" className="border-t border-white/[0.06] py-20">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <h2 className="text-3xl font-semibold tracking-tight text-white">Everything you need to run promotions</h2>
+        <h2 className="text-3xl font-semibold tracking-tight text-white">Promosyonlarınızı yönetmek için ihtiyacınız olan her şey</h2>
         <p className="mt-3 max-w-2xl text-zinc-400">
-          A modular platform that keeps configuration, rendering, coupon logic, and analytics clearly separated.
+          Yapılandırma, render, kupon mantığı ve analitiği birbirinden net şekilde ayıran modüler bir platform.
         </p>
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((f) => (

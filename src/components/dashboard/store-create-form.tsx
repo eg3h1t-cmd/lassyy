@@ -18,12 +18,12 @@ export function StoreCreateForm() {
       if (!result.ok) {
         setMessage(result.error);
       } else {
-        setMessage("Store created.");
+        setMessage("Mağaza oluşturuldu.");
         setName("");
         setSlug("");
       }
-    } catch (err) {
-      setMessage(err instanceof Error ? err.message : "Failed to create store.");
+    } catch {
+      setMessage("Mağaza oluşturulamadı. Lütfen tekrar deneyin.");
     } finally {
       setLoading(false);
     }
@@ -32,25 +32,25 @@ export function StoreCreateForm() {
   return (
     <form onSubmit={onSubmit} className="mt-4 grid gap-3 sm:grid-cols-3">
       <input
-        placeholder="Store name"
+        placeholder="Mağaza adı"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="rounded-lg border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+        className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none transition-colors placeholder:text-zinc-500 focus:border-indigo-400/50"
       />
       <input
-        placeholder="store-slug"
+        placeholder="magaza-slug"
         value={slug}
         onChange={(e) => setSlug(e.target.value)}
-        className="rounded-lg border border-zinc-300 px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+        className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none transition-colors placeholder:text-zinc-500 focus:border-indigo-400/50"
       />
       <button
         type="submit"
         disabled={loading}
-        className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+        className="accent-gradient glow-button rounded-lg px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"
       >
-        {loading ? "Creating..." : "Create store"}
+        {loading ? "Oluşturuluyor..." : "Mağaza oluştur"}
       </button>
-      {message && <p className="sm:col-span-3 text-sm text-zinc-600 dark:text-zinc-400">{message}</p>}
+      {message && <p className="sm:col-span-3 text-sm text-zinc-400">{message}</p>}
     </form>
   );
 }
