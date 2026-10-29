@@ -43,6 +43,23 @@ export async function createStoreAction(input: unknown): Promise<CreateStoreResu
   return { ok: true, storeId: data.id };
 }
 
+export async function getStoreBySlug(slug: string) {
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return null;
+
+  const { data, error } = await supabase
+    .from("stores")
+    .select("id, name, slug, owner_id, created_at")
+    .eq("slug", slug)
+    .maybeSingle();
+
+  if (error || !data) return null;
+  return data;
+}
+
 export async function listMyStores() {
   const supabase = await createSupabaseServerClient();
   const {

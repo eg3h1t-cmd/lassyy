@@ -6,23 +6,7 @@ import { randomInt } from "node:crypto";
 import { createSupabaseServerClient, createSupabaseServiceClient } from "@/lib/supabase/server";
 import { hasSupabaseConfig } from "@/lib/env";
 import { checkRateLimit } from "@/lib/rate-limit";
-
-const segmentSchema = z.object({
-  id: z.string().min(1),
-  label: z.string().min(1).max(60),
-  color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
-  prizeType: z.enum(["coupon", "none"]),
-  discountType: z.enum(["percentage", "fixed"]).optional(),
-  discountValue: z.number().min(0).optional(),
-  weight: z.number().int().min(1).max(1000),
-});
-
-const wheelConfigSchema = z.object({
-  title: z.string().min(1).max(120),
-  description: z.string().max(500).optional(),
-  segments: z.array(segmentSchema).min(2).max(12),
-  spinDurationMs: z.number().int().min(2000).max(8000).default(4000),
-});
+import { wheelConfigSchema, defaultWheelConfig, type WheelConfig } from "@/lib/validations/wheel";
 
 const createCampaignSchema = z.object({
   storeId: z.string().uuid(),
@@ -69,6 +53,104 @@ export async function createWheelCampaignAction(input: unknown) {
   if (error) return { ok: false as const, error: error.message };
   revalidatePath("/dashboard/wheel");
   return { ok: true as const, campaignId: data.id };
+}
+
+const saveSettingsSchema = z.object({
+  storeId: z.string().uuid(),
+  config: wheelConfigSchema,
+  status: z.enum(["draft", "active", "paused", "archived"]).default("draft"),
+});
+
+export async function getWheelSettings(storeId: string): Promise<{
+  config: WheelConfig;
+  campaignId: string | null;
+  status: string;
+}> {
+  const supabase = await createSupabaseServerClient();
+  const [{ data: moduleRow }, { data: campaign }] = await Promise.all([
+    supabase
+      .from("store_modules")
+      .select("config")
+      .eq("store_id", storeId)
+      .eq("module_id", "discount-spin-wheel")
+      .maybeSingle(),
+    supabase
+      .from("campaigns")
+      .select("id, status, config")
+      .eq("store_id", storeId)
+      .eq("module_id", "discount-spin-wheel")
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+  ]);
+
+  let config = defaultWheelConfig;
+  const source = moduleRow?.config ?? campaign?.config;
+  if (source) {
+    const parsed = wheelConfigSchema.safeParse(source);
+    if (parsed.success) config = parsed.data;
+  }
+
+  return {
+    config,
+    campaignId: campaign?.id ?? null,
+    status: campaign?.status ?? "draft",
+  };
+}
+
+export async function saveWheelSettingsAction(input: unknown) {
+  const parsed = saveSettingsSchema.safeParse(input);
+  if (!parsed.success) return { ok: false as const, error: "Invalid input" };
+
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false as const, error: "Unauthorized" };
+
+  const { storeId, config, status } = parsed.data;
+
+  const { error: moduleError } = await supabase.from("store_modules").upsert(
+    {
+      store_id: storeId,
+      module_id: "discount-spin-wheel",
+      enabled: true,
+      config,
+    },
+    { onConflict: "store_id,module_id" },
+  );
+  if (moduleError) return { ok: false as const, error: moduleError.message };
+
+  const { data: existing } = await supabase
+    .from("campaigns")
+    .select("id")
+    .eq("store_id", storeId)
+    .eq("module_id", "discount-spin-wheel")
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (existing) {
+    const { error } = await supabase
+      .from("campaigns")
+      .update({ name: config.title, config, status })
+      .eq("id", existing.id);
+    if (error) return { ok: false as const, error: error.message };
+  } else {
+    const { error } = await supabase.from("campaigns").insert({
+      store_id: storeId,
+      module_id: "discount-spin-wheel",
+      name: config.title,
+      status,
+      config,
+      created_by: user.id,
+    });
+    if (error) return { ok: false as const, error: error.message };
+  }
+
+  revalidatePath("/dashboard");
+  revalidatePath("/demo");
+  return { ok: true as const };
 }
 
 const statusSchema = z.object({
@@ -127,7 +209,7 @@ export async function getActiveWheelCampaign(storeId: string) {
   return data;
 }
 
-function pickSegment(segments: z.infer<typeof segmentSchema>[]) {
+function pickSegment(segments: WheelConfig["segments"]) {
   const total = segments.reduce((s, seg) => s + seg.weight, 0);
   let r = randomInt(0, total);
   for (const seg of segments) {

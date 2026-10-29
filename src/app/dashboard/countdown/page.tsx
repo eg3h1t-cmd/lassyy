@@ -1,4 +1,5 @@
 export const instant = false;
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { connection } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -33,8 +34,8 @@ export default async function CountdownPage() {
         Time-bound campaigns with trusted server end dates.
       </p>
       <nav className="mt-4 flex gap-4 text-sm">
-        <a href="/dashboard" className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">Overview</a>
-        <a href="/dashboard/countdown" className="font-medium text-zinc-900 dark:text-zinc-100">Countdown</a>
+        <Link href="/dashboard" className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">Overview</Link>
+        <Link href="/dashboard/countdown" className="font-medium text-zinc-900 dark:text-zinc-100">Countdown</Link>
       </nav>
 
       <section className="mt-8">

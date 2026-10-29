@@ -3,6 +3,11 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import {
+  countdownConfigSchema,
+  getDefaultCountdownConfig,
+  type CountdownConfig,
+} from "@/lib/validations/countdown";
 
 const createSchema = z.object({
   storeId: z.string().uuid(),
@@ -69,4 +74,104 @@ export async function getActiveCountdowns(storeId: string) {
     .order("created_at", { ascending: false });
   if (error) return [];
   return (data ?? []).filter((c) => !c.ends_at || new Date(c.ends_at) > new Date());
+}
+const saveSettingsSchema = z.object({
+  storeId: z.string().uuid(),
+  config: countdownConfigSchema,
+  status: z.enum(["draft", "active", "paused", "archived"]).default("draft"),
+});
+
+export async function getCountdownSettings(storeId: string): Promise<{
+  config: CountdownConfig;
+  campaignId: string | null;
+  status: string;
+}> {
+  const supabase = await createSupabaseServerClient();
+  const { data: campaign } = await supabase
+    .from("campaigns")
+    .select("id, name, status, starts_at, ends_at, config")
+    .eq("store_id", storeId)
+    .eq("module_id", "countdown-campaigns")
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (!campaign) {
+    return { config: getDefaultCountdownConfig(), campaignId: null, status: "draft" };
+  }
+
+  const cfg = (campaign.config ?? {}) as { title?: string; description?: string };
+  return {
+    config: {
+      title: cfg.title ?? campaign.name,
+      description: cfg.description ?? "",
+      endsAt: campaign.ends_at ?? getDefaultCountdownConfig().endsAt,
+      startsAt: campaign.starts_at ?? null,
+    },
+    campaignId: campaign.id,
+    status: campaign.status,
+  };
+}
+
+export async function saveCountdownSettingsAction(input: unknown) {
+  const parsed = saveSettingsSchema.safeParse(input);
+  if (!parsed.success) return { ok: false as const, error: "Invalid input" };
+
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false as const, error: "Unauthorized" };
+
+  const { storeId, config, status } = parsed.data;
+
+  const { error: moduleError } = await supabase.from("store_modules").upsert(
+    {
+      store_id: storeId,
+      module_id: "countdown-campaigns",
+      enabled: true,
+      config: { title: config.title, description: config.description ?? "" },
+    },
+    { onConflict: "store_id,module_id" },
+  );
+  if (moduleError) return { ok: false as const, error: moduleError.message };
+
+  const { data: existing } = await supabase
+    .from("campaigns")
+    .select("id")
+    .eq("store_id", storeId)
+    .eq("module_id", "countdown-campaigns")
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (existing) {
+    const { error } = await supabase
+      .from("campaigns")
+      .update({
+        name: config.title,
+        status,
+        starts_at: config.startsAt ?? null,
+        ends_at: config.endsAt,
+        config: { title: config.title, description: config.description ?? "" },
+      })
+      .eq("id", existing.id);
+    if (error) return { ok: false as const, error: error.message };
+  } else {
+    const { error } = await supabase.from("campaigns").insert({
+      store_id: storeId,
+      module_id: "countdown-campaigns",
+      name: config.title,
+      status,
+      starts_at: config.startsAt ?? null,
+      ends_at: config.endsAt,
+      config: { title: config.title, description: config.description ?? "" },
+      created_by: user.id,
+    });
+    if (error) return { ok: false as const, error: error.message };
+  }
+
+  revalidatePath("/dashboard");
+  revalidatePath("/demo");
+  return { ok: true as const };
 }
