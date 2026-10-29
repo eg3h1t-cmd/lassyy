@@ -52,28 +52,16 @@ export default async function DashboardPage() {
                 <p className="mt-1 text-xs text-zinc-500">{store.slug}</p>
                 <div className="mt-4 flex flex-wrap gap-4 text-xs font-medium">
                   <Link
-                    href={`/dashboard/${store.slug}/modules/wheel`}
+                    href={`/dashboard/${store.slug}/store`}
                     className="text-indigo-300 transition-colors hover:text-indigo-200"
                   >
-                    Modülleri yapılandır →
+                    Modül mağazası →
                   </Link>
                   <Link
-                    href={`/dashboard/${store.slug}/plan`}
+                    href={`/dashboard/${store.slug}/modules/wheel`}
                     className="text-zinc-400 transition-colors hover:text-white"
                   >
-                    Plan ve kullanım
-                  </Link>
-                  <Link
-                    href={`/dashboard/${store.slug}/team`}
-                    className="text-zinc-400 transition-colors hover:text-white"
-                  >
-                    Ekip
-                  </Link>
-                  <Link
-                    href={`/dashboard/${store.slug}/api`}
-                    className="text-zinc-400 transition-colors hover:text-white"
-                  >
-                    API
+                    Modülleri yapılandır
                   </Link>
                 </div>
               </li>

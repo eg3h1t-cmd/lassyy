@@ -9,6 +9,6 @@ test("ana sayfa hero ve navigasyonu gösterir", async ({ page }) => {
 
 test("fiyatlandırma ve SSS bölümleri görünür", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Fiyatlandırma" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Modül Fiyatları" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Sıkça Sorulan Sorular" })).toBeVisible();
 });
