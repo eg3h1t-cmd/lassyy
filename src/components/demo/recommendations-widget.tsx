@@ -33,6 +33,8 @@ export function RecommendationsWidget({
           <a
             key={p.id}
             href={p.url || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => trackRecommendationEvent({ storeId, eventType: "click", productId: p.id }).catch(() => {})}
             className="flex items-center gap-3 rounded-xl border border-zinc-200 p-3 hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-900"
           >
