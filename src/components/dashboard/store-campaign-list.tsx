@@ -1,4 +1,5 @@
 import { listWheelCampaigns } from "@/server/wheel";
+import { CampaignStatusButton } from "@/components/dashboard/campaign-status-button";
 
 export async function StoreCampaignList({ store }: { store: { id: string; name: string } }) {
   const campaigns = await listWheelCampaigns(store.id);
@@ -10,9 +11,12 @@ export async function StoreCampaignList({ store }: { store: { id: string; name: 
       ) : (
         <ul className="mt-2 space-y-2">
           {campaigns.map((c) => (
-            <li key={c.id} className="rounded-xl border border-zinc-200 p-3 text-sm dark:border-zinc-800">
-              <span className="font-medium">{c.name}</span>{" "}
-              <span className="text-zinc-500">({c.status})</span>
+            <li
+              key={c.id}
+              className="flex items-center justify-between rounded-xl border border-zinc-200 p-3 text-sm dark:border-zinc-800"
+            >
+              <span className="font-medium">{c.name}</span>
+              <CampaignStatusButton campaignId={c.id} currentStatus={c.status} />
             </li>
           ))}
         </ul>

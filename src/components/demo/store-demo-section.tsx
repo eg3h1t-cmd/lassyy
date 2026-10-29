@@ -13,13 +13,19 @@ export async function StoreDemoSection({ store }: { store: { id: string; name: s
   return (
     <section className="space-y-6">
       <h2 className="text-lg font-semibold">{store.name}</h2>
-      {wheelCampaign && (
+
+      {wheelCampaign ? (
         <WheelWidget
           campaignId={wheelCampaign.id}
           title={(wheelCampaign.config as { title: string }).title}
           segments={(wheelCampaign.config as { segments: { id: string; label: string; color: string }[] }).segments}
         />
+      ) : (
+        <p className="rounded-xl border border-dashed border-zinc-300 p-4 text-sm text-zinc-500 dark:border-zinc-700">
+          No active spin wheel campaign. Create or activate one in the dashboard.
+        </p>
       )}
+
       {countdowns.map((c) => (
         <CountdownWidget
           key={c.id}
@@ -28,6 +34,7 @@ export async function StoreDemoSection({ store }: { store: { id: string; name: s
           endsAt={c.ends_at as string}
         />
       ))}
+
       <RecommendationsWidget storeId={store.id} products={products} />
     </section>
   );

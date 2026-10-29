@@ -71,6 +71,32 @@ export async function createWheelCampaignAction(input: unknown) {
   return { ok: true as const, campaignId: data.id };
 }
 
+const statusSchema = z.object({
+  campaignId: z.string().uuid(),
+  status: z.enum(["draft", "active", "paused", "archived"]),
+});
+
+export async function setWheelCampaignStatusAction(input: unknown) {
+  const parsed = statusSchema.safeParse(input);
+  if (!parsed.success) return { ok: false as const, error: "Invalid input" };
+
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false as const, error: "Unauthorized" };
+
+  const { error } = await supabase
+    .from("campaigns")
+    .update({ status: parsed.data.status })
+    .eq("id", parsed.data.campaignId);
+  if (error) return { ok: false as const, error: error.message };
+
+  revalidatePath("/dashboard/wheel");
+  revalidatePath("/demo");
+  return { ok: true as const };
+}
+
 export async function listWheelCampaigns(storeId: string) {
   const supabase = await createSupabaseServerClient();
   const { data, error } = await supabase
