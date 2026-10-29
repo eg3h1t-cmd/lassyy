@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { createSupabaseServerClient, createSupabaseServiceClient } from "@/lib/supabase/server";
 import { hasSupabaseConfig } from "@/lib/env";
+import { canRecordInteraction } from "@/server/subscriptions";
 
 const productSchema = z.object({
   id: z.string().min(1),
@@ -61,6 +62,7 @@ export async function trackRecommendationEvent(input: {
   productId?: string;
 }) {
   if (!hasSupabaseConfig()) return;
+  if (!(await canRecordInteraction(input.storeId))) return;
   const supabase = await createSupabaseServerClient();
   const service = createSupabaseServiceClient();
   const client = service ?? supabase;

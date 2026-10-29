@@ -1,44 +1,52 @@
 "use server";
 
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { getStorePlan } from "@/server/subscriptions";
 
-export async function getStoreAnalytics(storeId: string) {
+export async function getStoreAnalytics(storeId: string, days = 30) {
   const supabase = await createSupabaseServerClient();
-  const { count: impressions } = await supabase
-    .from("analytics_events")
-    .select("id", { count: "exact", head: true })
-    .eq("store_id", storeId)
-    .eq("event_type", "widget_impression");
-  const { count: spins } = await supabase
-    .from("analytics_events")
-    .select("id", { count: "exact", head: true })
-    .eq("store_id", storeId)
-    .eq("event_type", "wheel_spin");
-  const { count: coupons } = await supabase
-    .from("coupons")
-    .select("id", { count: "exact", head: true })
-    .eq("store_id", storeId);
-  const { count: redemptions } = await supabase
-    .from("coupon_redemptions")
-    .select("id", { count: "exact", head: true })
-    .eq("store_id", storeId);
-  const { count: recImpressions } = await supabase
-    .from("analytics_events")
-    .select("id", { count: "exact", head: true })
-    .eq("store_id", storeId)
-    .eq("event_type", "recommendation_impression");
-  const { count: recClicks } = await supabase
-    .from("analytics_events")
-    .select("id", { count: "exact", head: true })
-    .eq("store_id", storeId)
-    .eq("event_type", "recommendation_click");
+  const plan = await getStorePlan(storeId);
+  const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
+
+  const countEvents = async (eventType?: string) => {
+    let q = supabase
+      .from("analytics_events")
+      .select("id", { count: "exact", head: true })
+      .eq("store_id", storeId)
+      .gte("created_at", since);
+    if (eventType) q = q.eq("event_type", eventType);
+    const { count } = await q;
+    return count ?? 0;
+  };
+
+  const [impressions, spins, recImpressions, recClicks, coupons, redemptions] = await Promise.all([
+    countEvents("widget_impression"),
+    countEvents("wheel_spin"),
+    countEvents("recommendation_impression"),
+    countEvents("recommendation_click"),
+    supabase
+      .from("coupons")
+      .select("id", { count: "exact", head: true })
+      .eq("store_id", storeId)
+      .gte("created_at", since)
+      .then((r) => r.count ?? 0),
+    supabase
+      .from("coupon_redemptions")
+      .select("id", { count: "exact", head: true })
+      .eq("store_id", storeId)
+      .gte("redeemed_at", since)
+      .then((r) => r.count ?? 0),
+  ]);
 
   return {
-    impressions: impressions ?? 0,
-    spins: spins ?? 0,
-    coupons: coupons ?? 0,
-    redemptions: redemptions ?? 0,
-    recommendationImpressions: recImpressions ?? 0,
-    recommendationClicks: recClicks ?? 0,
+    plan,
+    advanced: plan !== "starter",
+    impressions,
+    spins,
+    coupons,
+    redemptions,
+    recommendationImpressions: recImpressions,
+    recommendationClicks: recClicks,
+    redemptionRate: coupons > 0 ? Math.round((redemptions / coupons) * 100) : 0,
   };
 }

@@ -2,7 +2,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { PLANS, type PlanId } from "@/server/entitlements";
 
 export function subscriptionsEnforced(): boolean {
-  return process.env.SUBSCRIPTIONS_ENFORCED === "true";
+  return process.env.SUBSCRIPTIONS_ENFORCED !== "false";
 }
 
 export async function getStorePlan(storeId: string): Promise<PlanId> {
@@ -54,4 +54,46 @@ export async function canCreateCampaign(storeId: string): Promise<{ allowed: boo
     .eq("store_id", storeId);
 
   return { allowed: (count ?? 0) < PLANS[plan].limits.campaignsPerStore, plan };
+}
+
+function startOfMonthIso(): string {
+  const now = new Date();
+  return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1)).toISOString();
+}
+
+export async function getMonthlyInteractionCount(storeId: string): Promise<number> {
+  const supabase = await createSupabaseServerClient();
+  const { count } = await supabase
+    .from("analytics_events")
+    .select("id", { count: "exact", head: true })
+    .eq("store_id", storeId)
+    .gte("created_at", startOfMonthIso());
+  return count ?? 0;
+}
+
+export async function canRecordInteraction(storeId: string): Promise<boolean> {
+  if (!subscriptionsEnforced()) return true;
+  const plan = await getStorePlan(storeId);
+  const used = await getMonthlyInteractionCount(storeId);
+  return used < PLANS[plan].limits.monthlyWidgetEvents;
+}
+
+export async function getStoreUsage(storeId: string) {
+  const supabase = await createSupabaseServerClient();
+  const plan = await getStorePlan(storeId);
+  const { data: storeRow } = await supabase.from("stores").select("owner_id").eq("id", storeId).maybeSingle();
+  const [{ count: campaigns }, interactions, { count: stores }] = await Promise.all([
+    supabase.from("campaigns").select("id", { count: "exact", head: true }).eq("store_id", storeId),
+    getMonthlyInteractionCount(storeId),
+    storeRow
+      ? supabase.from("stores").select("id", { count: "exact", head: true }).eq("owner_id", storeRow.owner_id)
+      : Promise.resolve({ count: 0 }),
+  ]);
+  return {
+    plan,
+    limits: PLANS[plan].limits,
+    stores: stores ?? 0,
+    campaigns: campaigns ?? 0,
+    interactions,
+  };
 }

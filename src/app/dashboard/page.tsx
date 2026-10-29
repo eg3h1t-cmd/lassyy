@@ -50,12 +50,32 @@ export default async function DashboardPage() {
               <li key={store.id} className="surface surface-hover rounded-2xl p-5">
                 <p className="font-semibold text-white">{store.name}</p>
                 <p className="mt-1 text-xs text-zinc-500">{store.slug}</p>
-                <Link
-                  href={`/dashboard/${store.slug}/modules/wheel`}
-                  className="mt-4 inline-flex text-xs font-medium text-indigo-300 transition-colors hover:text-indigo-200"
-                >
-                  Modülleri yapılandır →
-                </Link>
+                <div className="mt-4 flex flex-wrap gap-4 text-xs font-medium">
+                  <Link
+                    href={`/dashboard/${store.slug}/modules/wheel`}
+                    className="text-indigo-300 transition-colors hover:text-indigo-200"
+                  >
+                    Modülleri yapılandır →
+                  </Link>
+                  <Link
+                    href={`/dashboard/${store.slug}/plan`}
+                    className="text-zinc-400 transition-colors hover:text-white"
+                  >
+                    Plan ve kullanım
+                  </Link>
+                  <Link
+                    href={`/dashboard/${store.slug}/team`}
+                    className="text-zinc-400 transition-colors hover:text-white"
+                  >
+                    Ekip
+                  </Link>
+                  <Link
+                    href={`/dashboard/${store.slug}/api`}
+                    className="text-zinc-400 transition-colors hover:text-white"
+                  >
+                    API
+                  </Link>
+                </div>
               </li>
             ))}
           </ul>

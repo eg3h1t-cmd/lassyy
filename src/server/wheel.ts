@@ -8,7 +8,7 @@ import { hasSupabaseConfig } from "@/lib/env";
 import { checkRateLimitAsync } from "@/lib/rate-limit";
 import { wheelConfigSchema, defaultWheelConfig, type WheelConfig } from "@/lib/validations/wheel";
 import { recordAuditEvent } from "@/server/audit";
-import { canCreateCampaign, subscriptionsEnforced } from "@/server/subscriptions";
+import { canCreateCampaign, canRecordInteraction, subscriptionsEnforced } from "@/server/subscriptions";
 
 const createCampaignSchema = z.object({
   storeId: z.string().uuid(),
@@ -72,6 +72,8 @@ export async function trackWheelImpressionAction(campaignId: string) {
     .eq("id", campaignId)
     .maybeSingle();
   if (!campaign) return { ok: false as const };
+
+  if (!(await canRecordInteraction(campaign.store_id))) return { ok: false as const };
 
   const service = createSupabaseServiceClient();
   const client = service ?? supabase;
@@ -319,16 +321,18 @@ export async function spinWheelAction(campaignId: string) {
     expiresAt = expiry;
   }
 
-  // Record analytics event (best effort)
-  const service = createSupabaseServiceClient();
-  const client = service ?? supabase;
-  await client.from("analytics_events").insert({
-    store_id: campaign.store_id,
-    module_id: "discount-spin-wheel",
-    campaign_id: campaign.id,
-    event_type: "wheel_spin",
-    payload: { segmentId: segment.id, label: segment.label, couponIssued: Boolean(couponCode), userId: user?.id ?? null },
-  });
+  // Record analytics event (best effort, subject to plan interaction quota)
+  if (await canRecordInteraction(campaign.store_id)) {
+    const service = createSupabaseServiceClient();
+    const client = service ?? supabase;
+    await client.from("analytics_events").insert({
+      store_id: campaign.store_id,
+      module_id: "discount-spin-wheel",
+      campaign_id: campaign.id,
+      event_type: "wheel_spin",
+      payload: { segmentId: segment.id, label: segment.label, couponIssued: Boolean(couponCode), userId: user?.id ?? null },
+    });
+  }
 
   return {
     ok: true as const,

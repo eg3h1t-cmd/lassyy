@@ -9,7 +9,7 @@ import {
   type CountdownConfig,
 } from "@/lib/validations/countdown";
 import { recordAuditEvent } from "@/server/audit";
-import { canCreateCampaign, subscriptionsEnforced } from "@/server/subscriptions";
+import { canCreateCampaign, canRecordInteraction, subscriptionsEnforced } from "@/server/subscriptions";
 
 const createSchema = z.object({
   storeId: z.string().uuid(),
@@ -96,6 +96,7 @@ export async function trackCountdownImpressionAction(campaignId: string) {
     .eq("id", campaignId)
     .maybeSingle();
   if (!campaign) return { ok: false as const };
+  if (!(await canRecordInteraction(campaign.store_id))) return { ok: false as const };
 
   await supabase.from("analytics_events").insert({
     store_id: campaign.store_id,

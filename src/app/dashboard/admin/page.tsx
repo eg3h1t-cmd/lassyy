@@ -4,6 +4,8 @@ import { connection } from "next/server";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { hasSupabaseConfig } from "@/lib/env";
 import { isPlatformAdmin } from "@/lib/admin";
+import { listAdminStores } from "@/server/admin-plans";
+import { AdminPlanManager } from "@/components/dashboard/admin-plan-manager";
 
 export default async function AdminPage() {
   await connection();
@@ -27,6 +29,7 @@ export default async function AdminPage() {
 
   const { count: users } = await supabase.from("profiles").select("id", { count: "exact", head: true });
   const { count: stores } = await supabase.from("stores").select("id", { count: "exact", head: true });
+  const adminStores = await listAdminStores();
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
@@ -44,6 +47,16 @@ export default async function AdminPage() {
           <p className="mt-2 text-2xl font-semibold text-white">{stores ?? 0}</p>
         </div>
       </div>
+
+      <section className="surface mt-6 rounded-2xl p-5">
+        <h2 className="font-semibold text-white">Mağaza planları</h2>
+        <p className="mt-1 text-sm text-zinc-400">
+          Ödeme altyapısı canlı olana kadar planları manuel olarak atayın.
+        </p>
+        <div className="mt-4">
+          <AdminPlanManager stores={adminStores} />
+        </div>
+      </section>
     </div>
   );
 }

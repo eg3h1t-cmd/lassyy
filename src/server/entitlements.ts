@@ -14,11 +14,17 @@ export interface Plan {
   features: string[];
 }
 
+export const PLAN_LABELS: Record<PlanId, string> = {
+  starter: "Başlangıç",
+  growth: "Pro / Premium",
+  enterprise: "Kurumsal",
+};
+
 export const PLANS: Record<PlanId, Plan> = {
   starter: {
     id: "starter",
     name: "Starter",
-    limits: { stores: 1, campaignsPerStore: 3, monthlyWidgetEvents: 10000 },
+    limits: { stores: 1, campaignsPerStore: 3, monthlyWidgetEvents: 1000 },
     features: ["basic-widgets"],
   },
   growth: {
