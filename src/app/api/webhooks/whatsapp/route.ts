@@ -3,9 +3,26 @@ import { createSupabaseServiceClient } from "@/lib/supabase/server";
 import { verifyWhatsAppSignature, verifyWhatsAppWebhook } from "@/server/whatsapp/client";
 
 export async function GET(request: Request) {
-  const challenge = verifyWhatsAppWebhook(new URL(request.url).searchParams);
-  if (!challenge) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  return new Response(challenge, { status: 200 });
+  const query = new URL(request.url).searchParams;
+  const mode = query.get("hub.mode");
+  const token = query.get("hub.verify_token");
+  const challenge = query.get("hub.challenge");
+
+  // Safe diagnostic logging (no secrets)
+  console.log("WhatsApp webhook GET:", {
+    mode,
+    hasToken: Boolean(token),
+    hasChallenge: Boolean(challenge),
+    envTokenSet: Boolean(process.env.WHATSAPP_VERIFY_TOKEN),
+    tokenMatch: token === process.env.WHATSAPP_VERIFY_TOKEN,
+  });
+
+  const result = verifyWhatsAppWebhook(query);
+  if (!result) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  return new Response(result, {
+    status: 200,
+    headers: { "Content-Type": "text/plain" },
+  });
 }
 
 type MetaWebhook = {
