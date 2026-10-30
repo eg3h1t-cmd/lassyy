@@ -69,16 +69,16 @@ export function WheelWidget({
 
   return (
     <div className="surface rounded-2xl p-6">
-      <h3 className="text-lg font-semibold text-white">{title}</h3>
+      <h3 className="text-lg font-semibold text-zinc-900">{title}</h3>
       <div className="mt-4 flex flex-col items-center gap-4">
         <div
-          className="relative h-64 w-64 rounded-full border-4 border-white/10 shadow-[0_0_60px_-20px_rgba(129,140,248,0.6)] transition-transform duration-[4200ms] ease-out"
+          className="relative h-64 w-64 rounded-full border-4 border-zinc-200 shadow-[0_0_60px_-20px_rgba(129,140,248,0.6)] transition-transform duration-[4200ms] ease-out"
           style={{ transform: `rotate(${rotation}deg)`, background: `conic-gradient(${gradient})` }}
         >
           {segments.map((s, i) => (
             <span
               key={s.id}
-              className="absolute left-1/2 top-1/2 text-xs font-medium text-white drop-shadow"
+              className="absolute left-1/2 top-1/2 text-xs font-medium text-zinc-900 drop-shadow"
               style={{
                 transform: `rotate(${i * slice + slice / 2}deg) translate(0, -90px) rotate(-${i * slice + slice / 2}deg)`,
                 transformOrigin: "center",
@@ -99,12 +99,12 @@ export function WheelWidget({
       </div>
       {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
       {result && (
-        <div className="mt-4 rounded-xl border border-emerald-400/20 bg-emerald-400/[0.06] p-4 text-sm">
-          <p className="font-medium text-emerald-200">Sonuç: {result.label}</p>
+        <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm">
+          <p className="font-medium text-emerald-700">Sonuç: {result.label}</p>
           {result.couponCode && (
             <>
               <p className="mt-1 text-zinc-200">
-                Kupon kodu: <span className="font-mono font-semibold text-white">{result.couponCode}</span>
+                Kupon kodu: <span className="font-mono font-semibold text-zinc-900">{result.couponCode}</span>
               </p>
               {result.expiresAt && (
                 <p className="mt-1 text-xs text-zinc-500">

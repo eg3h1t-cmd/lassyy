@@ -10,28 +10,22 @@ import { getWheelSettings } from "@/server/wheel";
 import { getCountdownSettings } from "@/server/countdown";
 import { WheelSettingsForm } from "@/components/dashboard/wheel-settings-form";
 import { CountdownSettingsForm } from "@/components/dashboard/countdown-settings-form";
-import { StoreAnalyticsSection } from "@/components/dashboard/store-analytics-section";
-import { StoreRecommendationsSection } from "@/components/dashboard/store-recommendations-section";
 import { SizeAssistantSettings } from "@/components/dashboard/size-assistant-settings";
 import { hasModuleAccess } from "@/server/module-access";
 import { getSizeAssistantConfig } from "@/server/size-assistant";
 
-const MODULES = ["wheel", "countdown", "analytics", "recommendations", "akilli_beden"] as const;
+const MODULES = ["wheel", "countdown", "akilli_beden"] as const;
 type ModuleKey = (typeof MODULES)[number];
 
 const moduleTitles: Record<ModuleKey, string> = {
   wheel: "Çarkıfelek İndirimi Ayarları",
   countdown: "Geri Sayım Kampanyası Ayarları",
-  analytics: "Analitik",
-  recommendations: "Ürün Önerileri",
   akilli_beden: "Akıllı Beden Asistanı Ayarları",
 };
 
 const accessSlugs: Record<ModuleKey, string> = {
   wheel: "sans_carki",
   countdown: "geri_sayim_kampanyalari",
-  analytics: "analitik",
-  recommendations: "urun_onerileri",
   akilli_beden: "akilli_beden",
 };
 
@@ -46,7 +40,7 @@ export default async function ModuleSettingsPage({
     return (
       <div className="mx-auto max-w-3xl px-4 py-16">
         <h1 className="text-2xl font-semibold">Modül ayarları</h1>
-        <p className="mt-4 text-sm text-zinc-400">Supabase yapılandırılmamış.</p>
+        <p className="mt-4 text-sm text-zinc-600">Supabase yapılandırılmamış.</p>
       </div>
     );
   }
@@ -69,12 +63,12 @@ export default async function ModuleSettingsPage({
   if (!allowed) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-16">
-        <Link href={`/dashboard/${store.slug}/store`} className="text-sm text-zinc-400 hover:text-white">
+        <Link href={`/dashboard/${store.slug}/store`} className="text-sm text-zinc-600 hover:text-zinc-900">
           ← Modül mağazası
         </Link>
         <div className="surface mt-4 rounded-2xl p-6">
-          <h1 className="text-2xl font-semibold text-white">Bu modül henüz aktif değil</h1>
-          <p className="mt-2 text-sm text-zinc-400">
+          <h1 className="text-2xl font-semibold text-zinc-900">Bu modül henüz aktif değil</h1>
+          <p className="mt-2 text-sm text-zinc-600">
             {moduleTitles[moduleKey]} modülünü kullanmak için satın almanız ve ödemenin onaylanması gerekiyor.
           </p>
           <Link
@@ -91,23 +85,17 @@ export default async function ModuleSettingsPage({
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
       <div className="mb-6">
-        <Link href="/dashboard/modules" className="text-sm text-zinc-400 transition-colors hover:text-white">
+        <Link href="/dashboard/modules" className="text-sm text-zinc-600 transition-colors hover:text-zinc-900">
           ← Modüllere dön
         </Link>
-        <h1 className="mt-2 text-2xl font-semibold text-white">{moduleTitles[moduleKey]}</h1>
-        <p className="mt-1 text-sm text-zinc-400">
+        <h1 className="mt-2 text-2xl font-semibold text-zinc-900">{moduleTitles[moduleKey]}</h1>
+        <p className="mt-1 text-sm text-zinc-600">
           Mağaza: {store.name} ({store.slug})
         </p>
       </div>
 
       {moduleKey === "wheel" && <WheelSettingsSection storeId={store.id} />}
       {moduleKey === "countdown" && <CountdownSettingsSection storeId={store.id} />}
-      {moduleKey === "analytics" && (
-        <StoreAnalyticsSection store={{ id: store.id, name: store.name, slug: store.slug }} />
-      )}
-      {moduleKey === "recommendations" && (
-        <StoreRecommendationsSection store={{ id: store.id, name: store.name }} />
-      )}
       {moduleKey === "akilli_beden" && <SizeAssistantSection storeId={store.id} />}
     </div>
   );

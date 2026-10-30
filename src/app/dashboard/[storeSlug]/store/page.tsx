@@ -15,7 +15,7 @@ export default async function StorePage({ params }: { params: Promise<{ storeSlu
     return (
       <div className="mx-auto max-w-3xl px-4 py-16">
         <h1 className="text-2xl font-semibold">Modül Mağazası</h1>
-        <p className="mt-4 text-sm text-zinc-400">Supabase yapılandırılmamış.</p>
+        <p className="mt-4 text-sm text-zinc-600">Supabase yapılandırılmamış.</p>
       </div>
     );
   }
@@ -37,12 +37,12 @@ export default async function StorePage({ params }: { params: Promise<{ storeSlu
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
-      <Link href="/dashboard" className="text-sm text-zinc-400 transition-colors hover:text-white">
+      <Link href="/dashboard" className="text-sm text-zinc-600 transition-colors hover:text-zinc-900">
         ← Genel bakışa dön
       </Link>
       <div className="mt-2">
-        <h1 className="text-2xl font-semibold text-white">Modül Mağazası</h1>
-        <p className="mt-1 text-sm text-zinc-400">
+        <h1 className="text-2xl font-semibold text-zinc-900">Modül Mağazası</h1>
+        <p className="mt-1 text-sm text-zinc-600">
           {store.name} için ihtiyacınız olan modülleri tek tek satın alın. Abonelik yok.
         </p>
       </div>

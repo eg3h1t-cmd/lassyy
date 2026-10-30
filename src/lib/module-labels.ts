@@ -1,47 +1,17 @@
 export const moduleLabels: Record<string, { name: string; description: string; route: string }> = {
-  "discount-spin-wheel": {
-    name: "Çarkıfelek İndirimi",
-    description: "Sunucu taraflı kupon korumalı ödül çarkı.",
-    route: "wheel",
-  },
-  "product-recommendations": {
-    name: "Ürün Önerileri",
-    description: "Gösterim ve tıklama takipli tamamlayıcı ürün setleri.",
-    route: "recommendations",
-  },
-  "countdown-campaigns": {
-    name: "Geri Sayım Kampanyaları",
-    description: "Güvenli zaman damgalı süre sınırlı kampanyalar.",
-    route: "countdown",
-  },
-  analytics: {
-    name: "Analitik",
-    description: "Gerçek zamanlı ve mağaza odaklı metrik takibi.",
-    route: "analytics",
-  },
   sans_carki: {
     name: "Şans Çarkı",
-    description: "Sunucu taraflı kupon korumalı ödül çarkı.",
+    description: "Etkileşimli indirim çarkı.",
     route: "wheel",
   },
   geri_sayim_kampanyalari: {
     name: "Geri Sayım Kampanyaları",
-    description: "Güvenli zaman damgalı süre sınırlı kampanyalar.",
+    description: "Sınırlı süre teklif sayaçları.",
     route: "countdown",
-  },
-  urun_onerileri: {
-    name: "Ürün Önerileri",
-    description: "Gösterim ve tıklama takipli tamamlayıcı ürün setleri.",
-    route: "recommendations",
-  },
-  analitik: {
-    name: "Analitik",
-    description: "Gerçek zamanlı ve mağaza odaklı metrik takibi.",
-    route: "analytics",
   },
   akilli_beden: {
     name: "Akıllı Beden Asistanı",
-    description: "Müşterilere doğru bedeni öneren akıllı asistan.",
+    description: "Beden öneri asistanı.",
     route: "akilli_beden",
   },
 };

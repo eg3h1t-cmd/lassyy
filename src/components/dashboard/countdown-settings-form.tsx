@@ -57,7 +57,7 @@ export function CountdownSettingsForm({
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-white outline-none focus:border-indigo-400/50"
+            className="mt-1 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-zinc-900 outline-none focus:border-indigo-400/50"
           />
         </label>
         <label className="text-sm">
@@ -66,7 +66,7 @@ export function CountdownSettingsForm({
             type="datetime-local"
             value={endsAt}
             onChange={(e) => setEndsAt(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-white outline-none focus:border-indigo-400/50"
+            className="mt-1 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-zinc-900 outline-none focus:border-indigo-400/50"
           />
         </label>
       </div>
@@ -77,7 +77,7 @@ export function CountdownSettingsForm({
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={3}
-          className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-white outline-none focus:border-indigo-400/50"
+          className="mt-1 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-zinc-900 outline-none focus:border-indigo-400/50"
         />
       </label>
 
@@ -86,7 +86,7 @@ export function CountdownSettingsForm({
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value)}
-          className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-white outline-none focus:border-indigo-400/50"
+          className="mt-1 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-zinc-900 outline-none focus:border-indigo-400/50"
         >
           <option value="draft">Taslak</option>
           <option value="active">Etkin</option>
@@ -104,7 +104,7 @@ export function CountdownSettingsForm({
         >
           {loading ? "Kaydediliyor..." : "Geri sayım ayarlarını kaydet"}
         </button>
-        {message && <p className="text-sm text-zinc-400">{message}</p>}
+        {message && <p className="text-sm text-zinc-600">{message}</p>}
       </div>
     </div>
   );

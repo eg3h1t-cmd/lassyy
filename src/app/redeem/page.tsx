@@ -26,23 +26,23 @@ export default function RedeemPage() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-4">
-      <h1 className="text-2xl font-semibold text-white">Kupon Kullan</h1>
-      <p className="mt-2 text-sm text-zinc-400">Kupon kodunuzu girerek indiriminizi kullanın.</p>
+      <h1 className="text-2xl font-semibold text-zinc-900">Kupon Kullan</h1>
+      <p className="mt-2 text-sm text-zinc-600">Kupon kodunuzu girerek indiriminizi kullanın.</p>
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
         <input
           placeholder="Kupon kodu"
           value={code}
           onChange={(e) => setCode(e.target.value)}
-          className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
+          className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
         />
         <input
           type="email"
           placeholder="E-posta (isteğe bağlı)"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
+          className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
         />
-        {message && <p className="text-sm text-zinc-300">{message}</p>}
+        {message && <p className="text-sm text-zinc-700">{message}</p>}
         <button
           type="submit"
           disabled={loading}

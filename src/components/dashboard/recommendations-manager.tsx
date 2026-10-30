@@ -54,24 +54,24 @@ export function RecommendationsManager({
           placeholder="Ürün adı"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
+          className="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-900 outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
         />
         <input
           placeholder="Görsel URL"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
-          className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
+          className="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-900 outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
         />
         <input
           placeholder="Ürün URL"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
+          className="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-900 outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
         />
         <button
           type="button"
           onClick={add}
-          className="rounded-lg border border-white/10 bg-white/[0.05] px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10"
+          className="rounded-lg border border-zinc-200 bg-zinc-100 px-3 py-2 text-sm font-medium text-zinc-900 transition-colors hover:bg-white/10"
         >
           Ekle
         </button>
@@ -79,9 +79,9 @@ export function RecommendationsManager({
 
       <ul className="space-y-2">
         {products.map((p) => (
-          <li key={p.id} className="flex items-center justify-between rounded-xl border border-white/[0.08] bg-white/[0.02] p-3 text-sm">
+          <li key={p.id} className="flex items-center justify-between rounded-xl border border-zinc-200 bg-zinc-50 p-3 text-sm">
             <span className="text-zinc-200">{p.name}</span>
-            <button onClick={() => remove(p.id)} className="text-red-400 transition-colors hover:text-red-300">
+            <button onClick={() => remove(p.id)} className="text-red-400 transition-colors hover:text-red-600">
               Kaldır
             </button>
           </li>
@@ -97,7 +97,7 @@ export function RecommendationsManager({
       >
         {loading ? "Kaydediliyor..." : "Önerileri kaydet"}
       </button>
-      {message && <p className="text-sm text-zinc-400">{message}</p>}
+      {message && <p className="text-sm text-zinc-600">{message}</p>}
     </div>
   );
 }

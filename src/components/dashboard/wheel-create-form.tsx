@@ -43,7 +43,7 @@ export function WheelCreateForm({ stores }: { stores: { id: string; name: string
       <select
         value={storeId}
         onChange={(e) => setStoreId(e.target.value)}
-        className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none focus:border-indigo-400/50"
+        className="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-900 outline-none focus:border-indigo-400/50"
       >
         {stores.map((s) => (
           <option key={s.id} value={s.id}>
@@ -55,12 +55,12 @@ export function WheelCreateForm({ stores }: { stores: { id: string; name: string
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Kampanya başlığı"
-        className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
+        className="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-900 outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
       />
       <select
         value={status}
         onChange={(e) => setStatus(e.target.value as "draft" | "active")}
-        className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none focus:border-indigo-400/50"
+        className="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-900 outline-none focus:border-indigo-400/50"
       >
         <option value="draft">Taslak</option>
         <option value="active">Etkin</option>
@@ -72,7 +72,7 @@ export function WheelCreateForm({ stores }: { stores: { id: string; name: string
       >
         {loading ? "Oluşturuluyor..." : "Çark kampanyası oluştur"}
       </button>
-      {message && <p className="sm:col-span-3 text-sm text-zinc-400">{message}</p>}
+      {message && <p className="sm:col-span-3 text-sm text-zinc-600">{message}</p>}
     </form>
   );
 }

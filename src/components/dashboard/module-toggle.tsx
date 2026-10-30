@@ -29,8 +29,8 @@ export function ModuleToggle({
       disabled={loading}
       className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
         enabled
-          ? "bg-emerald-400/10 text-emerald-300 ring-1 ring-emerald-400/20"
-          : "bg-white/5 text-zinc-400 ring-1 ring-white/10"
+          ? "bg-emerald-400/10 text-emerald-700 ring-1 ring-emerald-400/20"
+          : "bg-white/5 text-zinc-600 ring-1 ring-white/10"
       }`}
     >
       {loading ? "..." : enabled ? "Etkin" : "Devre Dışı"}

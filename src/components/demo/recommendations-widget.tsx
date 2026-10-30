@@ -30,7 +30,7 @@ export function RecommendationsWidget({
 
   return (
     <div className="rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-950">
-      <h3 className="font-semibold text-white">Şunlar da ilginizi çekebilir</h3>
+      <h3 className="font-semibold text-zinc-900">Şunlar da ilginizi çekebilir</h3>
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
         {products.map((p) => (
           <a

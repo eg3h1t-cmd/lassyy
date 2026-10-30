@@ -16,7 +16,7 @@ export default async function TeamPage({ params }: { params: Promise<{ storeSlug
     return (
       <div className="mx-auto max-w-3xl px-4 py-16">
         <h1 className="text-2xl font-semibold">Ekip</h1>
-        <p className="mt-4 text-sm text-zinc-400">Supabase yapılandırılmamış.</p>
+        <p className="mt-4 text-sm text-zinc-600">Supabase yapılandırılmamış.</p>
       </div>
     );
   }
@@ -37,11 +37,11 @@ export default async function TeamPage({ params }: { params: Promise<{ storeSlug
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
-      <Link href={`/dashboard/${store.slug}/modules/wheel`} className="text-sm text-zinc-400 hover:text-white">
+      <Link href={`/dashboard/${store.slug}/modules/wheel`} className="text-sm text-zinc-600 hover:text-zinc-900">
         ← Modüllere dön
       </Link>
-      <h1 className="mt-2 text-2xl font-semibold text-white">Ekip yönetimi</h1>
-      <p className="mt-1 text-sm text-zinc-400">{store.name}</p>
+      <h1 className="mt-2 text-2xl font-semibold text-zinc-900">Ekip yönetimi</h1>
+      <p className="mt-1 text-sm text-zinc-600">{store.name}</p>
 
       {allowed ? (
         <div className="surface mt-8 rounded-2xl p-5">
@@ -49,8 +49,8 @@ export default async function TeamPage({ params }: { params: Promise<{ storeSlug
         </div>
       ) : (
         <div className="surface mt-8 rounded-2xl p-6">
-          <h2 className="font-semibold text-white">Çoklu takım üyeleri Kurumsal plana dahildir</h2>
-          <p className="mt-2 text-sm text-zinc-400">
+          <h2 className="font-semibold text-zinc-900">Çoklu takım üyeleri Kurumsal plana dahildir</h2>
+          <p className="mt-2 text-sm text-zinc-600">
             Ekip üyesi eklemek için planınızı yükseltin. Şimdilik bizimle iletişime geçebilirsiniz.
           </p>
           <a

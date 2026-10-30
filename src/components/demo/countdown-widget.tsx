@@ -45,9 +45,9 @@ export function CountdownWidget({
 
   return (
     <div className="surface rounded-2xl p-6">
-      <h3 className="text-lg font-semibold text-white">{title}</h3>
-      {description && <p className="mt-1 text-sm text-zinc-400">{description}</p>}
-      <div className={`mt-4 text-3xl font-mono font-semibold ${expired ? "text-red-400" : "text-white"}`}>
+      <h3 className="text-lg font-semibold text-zinc-900">{title}</h3>
+      {description && <p className="mt-1 text-sm text-zinc-600">{description}</p>}
+      <div className={`mt-4 text-3xl font-mono font-semibold ${expired ? "text-red-400" : "text-zinc-900"}`}>
         {remaining}
       </div>
       {expired && <p className="mt-2 text-sm text-zinc-500">Bu kampanya sona erdi.</p>}

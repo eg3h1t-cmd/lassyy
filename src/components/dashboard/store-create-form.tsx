@@ -35,13 +35,13 @@ export function StoreCreateForm() {
         placeholder="Mağaza adı"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none transition-colors placeholder:text-zinc-500 focus:border-indigo-400/50"
+        className="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-500 focus:border-indigo-400/50"
       />
       <input
         placeholder="magaza-slug"
         value={slug}
         onChange={(e) => setSlug(e.target.value)}
-        className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none transition-colors placeholder:text-zinc-500 focus:border-indigo-400/50"
+        className="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-500 focus:border-indigo-400/50"
       />
       <button
         type="submit"
@@ -50,7 +50,7 @@ export function StoreCreateForm() {
       >
         {loading ? "Oluşturuluyor..." : "Mağaza oluştur"}
       </button>
-      {message && <p className="sm:col-span-3 text-sm text-zinc-400">{message}</p>}
+      {message && <p className="sm:col-span-3 text-sm text-zinc-600">{message}</p>}
     </form>
   );
 }

@@ -37,7 +37,7 @@ export function CampaignStatusButton({
       <button
         onClick={toggle}
         disabled={loading}
-        className="rounded-md border border-white/10 bg-white/[0.03] px-2 py-1 text-xs font-medium text-zinc-200 transition-colors hover:border-indigo-400/40 hover:bg-white/[0.06] disabled:opacity-50"
+        className="rounded-md border border-zinc-200 bg-zinc-50 px-2 py-1 text-xs font-medium text-zinc-200 transition-colors hover:border-indigo-400/40 hover:bg-zinc-100 disabled:opacity-50"
       >
         {loading ? "..." : status === "active" ? "Duraklat" : "Etkinleştir"}
       </button>

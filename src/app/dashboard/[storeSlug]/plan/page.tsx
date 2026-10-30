@@ -15,7 +15,7 @@ export default async function PlanPage({ params }: { params: Promise<{ storeSlug
     return (
       <div className="mx-auto max-w-3xl px-4 py-16">
         <h1 className="text-2xl font-semibold">Plan</h1>
-        <p className="mt-4 text-sm text-zinc-400">Supabase yapılandırılmamış.</p>
+        <p className="mt-4 text-sm text-zinc-600">Supabase yapılandırılmamış.</p>
       </div>
     );
   }
@@ -41,11 +41,11 @@ export default async function PlanPage({ params }: { params: Promise<{ storeSlug
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
-      <Link href={`/dashboard/${store.slug}/modules/wheel`} className="text-sm text-zinc-400 hover:text-white">
+      <Link href={`/dashboard/${store.slug}/modules/wheel`} className="text-sm text-zinc-600 hover:text-zinc-900">
         ← Modüllere dön
       </Link>
-      <h1 className="mt-2 text-2xl font-semibold text-white">Plan ve kullanım</h1>
-      <p className="mt-1 text-sm text-zinc-400">
+      <h1 className="mt-2 text-2xl font-semibold text-zinc-900">Plan ve kullanım</h1>
+      <p className="mt-1 text-sm text-zinc-600">
         {store.name} — aktif plan: <span className="font-semibold text-indigo-300">{PLAN_LABELS[usage.plan]}</span>
       </p>
 
@@ -56,7 +56,7 @@ export default async function PlanPage({ params }: { params: Promise<{ storeSlug
           return (
             <div key={bar.label} className="surface rounded-2xl p-5">
               <p className="text-xs text-zinc-500">{bar.label}</p>
-              <p className="mt-2 text-2xl font-semibold text-white">
+              <p className="mt-2 text-2xl font-semibold text-zinc-900">
                 {bar.used}
                 <span className="text-sm font-normal text-zinc-500">
                   {" / "}
@@ -75,8 +75,8 @@ export default async function PlanPage({ params }: { params: Promise<{ storeSlug
       </div>
 
       <div className="surface mt-6 rounded-2xl p-5">
-        <h2 className="font-semibold text-white">Planınızı yükseltin</h2>
-        <p className="mt-2 text-sm text-zinc-400">
+        <h2 className="font-semibold text-zinc-900">Planınızı yükseltin</h2>
+        <p className="mt-2 text-sm text-zinc-600">
           Ödeme altyapısı hazırlanıyor. Şimdilik plan yükseltmek için bizimle iletişime geçin.
         </p>
         <a

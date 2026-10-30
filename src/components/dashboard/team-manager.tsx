@@ -36,7 +36,7 @@ export function TeamManager({ storeId, initial }: { storeId: string; initial: Te
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="kullanici@ornek.com"
-          className="flex-1 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
+          className="flex-1 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-900 outline-none placeholder:text-zinc-500 focus:border-indigo-400/50"
         />
         <button
           onClick={add}
@@ -46,9 +46,9 @@ export function TeamManager({ storeId, initial }: { storeId: string; initial: Te
           {loading ? "Ekleniyor..." : "Ekip üyesi ekle"}
         </button>
       </div>
-      {message && <p className="text-sm text-zinc-400">{message}</p>}
+      {message && <p className="text-sm text-zinc-600">{message}</p>}
 
-      <ul className="divide-y divide-white/[0.06]">
+      <ul className="divide-y divide-zinc-200">
         {members.map((member) => (
           <li key={member.user_id} className="flex items-center justify-between py-3 text-sm">
             <div>
@@ -56,7 +56,7 @@ export function TeamManager({ storeId, initial }: { storeId: string; initial: Te
               <p className="text-xs text-zinc-500">{member.role === "owner" ? "Mağaza sahibi" : "Ekip üyesi"}</p>
             </div>
             {member.role !== "owner" && (
-              <button onClick={() => remove(member.user_id)} className="text-xs text-red-400 hover:text-red-300">
+              <button onClick={() => remove(member.user_id)} className="text-xs text-red-400 hover:text-red-600">
                 Kaldır
               </button>
             )}

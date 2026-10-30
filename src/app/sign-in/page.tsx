@@ -35,8 +35,8 @@ export default function SignInPage() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-4">
-      <h1 className="text-2xl font-semibold text-white">Giriş Yap</h1>
-      <p className="mt-2 text-sm text-zinc-400">lassyy paneline erişin.</p>
+      <h1 className="text-2xl font-semibold text-zinc-900">Giriş Yap</h1>
+      <p className="mt-2 text-sm text-zinc-600">lassyy paneline erişin.</p>
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
         <div>
           <label className="text-sm font-medium" htmlFor="email">
@@ -48,7 +48,7 @@ export default function SignInPage() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none transition-colors placeholder:text-zinc-500 focus:border-indigo-400/50"
+            className="mt-1 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-500 focus:border-indigo-400/50"
           />
         </div>
         <div>
@@ -61,10 +61,10 @@ export default function SignInPage() {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none transition-colors placeholder:text-zinc-500 focus:border-indigo-400/50"
+            className="mt-1 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-500 focus:border-indigo-400/50"
           />
         </div>
-        {message && <p className="text-sm text-red-400">{message}</p>}
+        {message && <p className="text-sm text-red-600">{message}</p>}
         <button
           type="submit"
           disabled={loading}
@@ -73,9 +73,9 @@ export default function SignInPage() {
           {loading ? "Giriş yapılıyor..." : "Giriş Yap"}
         </button>
       </form>
-      <p className="mt-4 text-sm text-zinc-400">
+      <p className="mt-4 text-sm text-zinc-600">
         Hesabınız yok mu?{" "}
-        <Link href="/sign-up" className="font-medium text-indigo-300 hover:text-indigo-200">
+        <Link href="/sign-up" className="font-medium text-indigo-600 hover:text-indigo-700">
           Hesap oluşturun
         </Link>
       </p>

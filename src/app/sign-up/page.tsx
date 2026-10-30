@@ -33,8 +33,8 @@ export default function SignUpPage() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-4">
-      <h1 className="text-2xl font-semibold text-white">Hesap Oluştur</h1>
-      <p className="mt-2 text-sm text-zinc-400">Mağaza promosyonlarınızı yönetmeye başlayın.</p>
+      <h1 className="text-2xl font-semibold text-zinc-900">Hesap Oluştur</h1>
+      <p className="mt-2 text-sm text-zinc-600">Mağaza promosyonlarınızı yönetmeye başlayın.</p>
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
         <div>
           <label className="text-sm font-medium" htmlFor="email">
@@ -46,7 +46,7 @@ export default function SignUpPage() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none transition-colors placeholder:text-zinc-500 focus:border-indigo-400/50"
+            className="mt-1 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-500 focus:border-indigo-400/50"
           />
         </div>
         <div>
@@ -60,10 +60,10 @@ export default function SignUpPage() {
             minLength={8}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none transition-colors placeholder:text-zinc-500 focus:border-indigo-400/50"
+            className="mt-1 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-500 focus:border-indigo-400/50"
           />
         </div>
-        {message && <p className="text-sm text-zinc-400">{message}</p>}
+        {message && <p className="text-sm text-zinc-600">{message}</p>}
         <button
           type="submit"
           disabled={loading}
@@ -72,9 +72,9 @@ export default function SignUpPage() {
           {loading ? "Hesap oluşturuluyor..." : "Hesap Oluştur"}
         </button>
       </form>
-      <p className="mt-4 text-sm text-zinc-400">
+      <p className="mt-4 text-sm text-zinc-600">
         Zaten hesabınız var mı?{" "}
-        <Link href="/sign-in" className="font-medium text-indigo-300 hover:text-indigo-200">
+        <Link href="/sign-in" className="font-medium text-indigo-600 hover:text-indigo-700">
           Giriş yapın
         </Link>
       </p>

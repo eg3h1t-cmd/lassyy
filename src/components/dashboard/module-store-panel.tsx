@@ -77,7 +77,7 @@ export function ModuleStorePanel({
   return (
     <div className="space-y-5">
       {message && (
-        <div className="rounded-xl border border-indigo-400/20 bg-indigo-400/[0.06] p-4 text-sm text-indigo-100">
+        <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-4 text-sm text-indigo-700">
           {message}
         </div>
       )}
@@ -97,44 +97,44 @@ export function ModuleStorePanel({
                   {icons[module.slug] ?? "✨"}
                 </span>
                 {status === "active" ? (
-                  <span className="rounded-full bg-emerald-400/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-300 ring-1 ring-emerald-400/20">
+                  <span className="rounded-full bg-emerald-400/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-700 ring-1 ring-emerald-400/20">
                     Aktif
                   </span>
                 ) : status === "pending" ? (
-                  <span className="rounded-full bg-amber-400/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-300 ring-1 ring-amber-400/20">
+                  <span className="rounded-full bg-amber-400/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-700 ring-1 ring-amber-400/20">
                     Ödeme bekliyor
                   </span>
                 ) : (
-                  <span className="rounded-full bg-white/5 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-400 ring-1 ring-white/10">
+                  <span className="rounded-full bg-white/5 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-600 ring-1 ring-white/10">
                     Satın alınmadı
                   </span>
                 )}
               </div>
 
-              <h3 className="mt-3 font-semibold text-white">{module.name}</h3>
-              <p className="mt-1 min-h-10 text-xs leading-relaxed text-zinc-400">{module.description}</p>
+              <h3 className="mt-3 font-semibold text-zinc-900">{module.name}</h3>
+              <p className="mt-1 min-h-10 text-xs leading-relaxed text-zinc-600">{module.description}</p>
 
               <div className="mt-4 flex items-end justify-between gap-3">
                 <div>
-                  <p className="text-xl font-semibold text-white">{module.price.toLocaleString("tr-TR")} TL</p>
+                  <p className="text-xl font-semibold text-zinc-900">{module.price.toLocaleString("tr-TR")} TL</p>
                   <p className="text-[10px] text-zinc-500">tek seferlik ödeme</p>
                 </div>
                 {status === "active" ? (
                   <div className="flex items-center gap-2">
-                    <span className="rounded-lg border border-emerald-400/20 bg-emerald-400/[0.06] px-2.5 py-1.5 text-xs font-medium text-emerald-300">
+                    <span className="rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 py-1.5 text-xs font-medium text-emerald-700">
                       Aktif
                     </span>
                     {moduleLabels[module.slug]?.route && (
                       <Link
                         href={`/dashboard/${storeSlug}/modules/${moduleLabels[module.slug].route}`}
-                        className="rounded-lg border border-white/10 bg-white/[0.03] px-2.5 py-1.5 text-xs font-medium text-zinc-200 transition-colors hover:border-indigo-400/40 hover:bg-white/[0.06]"
+                        className="rounded-lg border border-zinc-200 bg-zinc-50 px-2.5 py-1.5 text-xs font-medium text-zinc-200 transition-colors hover:border-indigo-400/40 hover:bg-zinc-100"
                       >
                         Yapılandır
                       </Link>
                     )}
                   </div>
                 ) : status === "pending" ? (
-                  <span className="rounded-lg border border-amber-400/20 bg-amber-400/[0.06] px-3 py-1.5 text-xs font-medium text-amber-300">
+                  <span className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-medium text-amber-700">
                     Onay bekliyor
                   </span>
                 ) : (

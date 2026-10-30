@@ -1,32 +1,28 @@
 const faqs = [
   {
-    q: "Gerçek mağazama bağlı mı?",
-    a: "İlk sürüm kontrollü bir demo vitrin içeriyor. Gerçek mağaza entegrasyonları gelecek çalışmalar olarak belgelenmiştir.",
+    q: "Abonelik var mı?",
+    a: "Hayır. Modüller tek seferlik ödemeyle satın alınır.",
   },
   {
-    q: "Mağaza verilerim nasıl korunuyor?",
-    a: "Supabase Satır Düzeyi Güvenlik politikaları ve sunucu taraflı yetkilendirme kontrolleri mağaza bazında izolasyonu sağlar.",
+    q: "WhatsApp mesajları nasıl gönderiliyor?",
+    a: "Meta WhatsApp Cloud API ve onaylı mesaj şablonları üzerinden.",
   },
   {
-    q: "Yerelde çalıştırabilir miyim?",
-    a: "Evet. README.md dosyasındaki kurulum adımlarını izleyin. Kimlik doğrulama ve kalıcı veri için Supabase bilgileri gereklidir.",
-  },
-  {
-    q: "Ödeme desteği var mı?",
-    a: "Hayır. Abonelik altyapısı modellendi ancak bu sürümde gerçek bir ödeme sağlayıcısı entegre edilmedi.",
+    q: "Modülleri ayrı ayrı alabilir miyim?",
+    a: "Evet. Her modül bağımsızdır ve tek tek satın alınır.",
   },
 ];
 
 export function Faq() {
   return (
-    <section id="faq" className="border-t border-white/[0.06] py-20">
+    <section id="faq" className="border-t border-zinc-200 bg-white py-16">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
-        <h2 className="text-3xl font-semibold tracking-tight text-white">Sıkça Sorulan Sorular</h2>
-        <div className="mt-8 space-y-4">
+        <h2 className="text-2xl font-semibold tracking-tight text-zinc-900">Sıkça Sorulan Sorular</h2>
+        <div className="mt-6 space-y-3">
           {faqs.map((f) => (
-            <div key={f.q} className="surface surface-hover rounded-2xl p-5">
-              <h3 className="font-semibold text-white">{f.q}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-zinc-400">{f.a}</p>
+            <div key={f.q} className="rounded-xl border border-zinc-200 bg-white p-4">
+              <h3 className="text-sm font-medium text-zinc-900">{f.q}</h3>
+              <p className="mt-1 text-sm text-zinc-600">{f.a}</p>
             </div>
           ))}
         </div>

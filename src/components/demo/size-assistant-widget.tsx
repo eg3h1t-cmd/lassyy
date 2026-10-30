@@ -20,26 +20,26 @@ export function SizeAssistantWidget({ config }: { config: SizeAssistantConfig })
 
   return (
     <div className="surface rounded-2xl p-6">
-      <h3 className="text-lg font-semibold text-white">{config.title}</h3>
-      {config.description && <p className="mt-1 text-sm text-zinc-400">{config.description}</p>}
+      <h3 className="text-lg font-semibold text-zinc-900">{config.title}</h3>
+      {config.description && <p className="mt-1 text-sm text-zinc-600">{config.description}</p>}
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
-        <label className="text-xs text-zinc-400">
+        <label className="text-xs text-zinc-600">
           Boy (cm)
           <input
             type="number"
             value={height}
             onChange={(e) => setHeight(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none focus:border-indigo-400/50"
+            className="mt-1 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-900 outline-none focus:border-indigo-400/50"
             placeholder="175"
           />
         </label>
-        <label className="text-xs text-zinc-400">
+        <label className="text-xs text-zinc-600">
           Kilo (kg)
           <input
             type="number"
             value={weight}
             onChange={(e) => setWeight(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-white outline-none focus:border-indigo-400/50"
+            className="mt-1 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-900 outline-none focus:border-indigo-400/50"
             placeholder="70"
           />
         </label>
@@ -51,8 +51,8 @@ export function SizeAssistantWidget({ config }: { config: SizeAssistantConfig })
         Bedenimi öner
       </button>
       {result && (
-        <p className="mt-3 rounded-xl border border-indigo-400/20 bg-indigo-400/[0.06] p-3 text-sm text-indigo-100">
-          Önerilen beden: <span className="font-semibold text-white">{result}</span>
+        <p className="mt-3 rounded-xl border border-indigo-200 bg-indigo-50 p-3 text-sm text-indigo-700">
+          Önerilen beden: <span className="font-semibold text-zinc-900">{result}</span>
         </p>
       )}
     </div>

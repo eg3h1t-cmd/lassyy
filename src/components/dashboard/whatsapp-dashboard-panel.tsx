@@ -52,8 +52,8 @@ export function WhatsAppDashboardPanel({
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-lg font-semibold text-white">WhatsApp modülleri</h2>
-          <p className="text-sm text-zinc-400">Tekil satın alma, abonelik yok.</p>
+          <h2 className="text-lg font-semibold text-zinc-900">WhatsApp modülleri</h2>
+          <p className="text-sm text-zinc-600">Tekil satın alma, abonelik yok.</p>
         </div>
         <Link
           href={`/dashboard/${storeSlug}/store`}
@@ -73,27 +73,27 @@ export function WhatsAppDashboardPanel({
               <div className="flex items-start justify-between">
                 <span className="text-2xl" aria-hidden="true">{icons[module.slug] ?? "💬"}</span>
                 {status === "active" ? (
-                  <span className="rounded-full bg-emerald-400/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-300 ring-1 ring-emerald-400/20">
+                  <span className="rounded-full bg-emerald-400/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-emerald-700 ring-1 ring-emerald-400/20">
                     Aktif
                   </span>
                 ) : status === "pending" ? (
-                  <span className="rounded-full bg-amber-400/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-300 ring-1 ring-amber-400/20">
+                  <span className="rounded-full bg-amber-400/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-700 ring-1 ring-amber-400/20">
                     Ödeme bekliyor
                   </span>
                 ) : (
-                  <span className="rounded-full bg-white/5 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-400 ring-1 ring-white/10">
+                  <span className="rounded-full bg-white/5 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-zinc-600 ring-1 ring-white/10">
                     Satın alınmadı
                   </span>
                 )}
               </div>
-              <h3 className="mt-3 font-semibold text-white">{module.name}</h3>
-              <p className="mt-1 text-xs leading-relaxed text-zinc-400">{module.description}</p>
+              <h3 className="mt-3 font-semibold text-zinc-900">{module.name}</h3>
+              <p className="mt-1 text-xs leading-relaxed text-zinc-600">{module.description}</p>
               <div className="mt-4 flex items-center justify-between">
-                <p className="text-lg font-semibold text-white">{module.price.toLocaleString("tr-TR")} TL</p>
+                <p className="text-lg font-semibold text-zinc-900">{module.price.toLocaleString("tr-TR")} TL</p>
                 {status !== "active" && (
                   <Link
                     href={`/dashboard/${storeSlug}/store`}
-                    className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-zinc-200 hover:border-indigo-400/40"
+                    className="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-xs font-medium text-zinc-200 hover:border-indigo-400/40"
                   >
                     {status === "pending" ? "Onay bekliyor" : "Satın Al"}
                   </Link>
@@ -106,11 +106,11 @@ export function WhatsAppDashboardPanel({
 
       <div className="grid gap-4 lg:grid-cols-2">
         <div className="surface rounded-2xl p-5">
-          <h3 className="font-semibold text-white">Bağlantı durumu</h3>
+          <h3 className="font-semibold text-zinc-900">Bağlantı durumu</h3>
           <dl className="mt-3 space-y-2 text-sm">
             <div className="flex justify-between">
               <dt className="text-zinc-500">API yapılandırması</dt>
-              <dd className={apiConfigured ? "text-emerald-300" : "text-amber-300"}>
+              <dd className={apiConfigured ? "text-emerald-700" : "text-amber-700"}>
                 {apiConfigured ? "Hazır" : "Env değişkenleri eksik"}
               </dd>
             </div>
@@ -134,7 +134,7 @@ export function WhatsAppDashboardPanel({
         </div>
 
         <div className="surface rounded-2xl p-5">
-          <h3 className="font-semibold text-white">Son 30 gün mesajları</h3>
+          <h3 className="font-semibold text-zinc-900">Son 30 gün mesajları</h3>
           <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
             {[
               ["Kuyrukta", counts.queued ?? 0],
@@ -143,9 +143,9 @@ export function WhatsAppDashboardPanel({
               ["Okundu", counts.read ?? 0],
               ["Hata", counts.failed ?? 0],
             ].map(([label, value]) => (
-              <div key={label} className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-3">
+              <div key={label} className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">
                 <p className="text-[10px] uppercase tracking-wider text-zinc-500">{label}</p>
-                <p className="mt-1 text-xl font-semibold text-white">{value}</p>
+                <p className="mt-1 text-xl font-semibold text-zinc-900">{value}</p>
               </div>
             ))}
           </div>
@@ -153,7 +153,7 @@ export function WhatsAppDashboardPanel({
       </div>
 
       <div className="surface rounded-2xl p-5">
-        <h3 className="font-semibold text-white">Son mesajlar</h3>
+        <h3 className="font-semibold text-zinc-900">Son mesajlar</h3>
         {recent.length === 0 ? (
           <p className="mt-3 text-sm text-zinc-500">Henüz mesaj kaydı yok.</p>
         ) : (
@@ -167,12 +167,12 @@ export function WhatsAppDashboardPanel({
                   <th className="py-2">Tarih</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/[0.06]">
+              <tbody className="divide-y divide-zinc-200">
                 {recent.map((message) => (
                   <tr key={message.id}>
-                    <td className="py-2 text-zinc-300">{message.recipient_phone}</td>
-                    <td className="py-2 text-zinc-400">{message.template_key}</td>
-                    <td className="py-2 text-zinc-300">{message.status}</td>
+                    <td className="py-2 text-zinc-700">{message.recipient_phone}</td>
+                    <td className="py-2 text-zinc-600">{message.template_key}</td>
+                    <td className="py-2 text-zinc-700">{message.status}</td>
                     <td className="py-2 text-zinc-500">
                       {new Date(message.created_at).toLocaleString("tr-TR")}
                     </td>

@@ -61,7 +61,7 @@ export function WheelSettingsForm({
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-white outline-none focus:border-indigo-400/50"
+            className="mt-1 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-zinc-900 outline-none focus:border-indigo-400/50"
           />
         </label>
         <label className="text-sm">
@@ -69,7 +69,7 @@ export function WheelSettingsForm({
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-white outline-none focus:border-indigo-400/50"
+            className="mt-1 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-zinc-900 outline-none focus:border-indigo-400/50"
           >
             <option value="draft">Taslak</option>
             <option value="active">Etkin</option>
@@ -85,54 +85,54 @@ export function WheelSettingsForm({
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={2}
-          className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-white outline-none focus:border-indigo-400/50"
+          className="mt-1 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-zinc-900 outline-none focus:border-indigo-400/50"
         />
       </label>
 
       <div>
         <div className="flex items-center justify-between">
-          <h3 className="font-semibold text-white">Çark dilimleri</h3>
+          <h3 className="font-semibold text-zinc-900">Çark dilimleri</h3>
           <button
             type="button"
             onClick={() => setSegments((prev) => [...prev, blankSegment()])}
-            className="rounded-md border border-white/10 bg-white/[0.03] px-3 py-1 text-xs font-medium text-zinc-200 transition-colors hover:bg-white/[0.06]"
+            className="rounded-md border border-zinc-200 bg-zinc-50 px-3 py-1 text-xs font-medium text-zinc-200 transition-colors hover:bg-zinc-100"
           >
             Dilim ekle
           </button>
         </div>
         <div className="mt-3 space-y-3">
           {segments.map((segment) => (
-            <div key={segment.id} className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-3">
+            <div key={segment.id} className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
-                <label className="text-xs text-zinc-400">
+                <label className="text-xs text-zinc-600">
                   Etiket
                   <input
                     value={segment.label}
                     onChange={(e) => updateSegment(segment.id, { label: e.target.value })}
-                    className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-2 py-1.5 text-sm text-white outline-none focus:border-indigo-400/50"
+                    className="mt-1 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-2 py-1.5 text-sm text-zinc-900 outline-none focus:border-indigo-400/50"
                   />
                 </label>
-                <label className="text-xs text-zinc-400">
+                <label className="text-xs text-zinc-600">
                   Renk
                   <input
                     type="color"
                     value={segment.color}
                     onChange={(e) => updateSegment(segment.id, { color: e.target.value })}
-                    className="mt-1 h-9 w-full rounded-lg border border-white/10"
+                    className="mt-1 h-9 w-full rounded-lg border border-zinc-200"
                   />
                 </label>
-                <label className="text-xs text-zinc-400">
+                <label className="text-xs text-zinc-600">
                   Ödül
                   <select
                     value={segment.prizeType}
                     onChange={(e) => updateSegment(segment.id, { prizeType: e.target.value as WheelSegment["prizeType"] })}
-                    className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-2 py-1.5 text-sm text-white outline-none focus:border-indigo-400/50"
+                    className="mt-1 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-2 py-1.5 text-sm text-zinc-900 outline-none focus:border-indigo-400/50"
                   >
                     <option value="coupon">Kupon</option>
                     <option value="none">Ödül yok</option>
                   </select>
                 </label>
-                <label className="text-xs text-zinc-400">
+                <label className="text-xs text-zinc-600">
                   Ağırlık
                   <input
                     type="number"
@@ -140,13 +140,13 @@ export function WheelSettingsForm({
                     max={1000}
                     value={segment.weight}
                     onChange={(e) => updateSegment(segment.id, { weight: Number(e.target.value) })}
-                    className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-2 py-1.5 text-sm text-white outline-none focus:border-indigo-400/50"
+                    className="mt-1 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-2 py-1.5 text-sm text-zinc-900 outline-none focus:border-indigo-400/50"
                   />
                 </label>
                 <button
                   type="button"
                   onClick={() => removeSegment(segment.id)}
-                  className="self-end rounded-lg border border-red-400/20 px-2 py-1.5 text-xs font-medium text-red-300 transition-colors hover:bg-red-500/10"
+                  className="self-end rounded-lg border border-red-400/20 px-2 py-1.5 text-xs font-medium text-red-600 transition-colors hover:bg-red-500/10"
                 >
                   Kaldır
                 </button>
@@ -154,18 +154,18 @@ export function WheelSettingsForm({
 
               {segment.prizeType === "coupon" && (
                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                  <label className="text-xs text-zinc-400">
+                  <label className="text-xs text-zinc-600">
                     İndirim türü
                     <select
                       value={segment.discountType ?? "percentage"}
                       onChange={(e) => updateSegment(segment.id, { discountType: e.target.value as WheelSegment["discountType"] })}
-                      className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-2 py-1.5 text-sm text-white outline-none focus:border-indigo-400/50"
+                      className="mt-1 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-2 py-1.5 text-sm text-zinc-900 outline-none focus:border-indigo-400/50"
                     >
                       <option value="percentage">Yüzde</option>
                       <option value="fixed">Sabit tutar</option>
                     </select>
                   </label>
-                  <label className="text-xs text-zinc-400">
+                  <label className="text-xs text-zinc-600">
                     İndirim değeri
                     <input
                       type="number"
@@ -173,7 +173,7 @@ export function WheelSettingsForm({
                       step="0.01"
                       value={segment.discountValue ?? 0}
                       onChange={(e) => updateSegment(segment.id, { discountValue: Number(e.target.value) })}
-                      className="mt-1 w-full rounded-lg border border-white/10 bg-white/[0.03] px-2 py-1.5 text-sm text-white outline-none focus:border-indigo-400/50"
+                      className="mt-1 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-2 py-1.5 text-sm text-zinc-900 outline-none focus:border-indigo-400/50"
                     />
                   </label>
                 </div>
@@ -192,7 +192,7 @@ export function WheelSettingsForm({
         >
           {loading ? "Kaydediliyor..." : "Çark ayarlarını kaydet"}
         </button>
-        {message && <p className="text-sm text-zinc-400">{message}</p>}
+        {message && <p className="text-sm text-zinc-600">{message}</p>}
       </div>
     </div>
   );

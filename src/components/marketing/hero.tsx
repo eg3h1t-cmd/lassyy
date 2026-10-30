@@ -2,67 +2,44 @@ import Link from "next/link";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-indigo-600/10 blur-[120px]" />
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
+    <section className="bg-white">
+      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
-            <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-indigo-400/20 bg-indigo-400/[0.06] px-3 py-1 text-xs font-medium text-indigo-200">
-              <span className="h-1.5 w-1.5 rounded-full bg-indigo-400 shadow-[0_0_8px_rgba(129,140,248,0.9)]" />
-              E-ticaret ekipleri için tasarlandı
+            <p className="inline-flex rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700">
+              E-ticaret için büyüme eklentileri
             </p>
-            <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Mağaza gelirinizi{" "}
-              <span className="accent-text">daha akıllı promosyonlar</span> ve etkileşimle büyütün.
+            <h1 className="mt-5 text-4xl font-semibold tracking-tight text-zinc-900 sm:text-5xl">
+              Satışınızı artıran <span className="accent-text">hazır modüller</span>.
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-zinc-400">
-              lassyy; e-ticaret işletmelerinin promosyon kampanyalarını yönetmesine,
-              pazarlama widget’larını kontrol etmesine ve etkileşimi tek ve güvenli bir
-              çok kiracılı panelden ölçmesine yardımcı olur.
+            <p className="mt-4 max-w-lg text-base text-zinc-600">
+              WhatsApp bildirimleri, indirim çarkı ve dönüşüm araçları. Tekil satın alın, hemen kullanın.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/sign-up"
-                className="accent-gradient glow-button inline-flex h-12 items-center justify-center rounded-xl px-6 text-base font-semibold text-white"
-              >
-                Ücretsiz denemeyi başlat
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <Link href="/sign-up" className="accent-gradient inline-flex h-11 items-center justify-center rounded-lg px-5 text-sm font-semibold text-white">
+                Hemen başla
               </Link>
-              <a
-                href="#features"
-                className="inline-flex h-12 items-center justify-center rounded-xl border border-white/10 bg-white/[0.02] px-6 text-base font-medium text-zinc-200 transition-colors hover:border-indigo-400/40 hover:bg-white/[0.05]"
-              >
-                Özellikleri keşfet
+              <a href="#modules" className="inline-flex h-11 items-center justify-center rounded-lg border border-zinc-300 bg-white px-5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">
+                Modülleri gör
               </a>
             </div>
-            <p className="mt-4 text-xs text-zinc-500">
-              Kredi kartı gerekmez. Geliştirme ve küçük mağazalar için ücretsiz plan mevcut.
-            </p>
+            <p className="mt-3 text-xs text-zinc-500">Abonelik yok. Tek seferlik ödeme.</p>
           </div>
-          <div className="relative float-slow">
-            <div className="surface rounded-2xl p-6">
-              <div className="mb-4 flex items-center justify-between">
-                <span className="text-sm font-medium text-zinc-200">Kampanya özeti</span>
-                <span className="rounded-full bg-emerald-400/10 px-2.5 py-0.5 text-xs font-medium text-emerald-300 ring-1 ring-emerald-400/20">
-                  Canlı
-                </span>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  ["Gösterim", "—"],
-                  ["Etkileşim", "—"],
-                  ["Verilen kuponlar", "—"],
-                  ["Kullanımlar", "—"],
-                ].map(([label, value]) => (
-                  <div key={label} className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-4 transition-colors hover:border-indigo-400/25">
-                    <p className="text-xs text-zinc-500">{label}</p>
-                    <p className="mt-1 text-xl font-semibold text-white">{value}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-4 rounded-xl border border-dashed border-white/10 p-4 text-xs text-zinc-500">
-                Örnek panel görünümü. Gerçek metrikler kayıtlı analiz olaylarından gelir.
-              </div>
+
+          <div className="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
+            <div className="mb-4 flex items-center justify-between">
+              <span className="text-sm font-medium text-zinc-700">Modül durumu</span>
+              <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-700">Aktif</span>
             </div>
+            <div className="grid grid-cols-2 gap-3">
+              {["WhatsApp Sepet", "Kargo Takip", "Şans Çarkı", "Beden Asistanı"].map((label) => (
+                <div key={label} className="rounded-xl border border-zinc-200 bg-zinc-50 p-3">
+                  <p className="text-xs text-zinc-500">{label}</p>
+                  <p className="mt-1 text-sm font-semibold text-zinc-900">Aktif</p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-3 text-xs text-zinc-500">Örnek panel görünümü.</p>
           </div>
         </div>
       </div>
