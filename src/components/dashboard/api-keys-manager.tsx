@@ -78,7 +78,7 @@ export function ApiKeysManager({ storeId, initial }: { storeId: string; initial:
       <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4 text-xs text-zinc-500">
         <p className="font-medium text-zinc-700">Kullanım</p>
         <code className="mt-2 block break-all text-zinc-600">
-          {`curl -H "Authorization: Bearer <API_KEY>" https://lassyy.vercel.app/api/v1/stores/<STORE_ID>/analytics`}
+          {`curl -H "Authorization: Bearer <API_KEY>" https://lassyy.com/api/v1/stores/<STORE_ID>/analytics`}
         </code>
       </div>
     </div>
